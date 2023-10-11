@@ -1,0 +1,11 @@
+Notes:
+
+1. The email must validated with the following regular expression: \w+@[a-z]+\.[a-z]{2,}
+2. The dropdown should have the following options:
+2.1 Standard: chocolate, vanilla, iogurt
+2.2 Fruits: melon, mango, kiwi, strawberry
+3. All inputs are mandatory, except the special requests section;
+4. The password must have between 6 and 20 characters;
+5. The special requests section cannot have more than 100 characters;
+6. The 'Waffle cone' option must be disabled;
+7. The 'Cup' option should be selected by default;

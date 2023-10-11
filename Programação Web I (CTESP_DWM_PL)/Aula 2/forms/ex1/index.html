@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1>Register Form</h1>
+  <form action="#" method="post">
+    <label for="userName">User name:</label>
+    <input type="text" name="userName" id="userName"><br>
+    <label for="userPassword">Password:</label>
+    <input type="password" name="userPassword" id="userPassword"><br>
+    <label for="earAboutUs">Were did you hear about us?</label>
+    <select name="earAboutUs" id="earAboutUs">
+      <option value="" disabled selected>--Please Choose--</option>
+      <option value="option1">option 1</option>
+      <option value="option2">option 2</option>
+    </select><br>
+    <span>Gender:</span>
+    <input type="radio" id="genderMale" name="gender" value="genderMale" />
+    <label for="genderMale">Male</label>
+    <input type="radio" id="genderFemale" name="gender" value="genderFemale" />
+    <label for="genderFemale">Female</label><br>
+
+    <label for="userComment">Comments:</label><br>
+    <textarea name="userComment" id="" cols="30" rows="10"></textarea><br>
+    <label for="terms">Click to accept our terms:</label>
+    <input type="checkbox" name="terms" id="terms" value="terms"><br>
+    <input type="button" value="Register">
+    <input type="reset" value="Reset">
+  </form>
+
+</body>
+
+</html>
