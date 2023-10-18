@@ -1,0 +1,6 @@
+* As "caixas" que envolvem as imagens deverão ter 180 pixeis de largura;
+* O texto deverá distanciar-se das bordas da "caixa" e da imagem em 15 pixeis;
+* Por defeito, as bordas da caixa deverão ser cinzentas (#ccc);
+* Quando o rato passar por cima de determinada caixa, as bordas da mesma deverão passar a cinzento escuro (#777);
+* As caixas deverão estar distanciadas em 5 pixeis entre si;
+* Por defeito, se as caixas não tiverem o rato "por cima" deverão dar alguma transparência à respetiva imagem e, caso contrário, a transparência deverá ser removida;
