@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tables ex 3</title>
+
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table td {
+      padding-inline: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <caption>Regression Results</caption>
+    <thead style="border-top: 4px double black;">
+      <tr>
+        <th colspan="1"></th>
+        <th colspan="2" style="border-bottom: 2px solid black;">Dependent variable:</th>
+      </tr>
+      <tr>
+        <th colspan="1"></th>
+        <th colspan="2">Overall Rating</th>
+      </tr>
+      <tr>
+        <th colspan="1"></th>
+        <th>(1)</th>
+        <th>(2)</th>
+      </tr>
+    </thead>
+    <tbody style="border-top:1px solid black; border-bottom:4px double black;">
+      <tr>
+        <td>Handling of Complaints</td>
+        <td>0.692*** (0.447, 0.937)</td>
+        <td>0.682*** (0.470, 0.894)</td>
+      </tr>
+      <tr>
+        <td>No Special Privileges</td>
+        <td>-0.104 (-0.325, 0.118)</td>
+        <td>-0.103 (-0.316, 0.109)</td>
+      </tr>
+      <tr>
+        <td>Opportunity to Learn</td>
+        <td>0.249 (-0.013, 0.512)</td>
+        <td>0.238* (0.009, 0.467)</td>
+      </tr>
+      <tr>
+        <td>Performance-Based Raises</td>
+        <td>-0.033 (-0.366, 0.299)</td>
+      </tr>
+      <tr>
+        <td>Too Critical</td>
+        <td>0.015 (-0.227, 0.258)</td>
+      </tr>
+      <tr>
+        <td>Advancement</td>
+        <td>11.011 (-8.240, 30.262)</td>
+        <td>11.258 (-0.779, 23.296)</td>
+      </tr>
+      <tr style="border-top: 1px solid black ;">
+        <td>Observations</td>
+        <td>30</td>
+        <td>30</td>
+      </tr>
+      <tr>
+        <td>R<sup>2</sup></td>
+        <td>0.715</td>
+        <td>0.715</td>
+      </tr>
+      <tr>
+        <td>Adjusted R<sup>2</sup></td>
+        <td>0.656</td>
+        <td>0.682</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Note:</td>
+        <td colspan="2" style="text-align: end;">*p&#60;0.1; **p&#60;; *** p&#60;0.001</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+
+</html>
