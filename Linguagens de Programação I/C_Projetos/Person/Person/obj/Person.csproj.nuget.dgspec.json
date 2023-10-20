@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gabrielferreira/Projects/Person/Person/Person.csproj": {}
+    "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/Person/Person/Person.csproj": {}
   },
   "projects": {
-    "/Users/gabrielferreira/Projects/Person/Person/Person.csproj": {
+    "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/Person/Person/Person.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielferreira/Projects/Person/Person/Person.csproj",
+        "projectUniqueName": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/Person/Person/Person.csproj",
         "projectName": "Person",
-        "projectPath": "/Users/gabrielferreira/Projects/Person/Person/Person.csproj",
+        "projectPath": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/Person/Person/Person.csproj",
         "packagesPath": "/Users/gabrielferreira/.nuget/packages/",
-        "outputPath": "/Users/gabrielferreira/Projects/Person/Person/obj/",
+        "outputPath": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/Person/Person/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielferreira/.nuget/NuGet/NuGet.Config"
