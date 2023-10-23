@@ -14,6 +14,6 @@ int main()
   scanf("%f", &raio);
 
   area = PI * (raio * raio);
-  printf("Area com raio %.2f é %.2f", raio, area);
+  printf("Area com raio %.2f é %.2f \n", raio, area);
   return 0;
 }
