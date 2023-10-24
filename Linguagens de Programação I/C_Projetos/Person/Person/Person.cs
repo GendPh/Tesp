@@ -6,12 +6,10 @@ namespace welcome
 		public string name;
 		public int age;
 
-		public void Welcome(string nameInner, int ageInner)
+		public void Welcome()
 		{
 			Console.WriteLine($"Welcome {name} with {age} years old");
-            Console.WriteLine($"Welcome {nameInner} with {ageInner} years old");
-
-        }
-    }
+		}
+	}
 }
 
