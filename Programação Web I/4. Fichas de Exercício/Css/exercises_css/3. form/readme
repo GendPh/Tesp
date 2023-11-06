@@ -1,0 +1,18 @@
+* O tipo de letra é: "Helvetica Neue",Helvetica;
+* A caixa de login tem 700px de largura;
+* O logo do IPCA está a 40px verticais das margens e 15px da margem esquerda;
+* O logo do IPCA tem 335px de largura;
+* A linha que separa o cabeçalho da imagem com a parte de fundo branco tem 1px de largura e cor #ddd;
+* A cor de fundo do logo do IPCA é #f5f5f5;
+* todo o conteúdo da parte a branco do formulário está a 15px da moldura;
+* as linhas a picotado que envolvem o formlário distanciam-se o mesmo em 10px e têm 1px de espessura e cor #ccc;
+* Cada um dos campos do formlário tem:
+   * uma distância o que se segue abaixo de 15px;
+   * a label com 14px de tamanho de letra, cor #666, font-weight: 200 e margem para a caixa de texto de 5px;
+   * a caixa de texto com 1px de moldura com cor #ccc;
+* a hiperligação "Forgot your password?" tem a cor #337ab7 e quando com o rato por cima passa a #23527c a sublinhado;
+* A letra das checkboxes tem 14px de tamanho, cor #666 e font-weight:200;
+* o botão de login tem 14px de tamanho de letra, cor de fundo igual a #337ab7 e cor de moldura igual a #2e6da4;
+* As hiperligações "Help" e "Security" têm 12px de tamanho de letra, cor de letra #337ab7 e com o rato por cima deverão ficar sublinhadas;
+
+

@@ -1,0 +1,34 @@
+* o tipo de letra deverá ser: Helvetica Neue, Helvetica
+* A "caixa" do post deverá ter 564px de largura;
+* Os botões superiores têm todos 40px de altura;
+* Relativamente ao botão superior à esquerda:
+   * A cor de texto deverá ser #8e8e8e;
+   * Os três pontinhos correspondem a um icone (fas fa-ellipsis-h) da biblioteca css font-awesome;
+   * Quando com o rato por cima deverá passar a ter um fundo circular com a cor #efefef;
+* O botão de "Send" deverá:
+   * ter a cor de fundo #efefef;
+   * cor de texto #333;
+   * O ícone corresponde a um icone (fas fa-share-square) da biblioteca css font-awesome;
+   * Quando com o rato por cima deverá passar a ter um fundo com a cor rgb(226,226,226);
+   * a distância do texto para as margens do botão deverão ser 10px verticais e 14px horizontais;
+* O botão de "Save" deverá:
+   * ter a cor de fundo #bd081c;
+   * cor de texto branca;
+   * O ícone corresponde a um icone (fas fa-thumbtack) da biblioteca css font-awesome;
+   * Quando com o rato por cima deverá passar a ter um fundo com a cor #ad081b;
+   * a distância do texto para as margens do botão deverão ser 10px verticais e 14px horizontais;
+* A distância entre os dois botões superiores à direita deverá ser de 12px;
+* A imagem deverá ter 565px de largura e deverá estar a 12px do texto abaixo;
+* O botão no canto inferior direito da imagem deverá:
+   * ser um circulo de fundo com cor rgba(85, 85, 85, 0.3) e diâmetro de 40px;
+   * mudar para a cor de fundo rgba(85, 85, 85, 0.4) quando o rato passar por cima;
+   * ter a cor do texto deverá ser #8e8e8e;
+   * ter o ícone correspondente ao icone (fas fa-expand) da biblioteca css font-awesome;
+* A parte abaixo da imagem deverá:
+   * Ter a imagem do utilizador com as dimensões 40x40 e a 8px do texto à direita;
+   * ter o texto com 15px de tamanho de letra;
+   * o icone à direita com a classe fas fa-thumbtack disponível no font-awesome;
+
+P.S: Para incluir a biblioteca font-awesome, referenciar a folha de css disponível no endereço:
+
+https://use.fontawesome.com/releases/v5.4.1/css/all.css integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
