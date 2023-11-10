@@ -1,5 +1,6 @@
 ﻿public class BirthdayDate
 {
+  #region Variables
   //Will be collected in Method SetName()
   private string? name;
 
@@ -11,6 +12,7 @@
 
   //Will be collected in Method SetSize()
   private double size;
+  #endregion
 
   #region Set Methods
   //Method to Set the Name
@@ -68,4 +70,5 @@
     Age = GetAge();
     System.Console.WriteLine($"\nWith Set Methods\nName:{name}\nBirthday:{BirthdayYear}\nAge:{Age}\nSize:{size}m");
   }
+  
 }
