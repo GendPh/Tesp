@@ -2,7 +2,13 @@
 {
   #region Variables
   //Will be collected in Method SetName()
-  private string? name;
+  private string? name = "Gabriel";
+
+  public string Nome
+  {
+    get { return name; }
+    set { name = value; }
+  }
 
   //Will be collected in Method SetBirthdayYear()
   private int BirthdayYear;
@@ -70,5 +76,5 @@
     Age = GetAge();
     System.Console.WriteLine($"\nWith Set Methods\nName:{name}\nBirthday:{BirthdayYear}\nAge:{Age}\nSize:{size}m");
   }
-  
+
 }

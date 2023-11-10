@@ -36,7 +36,7 @@ namespace Aula_10nov23
       //Create the Object Person
       BirthdayDate per = new BirthdayDate();
       //Set the name
-      per.SetName("Gabriel Ferreira");
+      // per.SetName("Gabriel Ferreira");
       //Set the Birthday Year
       per.SetBirthdayYear(1998);
       //Set the Size
@@ -61,6 +61,10 @@ namespace Aula_10nov23
       With Get Methods
       Name:Gabriel Ferreira Birthday:1998 Age:25 Size:1,9m
       */
+
+      per.Nome = "Testing Testing mmmmmmMMMMM";
+      string Name = per.Nome;
+      System.Console.WriteLine($"{Name}");
       #endregion
     }
   }
