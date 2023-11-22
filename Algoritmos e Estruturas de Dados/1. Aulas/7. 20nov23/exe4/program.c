@@ -33,12 +33,18 @@ void allBooks(const Book *b, int bookSize)
 
 void checkPublishedYear(const Book *b, int bookSize, int myYear)
 {
+  int hasBook = 0;
   for (int i = 0; i < bookSize; i++)
   {
     if (myYear == b[i].published)
     {
       printf("\n|The Book %s was published at %d|\n\n", b[i].title, b[i].published);
+      hasBook = 1;
     }
+  }
+  if (hasBook == 0)
+  {
+    printf("\n| There are no book in %d |\n\n", myYear);
   }
 }
 
@@ -71,7 +77,7 @@ int main()
       allBooks(books, bookSize);
       break;
     case 2:
-      printf("Select a year:\n");
+      printf("Select a year: ");
       scanf("%d", &GetYear);
       checkPublishedYear(books, bookSize, GetYear);
       break;
