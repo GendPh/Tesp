@@ -1,36 +1,36 @@
-* A cor de fundo cinzenta, fora da caixa, corresponde ao valor #333;
-* O tipo de letra usado neste caso é:
+OK * A cor de fundo cinzenta, fora da caixa, corresponde ao valor #333;
+OK * O tipo de letra usado neste caso é:
 "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-* A cor de fundo cinzenta, já dentro da "caixa", corresponde ao valor #f4f4f4;
-* O conteudo total deverá ter uma largura de 800px;
-* O conteúdo do cabeçalho deverá estar centrado
+OK * A cor de fundo cinzenta, já dentro da "caixa", corresponde ao valor #f4f4f4;
+OK * O conteudo total deverá ter uma largura de 800px;
+OK * O conteúdo do cabeçalho deverá estar centrado
 verticalmente e a distância para as respetivas bordas
 deverá ser de 30px em todas as direções;
-* O ícone à esquerda no cabeçalho:
-   * deverá estar 15px à direita do respetivo texto;
-   * deverá ter as dimensões 48px por 48px;
-* O ícone vermelho, deverá ter uma border
+OK * O ícone à esquerda no cabeçalho:
+OK * deverá estar 15px à direita do respetivo texto;
+OK * deverá ter as dimensões 48px por 48px;
+OK* O ícone vermelho, deverá ter uma border
 de espessura igual a 2px (branca);
 * O texto "Adobe XD - Auto-Animate":
-   * deverá ter uma cor igual a 444 e um tamanho de letra de 20px;
-   * uma distância para o texto abaixo de 4px;
-   * uma "font-weight" de 500;
+OK* deverá ter uma cor igual a 444 e um tamanho de letra de 20px;
+ok * uma distância para o texto abaixo de 4px;
+ok * uma "font-weight" de 500;
 * O texto "by Eugene Olefir...":
-   * por defeito, deverá ter 14px de tamanho de letra e cor #999;
-   * as palavras "Eugene Olefir" e "Fireart Studio" deverão ser hiperligações:
-      * sem o sublinhado por defeito;
-      * com a cor #3a8bbb inicial;
-      * com a cor #1e6189 com o rato por cima;
-* Para se conseguir desenhar os vários emojis,
+OK * por defeito, deverá ter 14px de tamanho de letra e cor #999;
+OK * as palavras "Eugene Olefir" e "Fireart Studio" deverão ser hiperligações:
+OK * sem o sublinhado por defeito;
+OK * com a cor #3a8bbb inicial;
+OK * com a cor #1e6189 com o rato por cima;
+OK * Para se conseguir desenhar os vários emojis,
 deverá ser usada a biblioteca EmojiCSS, disponível no seguinte endereço:
 <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 * Os botões à direita do cabeçalho:
-   * deverão estar distanciados em 5px;
-   * deverão ter uma moldura de 1 px com a cor #777;
-   * deverão ter o texto distanciado da moldura em 10px verticais e 15 horizontais;
-   * deverão ter um tamanho de letra de 13px, font-weight: 500 e cor #777;
-   * ser hiperligações;
-   * quando com o rato por cima,
-   deverão ter uma cor de letra e de moldura igual a #444;
+OK * deverão estar distanciados em 5px;
+OK * deverão ter uma moldura de 1 px com a cor #777;
+OK * deverão ter o texto distanciado da moldura em 10px verticais e 15 horizontais;
+OK * deverão ter um tamanho de letra de 13px, font-weight: 500 e cor #777;
+OK * ser hiperligações;
+* quando com o rato por cima,
+deverão ter uma cor de letra e de moldura igual a #444;
 * O video deverá estar em loop,
 e os botões de controlo do video deverão estar invisíveis;
