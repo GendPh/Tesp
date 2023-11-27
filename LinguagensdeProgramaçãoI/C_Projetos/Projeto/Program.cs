@@ -46,6 +46,7 @@ namespace Project
 
       //Just a clear Line
       System.Console.WriteLine();
+      Console.Beep();
       /* 
           * * Output  * * * * * * * * * * * *
           *                                 *
