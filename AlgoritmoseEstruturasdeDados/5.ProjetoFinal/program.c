@@ -21,6 +21,7 @@ void insertProduct(struct Products pro[][8]);
 void checkProduct(struct Products pro[][8]);
 void buyProduct(struct Products pro[][8]);
 double machineMoney(struct Products pro[][8], int size);
+int getRowColumn(char text[100]);
 
 int main()
 {
@@ -306,36 +307,8 @@ void checkProduct(struct Products pro[][8])
   system("clear");
   showProducts(pro, 8);
 
-  int newRow, newColumn;
-  int wrongRow = 0;
-  do
-  {
-    if (wrongRow == 1)
-    {
-      system("clear");
-      printf("\033[4m\033[1mPlease insert a Shelf between 1 and 8.\033[0m\033[0m\n");
-    }
-
-    printf("\t=> Shelf: ");
-
-    if (scanf("%d", &newRow) != 1)
-    {
-      wrongRow = 1;
-
-      // Clear the input buffer
-      int c;
-      while ((c = getchar()) != '\n' && c != EOF)
-        ;
-
-      continue;
-    }
-
-  } while (newRow < 1 || newRow > 8);
-
-  printf("\t2. Product ID: ");
-  scanf("%d", &newColumn);
-
-  // system("clear");
+  int newRow = getRowColumn("Shelf");
+  int newColumn = getRowColumn("Product ID");
 
   printf("\033[4mSelected Product\033[0m:\n");
   printf("\tShelf: %d Product ID: %d\n", newRow, newColumn);
@@ -428,4 +401,35 @@ double machineMoney(struct Products pro[][8], int size)
     }
   }
   return moneyOnMachine;
+}
+
+int getRowColumn(char text[100])
+{
+  int wrongInput = 0;
+  int position;
+  do
+  {
+
+    if (wrongInput == 1)
+    {
+      system("clear");
+      printf("\033[4m\033[1mPlease insert a %s between 1 and 8.\033[0m\033[0m\n", text);
+    }
+
+    printf("\nInsert a \033[4m%s\033[0m: ", text);
+
+    if (scanf("%d", &position) != 1)
+    {
+      wrongInput = 1;
+      while (getchar() != '\n')
+        ;
+      continue;
+    }
+    getchar();
+
+    wrongInput = (position < 1 || position > 8) ? 1 : 0;
+
+  } while (wrongInput == 1);
+
+  return position;
 }
