@@ -13,7 +13,11 @@ struct Products
   int qtySold;
 };
 
+// Declare the function pointer type
+typedef void (*MenuFunction)(struct Products pro[][8]);
+
 void MainMenu(struct Products pro[][8]);
+void ReturnExitMenu(struct Products pro[][8], MenuFunction MenuChoosen);
 void MachineMenu(struct Products pro[][8]);
 void AlterProductInformation(struct Products pro[][8], int xPos, int yPos);
 void ProductMenu(struct Products pro[][8], int xPos, int yPos);
@@ -40,6 +44,7 @@ int main()
           {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 10},
           {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 10},
       }};
+
   // system("clear");
   // showProducts(vendingMachine, 8);
   MainMenu(vendingMachine);
@@ -164,6 +169,56 @@ void MachineMenu(struct Products pro[][8])
   } while (wrongInput != 0);
 }
 
+void ReturnExitMenu(struct Products pro[][8], MenuFunction MenuChoosen)
+{
+  int choice = 1;
+  int totalChoices = 2;
+  int wrongInput = 0;
+
+  do
+  {
+    if (wrongInput == 1)
+      system("clear");
+
+    printf("\n\t\033[4m\033[1mMenu\033[0m\033[0m\n\n");
+    printf("1. Return \n");
+    printf("2. End Program \n");
+
+    if (wrongInput == 1)
+      printf("\n\033[4mPlease insert a valid number between 1 and %d.\033[0m\n", totalChoices);
+
+    printf("\nOption: ");
+    if (scanf("%d", &choice) != 1)
+    {
+      wrongInput = 1;
+      while (getchar() != '\n')
+        ;
+      continue;
+    }
+    else if (choice < 1 || choice > totalChoices)
+    {
+      wrongInput = 1;
+    }
+    else
+    {
+      wrongInput = 0;
+    }
+
+    getchar();
+
+    switch (choice)
+    {
+    case 1:
+      system("clear");
+      MenuChoosen(pro);
+      break;
+    case 2:
+      printf("Still in Work\n");
+      break;
+    }
+  } while (wrongInput != 0);
+}
+
 void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
 {
   int choice = 1;
@@ -218,7 +273,8 @@ void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
       ChangeProductPrice(pro, xPos, yPos);
       break;
     case 2:
-      printf("Empty Field Still on Work\n");
+      system("clear");
+      ProductMenu(pro, xPos, yPos);
       break;
     case 3:
       printf("Empty Field Still on Work\n");
@@ -290,7 +346,8 @@ void ProductMenu(struct Products pro[][8], int xPos, int yPos)
       AlterProductInformation(pro, xPos, yPos);
       break;
     case 2:
-      printf("Still in Work.\n");
+      system("clear");
+      MachineMenu(pro);
       break;
     case 3:
       printf("Still in Work.\n");
@@ -325,8 +382,7 @@ void showProducts(struct Products pro[][8], int size)
 void insertProduct(struct Products pro[][8])
 {
 
-  printf("\n\033[4m\033[1mInsert the following Information\033[0m\033[0m\n");
-
+  printf("\n\033[4m\033[1mInsert the Position\033[0m\033[0m\n");
   // This will get the row and column for my two-dimensional array of structs
   int newRow = getRowColumn("Shelf");
   int newColumn = getRowColumn("Product ID");
@@ -335,17 +391,19 @@ void insertProduct(struct Products pro[][8])
   newRow--;
   newColumn--;
 
+  system("clear");
+  printf("\n\033[4m\033[1mInsert the following Information\033[0m\033[0m\n\n");
   // This Proccess will define in the two-dimensional array of structs the Attributes of the struct Product
   printf("\033[4mProduct Type:\033[0m ");
   scanf(" %[^\n]", pro[newRow][newColumn].type);
 
-  printf("\033[4mProduct Name:\033[0m ");
+  printf("\n\033[4mProduct Name:\033[0m ");
   scanf(" %[^\n]", pro[newRow][newColumn].name);
 
-  printf("\033[4mProduct Brand:\033[0m ");
+  printf("\n\033[4mProduct Brand:\033[0m ");
   scanf(" %[^\n]", pro[newRow][newColumn].brand);
 
-  printf("\033[4mProduct Expiration Date (dd/mm/yyyy):\033[0m ");
+  printf("\n\033[4mProduct Expiration Date (dd/mm/yyyy):\033[0m ");
   scanf(" %[^\n]", pro[newRow][newColumn].valDate);
 
   // This Process runs until a valid input is put and checks if contains Characters and restart the loop until it goes ok
@@ -359,7 +417,7 @@ void insertProduct(struct Products pro[][8])
       printf("\033[4mPlease insert a\033[1m Correct Input '00.00'\033[0m for a Price.\033[0m\n");
     }
 
-    printf("\033[4mProduct Price (00.00):\033[4m");
+    printf("\n\033[4mProduct Price (00.00):\033[4m");
     if (scanf("%lf", &pro[newRow][newColumn].price) != 1)
     {
       correctPriceInput = 0;
@@ -415,33 +473,56 @@ void checkProduct(struct Products pro[][8])
   ProductMenu(pro, newRow, newColumn);
 }
 
-// 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na máquina o preço do produto;
-
 /*
 TODO
 [ ] Restart this process to improve it ALL;
  */
-
+// 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na máquina o preço do produto;
 void buyProduct(struct Products pro[][8])
 {
   system("clear");
   showProducts(pro, 8);
 
-  int newRow = getRowColumn("Shelf");
-  int newColumn = getRowColumn("Product ID");
+  int productAvailable = 1;
+  int newRow, newColumn;
+  do
+  {
+    printf("\t\033[4m\033[1mProduct Position\033[0m\033[0m\n");
+    newRow = getRowColumn("Shelf");
+    newColumn = getRowColumn("Product ID");
 
-  printf("Selected Product:\n");
-  printf("\tShelf: %d Product ID: %d\n", newRow, newColumn);
+    // Reduce Row and Column to access the Product object Ex: pro[0][0] instead of pro[1][1] if i choose the Shelf 1
+    newRow--;
+    newColumn--;
+    system("clear");
 
-  // Reduce Row and Column to access the Product object Ex: pro[0][0] instead of pro[1][1] if i choose the Shelf 1
-  newRow--;
-  newColumn--;
+    if (pro[newRow][newColumn].qty <= 0)
+    {
+      productAvailable = 0;
+      showProducts(pro, 8);
+      printf("The selected product ins't available at the moment.\n");
+      printf("\nPlease select a new product.\n\n");
+    }
+    else
+    {
+      productAvailable = 1;
+    }
+
+  } while (productAvailable != 1);
+
+  printf("\t\033[4m\033[1mSelected Product\033[0m\033[0m\n\n");
+
+  printf("\033[4mProduct Successively Purchased!\033[0m\n\n");
+
+  printf("\033[4mShelf\033[0m: %d \033[4mProduct ID\033[0m: %d\n\n", 1 + newRow, 1 + newColumn);
 
   // Add to the Product Object a sold quantity;
+  pro[newRow][newColumn].qty--;
   pro[newRow][newColumn].qtySold++;
 
-  printf("\tProduct Name: %s;\n", pro[newRow][newColumn].name);
-  printf("\tProduct Sold: %d;\n", pro[newRow][newColumn].qtySold);
+  printf("\t\033[4mProduct Name\033[0m: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
+
+  ReturnExitMenu(pro, MainMenu);
 }
 
 // 7. Saber o valor, em €, acumulado na máquina até ao momento;
@@ -465,21 +546,24 @@ double machineMoney(struct Products pro[][8], int size)
 
   [ ]In the end add a destination;
  */
-
+// 5. Atualizar o preço de um determinado produto, identificado pelo utilizador;
 void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
 {
   // This Process runs until a valid input is put and checks if contains Characters and restart the loop until it goes ok
   int correctPriceInput = 1;
   int priceConfirmed = 0;
+  double oldPrice = pro[xPos][yPos].price;
+
   do
   {
+    system("clear");
     if (correctPriceInput == 0)
     {
       system("clear");
-      printf("\033[4mPlease insert a\033[1m Correct Input '00.00'\033[0m for a Price.\033[0m\n");
+      printf("\033[4mPlease insert a\033[1m Correct Input '00.00' and bigger then 0\033[0m for a Price.\033[0m\n");
     }
 
-    printf("\033[4mProduct Price (00.00):\033[0m");
+    printf("\n\033[4mNew Product Price (00.00):\033[0m");
     if (scanf("%lf", &pro[xPos][yPos].price) != 1)
     {
       correctPriceInput = 0;
@@ -497,9 +581,10 @@ void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
     }
     getchar();
   } while (priceConfirmed != 1);
-
   system("clear");
-  printf("Product %s Price altered to %.2lf€\n", pro[xPos][yPos].name, pro[xPos][yPos].price);
+  printf("\nNew Product %s Price altered from %.2lf€ to %.2lf€\n", pro[xPos][yPos].name, oldPrice, pro[xPos][yPos].price);
+
+  ReturnExitMenu(pro, MachineMenu);
 }
 
 int getRowColumn(char text[100])
