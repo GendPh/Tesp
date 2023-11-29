@@ -9,13 +9,18 @@ OK 6. Atualizar, numa percentagem, o preço de todos os produtos;
 OK 7. Saber o valor, em €, acumulado na máquina até ao momento;
 OK 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
 OK 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
-10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
+OK 10. Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
 11.  Calcular a média dos preços dos produtos;
 12.  Listar os produtos com preço acima da média.;
 13.  Saber a informação sobre o(s) produto(s) com preço mais alto;
 14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
 15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
 16.  Listar os tipos de produtos que estão fora do prazo de validade (opcional);
+ 
+ 
+ TODO 
+ [ ] Criar um Menu para Stocks. Quando acedar ao menu de stocks ser pssivel verificar o stock dependendo de um valor.
+  
  */
 
 #include <stdio.h>
@@ -54,6 +59,7 @@ void changeAllPrices(struct Products pro[][8], int size);
 void RefillProductsAndTakeMoney(struct Products pro[][8]);
 void CheckStock(struct Products pro[][8]);
 void CheckLowStock(struct Products pro[][8]);
+
 int main()
 {
 
@@ -74,11 +80,11 @@ int main()
   CheckLowStock(vendingMachine);
 
   // CheckStock(vendingMachine);
-  // // This function gets the standard total sales already define above.
-  // EachProductSale(vendingMachine);
+  // This function gets the standard total sales already define above.
+  EachProductSale(vendingMachine);
 
-  // // Start The Program Interface
-  // MainMenu(vendingMachine);
+  // Start The Program Interface
+  MainMenu(vendingMachine);
 
   // RefillProductsAndTakeMoney(vendingMachine);
 
