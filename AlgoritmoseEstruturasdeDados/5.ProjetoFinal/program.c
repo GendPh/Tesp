@@ -8,7 +8,7 @@ OK 5. Atualizar o preço de um determinado produto, identificado pelo utilizador
 OK 6. Atualizar, numa percentagem, o preço de todos os produtos;
 OK 7. Saber o valor, em €, acumulado na máquina até ao momento;
 OK 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
-9. Saber o stock total atual (totalidade de produtos existentes na máquina);
+OK 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
 10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
 11.  Calcular a média dos preços dos produtos;
 12.  Listar os produtos com preço acima da média.;
@@ -52,7 +52,8 @@ void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos);
 int getRowColumn(char text[100]);
 void changeAllPrices(struct Products pro[][8], int size);
 void RefillProductsAndTakeMoney(struct Products pro[][8]);
-
+void CheckStock(struct Products pro[][8]);
+void CheckLowStock(struct Products pro[][8]);
 int main()
 {
 
@@ -60,21 +61,24 @@ int main()
   struct Products vendingMachine[8][8] =
       {{
           //{Name, Type, Brand, Expiration, Price, Quantity},
-          {"Soda", "Beverage", "Coca-Cola", "10/10/2023", 1.50, 10, 4},
-          {"Chips", "Snack", "Lays", "10/10/2023", 1.25, 10, 4},
-          {"Chocolate Bar", "Snack", "Hershey's", "10/10/2023", 1.75, 10, 4},
-          {"Water", "Beverage", "Dasani", "10/10/2023", 1.00, 7, 4},
-          {"Granola Bar", "Snack", "Nature Valley", "10/10/2023", 1.50, 10},
-          {"Gum", "Candy", "Wrigley's", "10/10/2023", 0.75, 10},
-          {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 10},
-          {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 10},
+          {"Soda", "Beverage", "Coca-Cola", "10/10/2023", 1.50, 4, 4},
+          {"Chips", "Snack", "Lays", "10/10/2023", 1.25, 6, 4},
+          {"Chocolate Bar", "Snack", "Hershey's", "10/10/2023", 1.75, 2, 4},
+          {"Water", "Beverage", "Dasani", "10/10/2023", 1.00, 4, 4},
+          {"Granola Bar", "Snack", "Nature Valley", "10/10/2023", 1.50, 5},
+          {"Gum", "Candy", "Wrigley's", "10/10/2023", 0.75, 4},
+          {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 3},
+          {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 3},
       }};
 
-  // This function gets the standard total sales already define above.
-  EachProductSale(vendingMachine);
+  CheckLowStock(vendingMachine);
 
-  // Start The Program Interface
-  MainMenu(vendingMachine);
+  // CheckStock(vendingMachine);
+  // // This function gets the standard total sales already define above.
+  // EachProductSale(vendingMachine);
+
+  // // Start The Program Interface
+  // MainMenu(vendingMachine);
 
   // RefillProductsAndTakeMoney(vendingMachine);
 
@@ -150,7 +154,7 @@ void MainMenu(struct Products pro[][8])
 void MachineMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 6;
+  int totalChoices = 7;
   int wrongInput = 0;
 
   do
@@ -163,8 +167,9 @@ void MachineMenu(struct Products pro[][8])
     printf("2. Verify Product\n");
     printf("3. Money inside\n");
     printf("4. Refill Machine and Take Money\n");
-    printf("5. Return \n");
-    printf("6. End Program \n");
+    printf("5. Stock\n");
+    printf("6. Return \n");
+    printf("7. End Program \n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d.\033[0m\n", totalChoices);
@@ -203,9 +208,12 @@ void MachineMenu(struct Products pro[][8])
       RefillProductsAndTakeMoney(pro);
       break;
     case 5:
-      MainMenu(pro);
+      CheckStock(pro);
       break;
     case 6:
+      MainMenu(pro);
+      break;
+    case 7:
       system("clear");
       printf("End Program !\n");
       break;
@@ -589,8 +597,11 @@ void machineMoney(struct Products pro[][8], int size)
       moneyOnMachine += pro[i][j].TotalSales;
     }
   }
+
   system("clear");
+
   printf("Inside the machine there is a total of \033[4m\033[1m%.2lf€\033[0m\033[0m!\n", moneyOnMachine);
+
   ReturnExitMenu(pro, MachineMenu);
 }
 
@@ -747,4 +758,45 @@ void RefillProductsAndTakeMoney(struct Products pro[][8])
   }
 
   ReturnExitMenu(pro, MachineMenu);
+}
+
+// 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
+void CheckStock(struct Products pro[][8])
+{
+  system("clear");
+
+  int stock = 0;
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      stock += pro[i][j].qty;
+    }
+  }
+
+  printf("\033[4mThis Vending Machine contains in total\033[0m: \033[1m%d Products\033[0m.\n", stock);
+
+  MachineMenu(pro);
+}
+
+// 10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
+void CheckLowStock(struct Products pro[][8])
+{
+  system("clear");
+  int min = 5;
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strcmp(pro[i][j].name, "Empty") != 0)
+      {
+        if (pro[i][j].qty < min)
+          printf("Product %s as a low stock with: %d\n", pro[i][j].name, pro[i][j].qty);
+      }
+    }
+  }
+
+  // MachineMenu(pro);
 }
