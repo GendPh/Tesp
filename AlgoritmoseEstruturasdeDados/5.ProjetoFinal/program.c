@@ -1,3 +1,23 @@
+/*
+OK 1. Inserir um novo produto, dado o número da prateleira e posição.
+OK 2. Listar a informação de todos os produtos disponíveis;
+OK 3. Listar a informação sobre um produto específico, dada a localização (prateleira e posição);
+OK 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na
+      máquina o preço do produto;
+OK 5. Atualizar o preço de um determinado produto, identificado pelo utilizador;
+OK 6. Atualizar, numa percentagem, o preço de todos os produtos;
+OK 7. Saber o valor, em €, acumulado na máquina até ao momento;
+OK 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
+9. Saber o stock total atual (totalidade de produtos existentes na máquina);
+10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
+11.  Calcular a média dos preços dos produtos;
+12.  Listar os produtos com preço acima da média.;
+13.  Saber a informação sobre o(s) produto(s) com preço mais alto;
+14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
+15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
+16.  Listar os tipos de produtos que estão fora do prazo de validade (opcional);
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -11,6 +31,7 @@ struct Products
   double price;
   int qty;
   int qtySold;
+  double TotalSales;
 };
 
 // Declare the function pointer type
@@ -25,39 +46,51 @@ void showProducts(struct Products pro[][8], int size);
 void insertProduct(struct Products pro[][8]);
 void checkProduct(struct Products pro[][8]);
 void buyProduct(struct Products pro[][8]);
-double machineMoney(struct Products pro[][8], int size);
+void EachProductSale(struct Products pro[][8]);
+void machineMoney(struct Products pro[][8], int size);
 void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos);
 int getRowColumn(char text[100]);
+void changeAllPrices(struct Products pro[][8], int size);
+void RefillProductsAndTakeMoney(struct Products pro[][8]);
 
 int main()
 {
 
+  // Start Products
   struct Products vendingMachine[8][8] =
       {{
           //{Name, Type, Brand, Expiration, Price, Quantity},
           {"Soda", "Beverage", "Coca-Cola", "10/10/2023", 1.50, 10, 4},
           {"Chips", "Snack", "Lays", "10/10/2023", 1.25, 10, 4},
           {"Chocolate Bar", "Snack", "Hershey's", "10/10/2023", 1.75, 10, 4},
-          {"Water", "Beverage", "Dasani", "10/10/2023", 1.00, 25, 4},
+          {"Water", "Beverage", "Dasani", "10/10/2023", 1.00, 7, 4},
           {"Granola Bar", "Snack", "Nature Valley", "10/10/2023", 1.50, 10},
           {"Gum", "Candy", "Wrigley's", "10/10/2023", 0.75, 10},
           {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 10},
           {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 10},
       }};
 
+  // This function gets the standard total sales already define above.
+  EachProductSale(vendingMachine);
+
+  // Start The Program Interface
+  MainMenu(vendingMachine);
+
+  // RefillProductsAndTakeMoney(vendingMachine);
+
   // system("clear");
   // showProducts(vendingMachine, 8);
-  MainMenu(vendingMachine);
   //  double moneyOnMachine = machineMoney(vendingMachine, 8);
   //  printf("%.2lf", moneyOnMachine);
   // checkProduct(vendingMachine);
+  // changeAllPrices(vendingMachine, 8);
   return 0;
 }
 
 void MainMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 3;
+  int totalChoices = 4;
   int wrongInput = 0;
 
   do
@@ -67,7 +100,8 @@ void MainMenu(struct Products pro[][8])
     printf("\t\033[4m\033[1mMain Menu\033[0m\033[0m\n\n");
     printf("1. Vending Machine\n");
     printf("2. Buy Product\n");
-    printf("3. Exit\n");
+    printf("3. Update All Prices (percentage)\n");
+    printf("4. Exit\n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d\033[m.\n", totalChoices);
@@ -103,6 +137,9 @@ void MainMenu(struct Products pro[][8])
       buyProduct(pro);
       break;
     case 3:
+      changeAllPrices(pro, 8);
+      break;
+    case 4:
       system("clear");
       printf("Empty Field Still on Work\n");
       break;
@@ -113,7 +150,7 @@ void MainMenu(struct Products pro[][8])
 void MachineMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 4;
+  int totalChoices = 6;
   int wrongInput = 0;
 
   do
@@ -124,8 +161,10 @@ void MachineMenu(struct Products pro[][8])
     printf("\n\t\033[4m\033[1mMachine Menu\033[0m\033[0m\n\n");
     printf("1. Insert Values\n");
     printf("2. Verify Product\n");
-    printf("3. Return \n");
-    printf("4. End Program \n");
+    printf("3. Money inside\n");
+    printf("4. Refill Machine and Take Money\n");
+    printf("5. Return \n");
+    printf("6. End Program \n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d.\033[0m\n", totalChoices);
@@ -158,10 +197,15 @@ void MachineMenu(struct Products pro[][8])
       checkProduct(pro);
       break;
     case 3:
-      system("clear");
-      MainMenu(pro);
+      machineMoney(pro, 8);
       break;
     case 4:
+      RefillProductsAndTakeMoney(pro);
+      break;
+    case 5:
+      MainMenu(pro);
+      break;
+    case 6:
       system("clear");
       printf("End Program !\n");
       break;
@@ -469,14 +513,11 @@ void checkProduct(struct Products pro[][8])
   printf("\033[4mProduct Price:\033[0m \033[1m%.2lf€\033[0m;\n", pro[newRow][newColumn].price);
   printf("\033[4mProduct Quantity:\033[0m \033[1m%d\033[0m;\n", pro[newRow][newColumn].qty);
   printf("\033[4mProduct Sold:\033[0m \033[1m%d\033[0m;\n", pro[newRow][newColumn].qtySold);
+  printf("\033[4mProduct Sales:\033[0m \033[1m%.2lf€\033[0m;\n", pro[newRow][newColumn].TotalSales);
 
   ProductMenu(pro, newRow, newColumn);
 }
 
-/*
-TODO
-[ ] Restart this process to improve it ALL;
- */
 // 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na máquina o preço do produto;
 void buyProduct(struct Products pro[][8])
 {
@@ -510,42 +551,49 @@ void buyProduct(struct Products pro[][8])
 
   } while (productAvailable != 1);
 
-  printf("\t\033[4m\033[1mSelected Product\033[0m\033[0m\n\n");
+  printf("\033[4mSelected Product\033[0m: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
 
-  printf("\033[4mProduct Successively Purchased!\033[0m\n\n");
-
-  printf("\033[4mShelf\033[0m: %d \033[4mProduct ID\033[0m: %d\n\n", 1 + newRow, 1 + newColumn);
+  printf("\033[4mProduct Successively \033[1mPurchased\033[0m!\033[0m\n");
 
   // Add to the Product Object a sold quantity;
   pro[newRow][newColumn].qty--;
   pro[newRow][newColumn].qtySold++;
-
-  printf("\t\033[4mProduct Name\033[0m: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
+  pro[newRow][newColumn].TotalSales += pro[newRow][newColumn].price;
 
   ReturnExitMenu(pro, MainMenu);
 }
 
-// 7. Saber o valor, em €, acumulado na máquina até ao momento;
-double machineMoney(struct Products pro[][8], int size)
+// Calculates the start product sales and difine the Product.TotalSales to the price * the quantity already sold. So if the price allters after the start count it doesnt influence the quantity money inside the machine before that change.
+void EachProductSale(struct Products pro[][8])
 {
-  double moneyOnMachine;
-  double money;
+  // double totalMachine = 0.0;
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      pro[i][j].TotalSales = pro[i][j].qtySold * pro[i][j].price;
+      //  totalMachine += pro[i][j].TotalSales;
+    }
+  }
+  // printf("%.2lf", totalMachine);
+}
+
+// 7. Saber o valor, em €, acumulado na máquina até ao momento;
+void machineMoney(struct Products pro[][8], int size)
+{
+  double moneyOnMachine = 0.0;
   for (int i = 0; i < size; i++)
   {
     for (int j = 0; j < size; j++)
     {
-      money = pro[i][j].price * pro[i][j].qtySold;
-      moneyOnMachine += money;
+      moneyOnMachine += pro[i][j].TotalSales;
     }
   }
-  return moneyOnMachine;
+  system("clear");
+  printf("Inside the machine there is a total of \033[4m\033[1m%.2lf€\033[0m\033[0m!\n", moneyOnMachine);
+  ReturnExitMenu(pro, MachineMenu);
 }
 
-/*
-  TODO:
-
-  [ ]In the end add a destination;
- */
 // 5. Atualizar o preço de um determinado produto, identificado pelo utilizador;
 void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
 {
@@ -587,6 +635,7 @@ void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
   ReturnExitMenu(pro, MachineMenu);
 }
 
+// this function returns a value between 1 and 8 to get the Shelf and Product ID when asked.
 int getRowColumn(char text[100])
 {
   int wrongInput = 0;
@@ -616,4 +665,86 @@ int getRowColumn(char text[100])
   } while (wrongInput == 1);
 
   return position;
+}
+
+// 6. Atualizar, numa percentagem, o preço de todos os produtos;
+void changeAllPrices(struct Products pro[][8], int size)
+{
+  system("clear");
+  int wrongInput = 0;
+  double percentage = 0.0;
+  do
+  {
+    if (wrongInput == 1)
+      system("clear");
+
+    printf("Chose a percentage to be added to all prices:");
+
+    if (wrongInput == 1)
+      printf("\n\033[4mPlease insert a valid Number between 1 and 100.\033[0m\n");
+
+    printf("\nPercentage: ");
+    if (scanf("%lf", &percentage) != 1)
+    {
+      wrongInput = 1;
+      while (getchar() != '\n')
+        ;
+      continue;
+    }
+    else if (percentage < 1 || percentage > 100)
+    {
+      wrongInput = 1;
+    }
+    else
+    {
+      percentage /= 100;
+      wrongInput = 0;
+    }
+
+    getchar();
+  } while (wrongInput == 1);
+
+  double valueToBeAdded = 0.0;
+
+  // printf("Percentage: %.2lf\n", percentage);
+
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+    {
+      valueToBeAdded = pro[i][j].price * percentage;
+      //  printf("Value to be added: %.2lf\n", valueToBeAdded);
+      // printf("Before Percentage: %.2lf\n", pro[i][j].price);
+      pro[i][j].price += valueToBeAdded;
+      // printf("After Percentage: %.2lf\n", pro[i][j].price);
+    }
+  }
+  system("clear");
+
+  printf("All prices were updated!\n");
+
+  ReturnExitMenu(pro, MainMenu);
+}
+
+// 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
+void RefillProductsAndTakeMoney(struct Products pro[][8])
+{
+  system("clear");
+
+  printf("All stocks Refilled and Money Removed form Vending Machine.\n");
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strcmp(pro[i][j].name, "Empty") != 0)
+      {
+        pro[i][j].qty = 10;
+        pro[i][j].qtySold = 0;
+        pro[i][j].TotalSales = 0.0;
+      }
+    }
+  }
+
+  ReturnExitMenu(pro, MachineMenu);
 }
