@@ -895,7 +895,7 @@ void RefillProductsAndTakeMoney(struct Products pro[][8])
     }
   }
 
-  ReturnExitMenu(pro, MachineMenu);
+  ReturnExitMenu(pro, StockMenu);
 }
 
 // 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
@@ -943,8 +943,8 @@ void CheckLowStock(struct Products pro[][8])
     }
   }
 
-  id(existProducts == 0)
-      printf("\nDoens't exist products \033[4m%s\033[0m as a low stock with: \033[1m%d\033[0m\n");
+  if (existProducts == 0)
+    printf("\nDoens't exist products with low stock.\n");
 
   ReturnExitMenu(pro, StockMenu);
 }
