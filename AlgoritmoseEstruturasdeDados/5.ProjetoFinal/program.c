@@ -13,13 +13,10 @@ OK 10. Saber a informação sobre o(s) produto(s) com quantidade em stock mais b
 OK 11.  Calcular a média dos preços dos produtos;
 OK 12.  Listar os produtos com preço acima da média.;
 OK 13.  Saber a informação sobre o(s) produto(s) com preço mais alto;
-14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
-15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
+OK 14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
+OK 15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
 16.  Listar os tipos de produtos que estão fora do prazo de validade (opcional);
 
-
- TODO
- [ ] Criar um Menu para Stocks. Quando acedar ao menu de stocks ser pssivel verificar o stock dependendo de um valor.
 
  */
 
@@ -69,7 +66,8 @@ void CheckLowStock(struct Products pro[][8]);
 void MoneyAverage(struct Products pro[][8]);
 void HighPrices(struct Products pro[][8]);
 void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize);
-// void TypesList(struct Products pro[][8], char types[][50], int *typeCount);
+void checkTypeListCount(struct Products pro[][8]);
+void VerifyItemsToBeSold(struct Products pro[][8]);
 
 int main()
 {
@@ -88,22 +86,11 @@ int main()
           {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 3},
       }};
 
-  // // This function gets the standard total sales already define above.
-  // EachProductSale(vendingMachine);
+  // This function gets the standard total sales already define above.
+  EachProductSale(vendingMachine);
 
-  // // Start The Program Interface
-  // MainMenu(vendingMachine);
-
-  struct ProductTypeList typeList[64]; // Assuming a maximum of 64 different types
-  int typeListSize = 0;
-
-  TypesList(vendingMachine, typeList, &typeListSize);
-
-  // Now typeList contains the unique types and their counts
-  for (int i = 0; i < typeListSize; i++)
-  {
-    printf("Type: %s, Count: %d\n", typeList[i].type, typeList[i].count);
-  }
+  // Start The Program Interface
+  MainMenu(vendingMachine);
 
   return 0;
 }
@@ -179,10 +166,11 @@ void StockMenu(struct Products pro[][8])
     system("clear");
     printf("\t\033[4m\033[1mStock Menu\033[0m\033[0m\n\n");
     printf("1. Vending Machine Stock\n");
-    printf("2. Low Stock\n");
-    printf("3. Restock Machine\n");
-    printf("4. Return\n");
-    printf("5. Exit\n");
+    printf("2. Vending Machine Types Stock\n");
+    printf("3. Low Stock\n");
+    printf("4. Restock Machine\n");
+    printf("5. Return\n");
+    printf("6. Exit\n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d\033[m.\n", totalChoices);
@@ -214,17 +202,21 @@ void StockMenu(struct Products pro[][8])
       break;
     case 2:
       system("clear");
-      CheckLowStock(pro);
+      checkTypeListCount(pro);
       break;
     case 3:
       system("clear");
-      RefillProductsAndTakeMoney(pro);
+      CheckLowStock(pro);
       break;
     case 4:
       system("clear");
-      MachineMenu(pro);
+      RefillProductsAndTakeMoney(pro);
       break;
     case 5:
+      system("clear");
+      MachineMenu(pro);
+      break;
+    case 6:
       system("clear");
       printf("Empty Field Still on Work\n");
       break;
@@ -235,7 +227,7 @@ void StockMenu(struct Products pro[][8])
 void MoneyMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 5;
+  int totalChoices = 6;
   int wrongInput = 0;
 
   do
@@ -243,10 +235,11 @@ void MoneyMenu(struct Products pro[][8])
     system("clear");
     printf("\t\033[4m\033[1mMoney Menu\033[0m\033[0m\n\n");
     printf("1. Vending Machine Money\n");
-    printf("2. Average\n");
-    printf("3. Products with High Price\n");
-    printf("4. Return\n");
-    printf("5. Exit\n");
+    printf("2. Products not sold\n");
+    printf("3. Average\n");
+    printf("4. Products with High Price\n");
+    printf("5. Return\n");
+    printf("6. Exit\n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d\033[m.\n", totalChoices);
@@ -277,17 +270,21 @@ void MoneyMenu(struct Products pro[][8])
       break;
     case 2:
       system("clear");
-      MoneyAverage(pro);
+      VerifyItemsToBeSold(pro);
       break;
     case 3:
       system("clear");
-      HighPrices(pro);
+      MoneyAverage(pro);
       break;
     case 4:
       system("clear");
-      printf("Empty Field Still on Work\n");
+      HighPrices(pro);
       break;
     case 5:
+      system("clear");
+      MachineMenu(pro);
+      break;
+    case 6:
       system("clear");
       printf("Empty Field Still on Work\n");
       break;
@@ -743,7 +740,7 @@ void machineMoney(struct Products pro[][8], int size)
 
   printf("Inside the machine there is a total of \033[4m\033[1m%.2lf€\033[0m\033[0m!\n", moneyOnMachine);
 
-  ReturnExitMenu(pro, MachineMenu);
+  ReturnExitMenu(pro, MoneyMenu);
 }
 
 // 5. Atualizar o preço de um determinado produto, identificado pelo utilizador;
@@ -929,6 +926,8 @@ void CheckLowStock(struct Products pro[][8])
 
   printf("\tProducts below \033[4m\033[1m%d\033[0m\033[0m units.\n", min);
 
+  int existProducts = 0;
+
   for (int i = 0; i < 8; i++)
   {
     for (int j = 0; j < 8; j++)
@@ -936,10 +935,16 @@ void CheckLowStock(struct Products pro[][8])
       if (strcmp(pro[i][j].name, "Empty") != 0)
       {
         if (pro[i][j].qty < min)
+        {
+          existProducts = 1;
           printf("\nProduct \033[4m%s\033[0m as a low stock with: \033[1m%d\033[0m\n", pro[i][j].name, pro[i][j].qty);
+        }
       }
     }
   }
+
+  id(existProducts == 0)
+      printf("\nDoens't exist products \033[4m%s\033[0m as a low stock with: \033[1m%d\033[0m\n");
 
   ReturnExitMenu(pro, StockMenu);
 }
@@ -963,18 +968,26 @@ void MoneyAverage(struct Products pro[][8])
 
   average /= products;
 
-  printf("Average %.2lf€. \n", average);
+  int areProducts = 0;
 
-  printf("Products above average.\n");
+  printf("\tProducts \033[4maverage price %.2lf€\033[0m. \n", average);
+
+  printf("\nProducts \033[4mabove average\033[0m:\n\n");
 
   for (int i = 0; i < 8; i++)
   {
     for (int j = 0; j < 8; j++)
     {
       if (pro[i][j].price > average)
-        printf("\n%s price (%.2lf€) is above average.\n", pro[i][j].name, pro[i][j].price);
+      {
+        printf("=> %s price (%.2lf€) is above average.\n", pro[i][j].name, pro[i][j].price);
+        areProducts = 1;
+      }
     }
   }
+
+  if (areProducts == 0)
+    printf("There are no products above the average.\n");
 
   ReturnExitMenu(pro, MoneyMenu);
 }
@@ -984,6 +997,7 @@ void HighPrices(struct Products pro[][8])
 {
 
   double highPrice = 1.50;
+  int qtyProducts = 0;
 
   printf("\tProducts above \033[4m\033[1m%.2lf€\033[0m\033[0m units.\n", highPrice);
 
@@ -992,9 +1006,15 @@ void HighPrices(struct Products pro[][8])
     for (int j = 0; j < 8; j++)
     {
       if (pro[i][j].price >= highPrice)
+      {
+        qtyProducts++;
         printf("\n\033[4m%s\033[0m is a product with \033[1mhigh price\033[0m with \033[4m%.2lf€\033[0m.\n", pro[i][j].name, pro[i][j].price);
+      }
     }
   }
+
+  if (qtyProducts <= 0)
+    printf("\n\033[4mThere aren't Products above the High Price.\033[0m\n");
 
   ReturnExitMenu(pro, MoneyMenu);
 }
@@ -1007,31 +1027,77 @@ void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int 
     for (int j = 0; j < 8; j++)
     {
       char currentType[100];
-      strcpy(currentType, pro[i][j].type);
-
-      int index = -1;
-      // Check if the type already exists in typeList
-      for (int k = 0; k < *typeListSize; k++)
+      if (strlen(pro[i][j].type) != 0)
       {
-        if (strcmp(typeList[k].type, currentType) == 0)
+
+        strcpy(currentType, pro[i][j].type);
+
+        int index = -1;
+        // Check if the type already exists in typeList
+        for (int k = 0; k < *typeListSize; k++)
         {
-          index = k;
-          break;
+          if (strcmp(typeList[k].type, currentType) == 0)
+          {
+            index = k;
+            break;
+          }
         }
-      }
 
-      // If the type doesn't exist in typeList, add it
-      if (index == -1)
-      {
-        strcpy(typeList[*typeListSize].type, currentType);
-        typeList[*typeListSize].count = 1;
-        (*typeListSize)++;
-      }
-      else
-      {
-        // If the type already exists, increment the count
-        typeList[index].count++;
+        // If the type doesn't exist in typeList, add it
+        if (index == -1)
+        {
+          strcpy(typeList[*typeListSize].type, currentType);
+
+          typeList[*typeListSize].count = 1;
+
+          (*typeListSize)++;
+        }
+        else
+        {
+          // If the type already exists, increment the count
+          typeList[index].count++;
+        }
       }
     }
   }
+}
+
+void checkTypeListCount(struct Products pro[][8])
+{
+
+  struct ProductTypeList typeList[64]; // Assuming a maximum of 64 different types
+  int typeListSize = 0;
+
+  TypesList(pro, typeList, &typeListSize);
+
+  // Now typeList contains the unique types and their counts
+  for (int i = 0; i < typeListSize; i++)
+  {
+    printf("Type: %s, Count: %d\n", typeList[i].type, typeList[i].count);
+  }
+
+  ReturnExitMenu(pro, StockMenu);
+}
+
+// 15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
+void VerifyItemsToBeSold(struct Products pro[][8])
+{
+
+  double price = 0.0;
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strcmp(pro[i][j].name, "Empty") != 0)
+      {
+        price += pro[i][j].price * pro[i][j].qty;
+        printf("Product: %s In Machine: %d Price: %.2lf€ To be sold: %.2lf€\n", pro[i][j].name, pro[i][j].qty, pro[i][j].price, price);
+      }
+    }
+  }
+
+  printf("Total %.2lf€\n", price);
+
+  ReturnExitMenu(pro, MoneyMenu);
 }
