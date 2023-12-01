@@ -45,28 +45,59 @@ struct ProductTypeList
 // Declare the function pointer type
 typedef void (*MenuFunction)(struct Products pro[][8]);
 
+// Start Menu
 void MainMenu(struct Products pro[][8]);
-void ReturnExitMenu(struct Products pro[][8], MenuFunction MenuChoosen);
+
+// Menu of the vending machine
 void MachineMenu(struct Products pro[][8]);
-void ProductMenu(struct Products pro[][8], int xPos, int yPos);
-void MoneyMenu(struct Products pro[][8]);
-void AlterProductInformation(struct Products pro[][8], int xPos, int yPos);
-void showProducts(struct Products pro[][8], int size);
-void insertProduct(struct Products pro[][8]);
-void checkProduct(struct Products pro[][8]);
-void buyProduct(struct Products pro[][8]);
-void EachProductSale(struct Products pro[][8]);
-void machineMoney(struct Products pro[][8], int size);
-void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos);
-int getRowColumn(char text[100]);
-void changeAllPrices(struct Products pro[][8], int size);
-void RefillProductsAndTakeMoney(struct Products pro[][8]);
+// Show all Products
+void ShowProducts(struct Products pro[][8]);
+// Function to buy a product from the vending machine
+void BuyProduct(struct Products pro[][8]);
+
+// Menu of Stock information
+void StockMenu(struct Products pro[][8]);
+// Function to inform the total products quantity the is inside the vending machine
 void CheckStock(struct Products pro[][8]);
-void CheckLowStock(struct Products pro[][8]);
-void MoneyAverage(struct Products pro[][8]);
-void HighPrices(struct Products pro[][8]);
+// Function to Separate All Products Types
 void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize);
-void checkTypeListCount(struct Products pro[][8]);
+// Function to Count all the Separated All Products Types
+void CheckTypeListCount(struct Products pro[][8]);
+// Check stock below 5 units
+void CheckLowStock(struct Products pro[][8]);
+
+// Refill every product to contain 10 units and remove the money from machine
+void RefillProducts(struct Products pro[][8]);
+
+// Menu of Money information
+void MoneyMenu(struct Products pro[][8]);
+// Menu of the selected product
+void ProductMenu(struct Products pro[][8], int xPos, int yPos);
+// Menu To return to last Menu or end Program
+void ReturnExitMenu(struct Products pro[][8], MenuFunction MenuChoosen);
+// This Function checks the Sales of each item on the start of program.
+void EachProductSale(struct Products pro[][8]);
+
+void insertProduct(struct Products pro[][8]);
+
+void CheckProduct(struct Products pro[][8]);
+
+void AlterProductInformation(struct Products pro[][8], int xPos, int yPos);
+
+void machineMoney(struct Products pro[][8], int size);
+
+void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos);
+
+int getRowColumn(char text[100]);
+
+void changeAllPrices(struct Products pro[][8], int size);
+
+void MoneyAverage(struct Products pro[][8]);
+
+void RemoveMoney(struct Products pro[][8]);
+
+void HighPrices(struct Products pro[][8]);
+
 void VerifyItemsToBeSold(struct Products pro[][8]);
 
 int main()
@@ -83,7 +114,7 @@ int main()
           {"Granola Bar", "Snack", "Nature Valley", "10/10/2023", 1.50, 5},
           {"Gum", "Candy", "Wrigley's", "10/10/2023", 0.75, 4},
           {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 3},
-          {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 3},
+          {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 7},
       }};
 
   // This function gets the standard total sales already define above.
@@ -98,7 +129,7 @@ int main()
 void MainMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 4;
+  int totalChoices = 3;
   int wrongInput = 0;
 
   do
@@ -107,14 +138,14 @@ void MainMenu(struct Products pro[][8])
 
     printf("\t\033[4m\033[1mMain Menu\033[0m\033[0m\n\n");
     printf("1. Vending Machine\n");
-    printf("2. Buy Product\n");
-    printf("3. Update All Prices (percentage)\n");
-    printf("4. Exit\n");
+    printf("2. Vending Machine Stock\n");
+    printf("3. Exit\n");
 
     if (wrongInput == 1)
       printf("\n\033[4mPlease insert a valid number between 1 and %d\033[m.\n", totalChoices);
 
     printf("\nMenu Option: ");
+
     if (scanf("%d", &choice) != 1)
     {
       wrongInput = 1;
@@ -136,18 +167,12 @@ void MainMenu(struct Products pro[][8])
     switch (choice)
     {
     case 1:
-      system("clear");
-      showProducts(pro, 8);
       MachineMenu(pro);
       break;
     case 2:
-      system("clear");
-      buyProduct(pro);
+      StockMenu(pro);
       break;
     case 3:
-      changeAllPrices(pro, 8);
-      break;
-    case 4:
       system("clear");
       printf("Empty Field Still on Work\n");
       break;
@@ -155,18 +180,181 @@ void MainMenu(struct Products pro[][8])
   } while (wrongInput != 0);
 }
 
+void MachineMenu(struct Products pro[][8])
+{
+  // Clear Terminal
+  system("clear");
+
+  // This process will check if there is at least 1 product inside
+  int asItems = 0;
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (pro[i][j].qty > 0)
+      {
+        asItems = 1;
+        break;
+      }
+    }
+  }
+
+  if (asItems == 1)
+  {
+
+    ShowProducts(pro);
+
+    int choice = 1;
+    int totalChoices = 3;
+    int wrongInput = 0;
+
+    do
+    {
+      if (wrongInput == 1)
+      {
+        system("clear");
+        ShowProducts(pro);
+      }
+
+      printf("\n\t\033[4m\033[1mVending Machine Options\033[0m\033[0m\n\n");
+      printf("1. Buy Product\n");
+      printf("2. Return \n");
+      printf("3. End Program \n");
+
+      if (wrongInput == 1)
+        printf("\n\033[4mPlease insert a valid number between 1 and %d.\033[0m\n", totalChoices);
+
+      printf("\nOption: ");
+      if (scanf("%d", &choice) != 1)
+      {
+        wrongInput = 1;
+        while (getchar() != '\n')
+          ;
+        continue;
+      }
+      else if (choice < 1 || choice > totalChoices)
+      {
+        wrongInput = 1;
+      }
+      else
+      {
+        wrongInput = 0;
+      }
+
+      getchar();
+
+      switch (choice)
+      {
+      case 1:
+        // Start Buy Process
+        BuyProduct(pro);
+        break;
+      case 2:
+        // Redirect to Main Menu
+        MainMenu(pro);
+        break;
+      case 3:
+        // Clear Terminal
+        system("clear");
+        // Just a text to end Program will in future be different
+        printf("End Program !\n");
+        break;
+      }
+    } while (wrongInput != 0);
+  }
+  else
+  {
+    printf("\n\033[4mThis Vending Machine doesn't contain Products\033[0m.\n");
+    // Menu to return back or end Program
+    ReturnExitMenu(pro, MainMenu);
+  }
+}
+// 2. Listar a informação de todos os produtos disponíveis;
+void ShowProducts(struct Products pro[][8])
+{
+  // Clear Terminal
+  system("clear");
+
+  printf("\t\033[4m\033[1mVending Machine Products\033[0m\033[0m\n\n");
+
+  // Temporary variable to collect the product name
+  char tempName[100];
+
+  // For loop for the shelf
+  for (int i = 0; i < 8; ++i)
+  {
+    // Variable just to define an Product Position
+    int id = 1;
+    printf("\t\033[4m\033[1mShelf %d\033[0m\033[0m\n", i + 1);
+    printf("\nID | Name | Quantity | Price\n\n");
+
+    // For loop for the products inside the shelf
+    for (int j = 0; j < 8; ++j)
+    {
+      // If the Product Name is empty i will tell set tempName as "Empty" other wise it will be the Product Name set in the Struct
+      (strlen(pro[i][j].name) == 0) ? strcpy(tempName, "Empty") : strcpy(tempName, pro[i][j].name);
+
+      printf("=> \033[4m\033[1mID:%d\033[0m\033[0m | %s | %d | %.2f€ |\n\n", id++, tempName, pro[i][j].qty, pro[i][j].price);
+    }
+  }
+}
+// 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na máquina o preço do produto;
+void BuyProduct(struct Products pro[][8])
+{
+  system("clear");
+  ShowProducts(pro);
+
+  int productAvailable = 1;
+  int newRow, newColumn;
+  do
+  {
+    printf("\t\033[4m\033[1mProduct Position\033[0m\033[0m\n");
+    newRow = getRowColumn("Shelf");
+    newColumn = getRowColumn("Product ID");
+
+    // Reduce Row and Column to access the Product object Ex: pro[0][0] instead of pro[1][1] if i choose the Shelf 1
+    newRow--;
+    newColumn--;
+    system("clear");
+
+    if (pro[newRow][newColumn].qty <= 0)
+    {
+      productAvailable = 0;
+      ShowProducts(pro);
+      printf("The selected product ins't available at the moment.\n");
+      printf("\nPlease select a new product.\n\n");
+    }
+    else
+    {
+      productAvailable = 1;
+    }
+
+  } while (productAvailable != 1);
+
+  printf("\033[4mSelected Product\033[0m: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
+
+  printf("\033[4mProduct Successively \033[1mPurchased\033[0m!\033[0m\n");
+
+  // Add to the Product Object a sold quantity;
+  pro[newRow][newColumn].qty--;
+  pro[newRow][newColumn].qtySold++;
+  pro[newRow][newColumn].TotalSales += pro[newRow][newColumn].price;
+
+  ReturnExitMenu(pro, MachineMenu);
+}
+
 void StockMenu(struct Products pro[][8])
 {
   int choice = 1;
-  int totalChoices = 5;
+  int totalChoices = 6;
   int wrongInput = 0;
 
   do
   {
     system("clear");
     printf("\t\033[4m\033[1mStock Menu\033[0m\033[0m\n\n");
-    printf("1. Vending Machine Stock\n");
-    printf("2. Vending Machine Types Stock\n");
+    printf("1. Products Quantity\n");
+    printf("2. Types Stock\n");
     printf("3. Low Stock\n");
     printf("4. Restock Machine\n");
     printf("5. Return\n");
@@ -202,7 +390,7 @@ void StockMenu(struct Products pro[][8])
       break;
     case 2:
       system("clear");
-      checkTypeListCount(pro);
+      CheckTypeListCount(pro);
       break;
     case 3:
       system("clear");
@@ -210,7 +398,7 @@ void StockMenu(struct Products pro[][8])
       break;
     case 4:
       system("clear");
-      RefillProductsAndTakeMoney(pro);
+      RefillProducts(pro);
       break;
     case 5:
       system("clear");
@@ -222,6 +410,118 @@ void StockMenu(struct Products pro[][8])
       break;
     }
   } while (wrongInput != 0);
+}
+
+// 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
+void CheckStock(struct Products pro[][8])
+{
+  system("clear");
+
+  int stock = 0;
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strlen(pro[i][j].name) != 0)
+        stock += pro[i][j].qty;
+    }
+  }
+
+  printf("\033[4mThis Vending Machine contains in total\033[0m \033[1m%d Products\033[0m.\n", stock);
+
+  ReturnExitMenu(pro, StockMenu);
+}
+
+// 14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
+void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize)
+{
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      char currentType[100];
+
+      if (strlen(pro[i][j].type) != 0)
+      {
+        strcpy(currentType, pro[i][j].type);
+
+        int index = -1;
+
+        // Check if the type already exists in typeList
+        for (int k = 0; k < *typeListSize; k++)
+        {
+          if (strcmp(typeList[k].type, currentType) == 0)
+          {
+            index = k;
+            break;
+          }
+        }
+
+        // If the type doesn't exist in typeList, add it
+        if (index == -1)
+        {
+          strcpy(typeList[*typeListSize].type, currentType);
+
+          typeList[*typeListSize].count += pro[i][j].qty;
+
+          (*typeListSize)++;
+        }
+        else
+        {
+          // If the type already exists, increment the count
+          typeList[index].count += pro[i][j].qty;
+        }
+      }
+    }
+  }
+}
+void CheckTypeListCount(struct Products pro[][8])
+{
+
+  struct ProductTypeList typeList[64]; // Assuming a maximum of 64 different types
+  int typeListSize = 0;
+
+  TypesList(pro, typeList, &typeListSize);
+
+  // Now typeList contains the unique types and their counts
+  for (int i = 0; i < typeListSize; i++)
+  {
+    printf("Type: %s, Count: %d\n", typeList[i].type, typeList[i].count);
+  }
+
+  ReturnExitMenu(pro, StockMenu);
+}
+
+// 10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
+void CheckLowStock(struct Products pro[][8])
+{
+  system("clear");
+  int min = 5;
+
+  printf("\tProducts below \033[4m\033[1m%d\033[0m\033[0m units.\n", min);
+
+  int existProducts = 0;
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strlen(pro[i][j].name) != 0)
+      {
+        if (pro[i][j].qty < min)
+        {
+          existProducts = 1;
+          printf("\nProduct \033[4m%s\033[0m as a low stock with: \033[1m%d\033[0m\n", pro[i][j].name, pro[i][j].qty);
+        }
+      }
+    }
+  }
+
+  if (existProducts == 0)
+    printf("\nDoens't exist products with low stock.\n");
+
+  ReturnExitMenu(pro, StockMenu);
 }
 
 void MoneyMenu(struct Products pro[][8])
@@ -287,72 +587,6 @@ void MoneyMenu(struct Products pro[][8])
     case 6:
       system("clear");
       printf("Empty Field Still on Work\n");
-      break;
-    }
-  } while (wrongInput != 0);
-}
-
-void MachineMenu(struct Products pro[][8])
-{
-  int choice = 1;
-  int totalChoices = 6;
-  int wrongInput = 0;
-
-  do
-  {
-    if (wrongInput == 1)
-      system("clear");
-
-    printf("\n\t\033[4m\033[1mMachine Menu\033[0m\033[0m\n\n");
-    printf("1. Insert Values\n");
-    printf("2. Verify Product\n");
-    printf("3. Money Information\n");
-    printf("4. Stock\n");
-    printf("5. Return \n");
-    printf("6. End Program \n");
-
-    if (wrongInput == 1)
-      printf("\n\033[4mPlease insert a valid number between 1 and %d.\033[0m\n", totalChoices);
-
-    printf("\nOption: ");
-    if (scanf("%d", &choice) != 1)
-    {
-      wrongInput = 1;
-      while (getchar() != '\n')
-        ;
-      continue;
-    }
-    else if (choice < 1 || choice > totalChoices)
-    {
-      wrongInput = 1;
-    }
-    else
-    {
-      wrongInput = 0;
-    }
-
-    getchar();
-
-    switch (choice)
-    {
-    case 1:
-      insertProduct(pro);
-      break;
-    case 2:
-      checkProduct(pro);
-      break;
-    case 3:
-      MoneyMenu(pro);
-      break;
-    case 4:
-      StockMenu(pro);
-      break;
-    case 5:
-      MainMenu(pro);
-      break;
-    case 6:
-      system("clear");
-      printf("End Program !\n");
       break;
     }
   } while (wrongInput != 0);
@@ -545,29 +779,6 @@ void ProductMenu(struct Products pro[][8], int xPos, int yPos)
   } while (wrongInput != 0);
 }
 
-// 2. Listar a informação de todos os produtos disponíveis;
-void showProducts(struct Products pro[][8], int size)
-{
-  printf("\t\033[4m\033[1mVending Machine Stock\033[0m\033[0m\n\n");
-
-  for (int i = 0; i < size; ++i)
-  {
-    int id = 1;
-    printf("\t\033[4m\033[1mShelf %d\033[0m\033[0m\n", i + 1);
-    printf("\nID | Name | Quantity | Price\n\n");
-
-    for (int j = 0; j < size; ++j)
-    {
-      if (strcmp(pro[i][j].name, "") == 0)
-      {
-        strcpy(pro[i][j].name, "Empty");
-      }
-
-      printf("=> \033[4m\033[1mID:%d\033[0m\033[0m | %s | %d | %.2f€ |\n\n", id++, pro[i][j].name, pro[i][j].qty, pro[i][j].price);
-    }
-  }
-}
-
 // 1. Inserir um novo produto, dado o número da prateleira e posição.
 void insertProduct(struct Products pro[][8])
 {
@@ -623,26 +834,28 @@ void insertProduct(struct Products pro[][8])
     {
       priceConfirmed = 1;
     }
-    getchar();
+    getchar(); // Function to inform the total products quantity the is inside the vending machine
+    int newRow = getRowColumn("Shelf");
   } while (priceConfirmed != 1);
 
   pro[newRow][newColumn].qty = 10;
 
   // Restart the content of terminal and shows the Products and the Machine Menu
   system("clear");
-  showProducts(pro, 8);
+  ShowProducts(pro);
   MachineMenu(pro);
 }
 
 // 3. Listar a informação sobre um produto específico, dada a localização (prateleira e posição);
-void checkProduct(struct Products pro[][8])
+void CheckProduct(struct Products pro[][8])
 {
 
   system("clear");
-  showProducts(pro, 8);
+  ShowProducts(pro);
 
   printf("\t\033[4m\033[1mProduct Position\033[0m\033[0m\n");
-  int newRow = getRowColumn("Shelf");
+  int newRow = getRowColumn("Product ID");
+  printf("\t\033[4m\033[1mProduct Position\033[0m\033[0m\n");
   int newColumn = getRowColumn("Product ID");
 
   // Clear the Terminal to just appear the following selected product
@@ -662,51 +875,6 @@ void checkProduct(struct Products pro[][8])
   printf("\033[4mProduct Sales:\033[0m \033[1m%.2lf€\033[0m;\n", pro[newRow][newColumn].TotalSales);
 
   ProductMenu(pro, newRow, newColumn);
-}
-
-// 4. Simular a compra de um produto pelo utilizador, onde deverá somar ao total dinheiro na máquina o preço do produto;
-void buyProduct(struct Products pro[][8])
-{
-  system("clear");
-  showProducts(pro, 8);
-
-  int productAvailable = 1;
-  int newRow, newColumn;
-  do
-  {
-    printf("\t\033[4m\033[1mProduct Position\033[0m\033[0m\n");
-    newRow = getRowColumn("Shelf");
-    newColumn = getRowColumn("Product ID");
-
-    // Reduce Row and Column to access the Product object Ex: pro[0][0] instead of pro[1][1] if i choose the Shelf 1
-    newRow--;
-    newColumn--;
-    system("clear");
-
-    if (pro[newRow][newColumn].qty <= 0)
-    {
-      productAvailable = 0;
-      showProducts(pro, 8);
-      printf("The selected product ins't available at the moment.\n");
-      printf("\nPlease select a new product.\n\n");
-    }
-    else
-    {
-      productAvailable = 1;
-    }
-
-  } while (productAvailable != 1);
-
-  printf("\033[4mSelected Product\033[0m: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
-
-  printf("\033[4mProduct Successively \033[1mPurchased\033[0m!\033[0m\n");
-
-  // Add to the Product Object a sold quantity;
-  pro[newRow][newColumn].qty--;
-  pro[newRow][newColumn].qtySold++;
-  pro[newRow][newColumn].TotalSales += pro[newRow][newColumn].price;
-
-  ReturnExitMenu(pro, MainMenu);
 }
 
 // Calculates the start product sales and difine the Product.TotalSales to the price * the quantity already sold. So if the price allters after the start count it doesnt influence the quantity money inside the machine before that change.
@@ -876,7 +1044,7 @@ void changeAllPrices(struct Products pro[][8], int size)
 }
 
 // 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
-void RefillProductsAndTakeMoney(struct Products pro[][8])
+void RefillProducts(struct Products pro[][8])
 {
   system("clear");
 
@@ -886,67 +1054,33 @@ void RefillProductsAndTakeMoney(struct Products pro[][8])
   {
     for (int j = 0; j < 8; j++)
     {
-      if (strcmp(pro[i][j].name, "Empty") != 0)
+      if (strlen(pro[i][j].name) != 0)
       {
         pro[i][j].qty = 10;
+      }
+    }
+  }
+
+  ReturnExitMenu(pro, StockMenu);
+}
+void RemoveMoney(struct Products pro[][8])
+{
+  system("clear");
+  printf("Removed all money from vending machine.\n");
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (strlen(pro[i][j].name) != 0)
+      {
         pro[i][j].qtySold = 0;
         pro[i][j].TotalSales = 0.0;
       }
     }
   }
 
-  ReturnExitMenu(pro, StockMenu);
-}
-
-// 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
-void CheckStock(struct Products pro[][8])
-{
-  system("clear");
-
-  int stock = 0;
-
-  for (int i = 0; i < 8; i++)
-  {
-    for (int j = 0; j < 8; j++)
-    {
-      stock += pro[i][j].qty;
-    }
-  }
-
-  printf("\033[4mThis Vending Machine contains in total\033[0m: \033[1m%d Products\033[0m.\n", stock);
-
-  ReturnExitMenu(pro, StockMenu);
-}
-
-// 10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
-void CheckLowStock(struct Products pro[][8])
-{
-  system("clear");
-  int min = 5;
-
-  printf("\tProducts below \033[4m\033[1m%d\033[0m\033[0m units.\n", min);
-
-  int existProducts = 0;
-
-  for (int i = 0; i < 8; i++)
-  {
-    for (int j = 0; j < 8; j++)
-    {
-      if (strcmp(pro[i][j].name, "Empty") != 0)
-      {
-        if (pro[i][j].qty < min)
-        {
-          existProducts = 1;
-          printf("\nProduct \033[4m%s\033[0m as a low stock with: \033[1m%d\033[0m\n", pro[i][j].name, pro[i][j].qty);
-        }
-      }
-    }
-  }
-
-  if (existProducts == 0)
-    printf("\nDoens't exist products with low stock.\n");
-
-  ReturnExitMenu(pro, StockMenu);
+  ReturnExitMenu(pro, MoneyMenu);
 }
 
 // 11.  Calcular a média dos preços dos produtos;
@@ -1017,66 +1151,6 @@ void HighPrices(struct Products pro[][8])
     printf("\n\033[4mThere aren't Products above the High Price.\033[0m\n");
 
   ReturnExitMenu(pro, MoneyMenu);
-}
-
-// 14.  Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
-void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize)
-{
-  for (int i = 0; i < 8; i++)
-  {
-    for (int j = 0; j < 8; j++)
-    {
-      char currentType[100];
-      if (strlen(pro[i][j].type) != 0)
-      {
-
-        strcpy(currentType, pro[i][j].type);
-
-        int index = -1;
-        // Check if the type already exists in typeList
-        for (int k = 0; k < *typeListSize; k++)
-        {
-          if (strcmp(typeList[k].type, currentType) == 0)
-          {
-            index = k;
-            break;
-          }
-        }
-
-        // If the type doesn't exist in typeList, add it
-        if (index == -1)
-        {
-          strcpy(typeList[*typeListSize].type, currentType);
-
-          typeList[*typeListSize].count = 1;
-
-          (*typeListSize)++;
-        }
-        else
-        {
-          // If the type already exists, increment the count
-          typeList[index].count++;
-        }
-      }
-    }
-  }
-}
-
-void checkTypeListCount(struct Products pro[][8])
-{
-
-  struct ProductTypeList typeList[64]; // Assuming a maximum of 64 different types
-  int typeListSize = 0;
-
-  TypesList(pro, typeList, &typeListSize);
-
-  // Now typeList contains the unique types and their counts
-  for (int i = 0; i < typeListSize; i++)
-  {
-    printf("Type: %s, Count: %d\n", typeList[i].type, typeList[i].count);
-  }
-
-  ReturnExitMenu(pro, StockMenu);
 }
 
 // 15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);

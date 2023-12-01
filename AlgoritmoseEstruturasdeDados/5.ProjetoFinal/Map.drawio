@@ -1,0 +1,45 @@
+<mxfile host="app.diagrams.net" modified="2023-12-01T14:45:36.927Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="1Wg94B4BtRZRFe-3QVpq" version="22.1.5" type="device">
+  <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
+    <mxGraphModel dx="3218" dy="1914" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1890" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="9Yi1ptAnj4-kBtnNQ4_k-1813" target="9Yi1ptAnj4-kBtnNQ4_k-1819">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1892" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9Yi1ptAnj4-kBtnNQ4_k-1813" target="9Yi1ptAnj4-kBtnNQ4_k-1876">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1813" value="&lt;h1&gt;&lt;u&gt;Main Menu&lt;/u&gt;&lt;/h1&gt;&lt;h2&gt;(Start of Program)&lt;/h2&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1160" y="40" width="320" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1891" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="9Yi1ptAnj4-kBtnNQ4_k-1819" target="9Yi1ptAnj4-kBtnNQ4_k-1833">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1819" value="&lt;h1&gt;Vending Machine&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-1120" y="-280" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1833" value="&lt;h1&gt;Buy a Product&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-1120" y="-520" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1894" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="9Yi1ptAnj4-kBtnNQ4_k-1876" target="9Yi1ptAnj4-kBtnNQ4_k-1893">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1876" value="&lt;h1&gt;Stocks&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-600" y="80" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1893" value="&lt;h1&gt;Total Products Stock&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-160" y="-280" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1895" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" target="9Yi1ptAnj4-kBtnNQ4_k-1896" source="9Yi1ptAnj4-kBtnNQ4_k-1876">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-240" y="340" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9Yi1ptAnj4-kBtnNQ4_k-1896" value="&lt;h1&gt;Types Stock&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-160" y="-160" width="280" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
