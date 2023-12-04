@@ -22,11 +22,21 @@ OK 15. Somatório do valor (em €) de todos os produtos armazenados na máquina
 #include <string.h>
 #include <stdlib.h>
 
+typedef struct sExpiration
+{
+
+  int day;
+  int month;
+  int year;
+
+} Expiration;
+
 struct Products
 {
   char name[100];
   char type[100];
   char brand[100];
+  Expiration expDate;
   char valDate[100];
   double price;
   int qty;
@@ -118,23 +128,28 @@ int main()
   struct Products vendingMachine[8][8] =
       {
           {
-              //{Name, Type, Brand, Expiration, Price, Quantity},
-              {"Soda", "Beverage", "Coca-Cola", "10/10/2023", 1.50, 4, 4},
-              {"Chips", "Snack", "Lays", "10/10/2023", 1.25, 6, 4},
-              {"Chocolate Bar", "Snack", "Hershey's", "10/10/2023", 1.75, 2, 4},
-              {"Water", "Beverage", "Dasani", "10/10/2023", 1.00, 4, 4},
-              {"Granola Bar", "Snack", "Nature Valley", "10/10/2023", 1.50, 5},
-              {"Gum", "Candy", "Wrigley's", "10/10/2023", 0.75, 4},
-              {"Apple", "Fruit", "Granny Smith", "10/10/2023", 1.25, 3},
-              {"Orange Juice", "Beverage", "Tropicana", "10/10/2023", 2.00, 7},
+              //{Name, Type, Brand, Expiration, Price, Quantity, Qty Sold}
+              {"Soda", "Beverage", "Coca-Cola", {12, 12, 2023}, "10/10/2023", 1.50, 4, 4},
+              {"Chips", "Snack", "Lays", {12, 12, 2023}, "10/10/2023", 1.25, 6, 4},
+              {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2023}, "10/10/2023", 1.75, 2, 4},
+              {"Water", "Beverage", "Dasani", {12, 12, 2023}, "10/10/2023", 1.00, 4, 4},
+              {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2023}, "10/10/2023", 1.50, 5},
+              {"Gum", "Candy", "Wrigley's", {12, 12, 2023}, "10/10/2023", 0.75, 4},
+              {"Apple", "Fruit", "Granny Smith", {12, 12, 2023}, "10/10/2023", 1.25, 3},
+              {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2023}, "10/10/2023", 2.00, 7},
           },
       };
+
+  // printf("%d/%d/%d\n", vendingMachine[0][0].expDate.day, vendingMachine[0][0].expDate.month, vendingMachine[0][0].expDate.year);
 
   // This function gets the standard total sales already define above.
   EachProductSale(vendingMachine);
 
   // Start The Program Interface
-  MainMenu(vendingMachine);
+   MainMenu(vendingMachine);
+
+  //insertProduct(vendingMachine);
+  //  ProductTotalInfo(vendingMachine[0][0], 0, 0);
 
   return 0;
 }
@@ -765,8 +780,96 @@ void insertProduct(struct Products pro[][8])
     printf("\n\033[4mProduct Brand:\033[0m ");
     scanf(" %[^\n]", pro[newRow][newColumn].brand);
 
-    printf("\n\033[4mProduct Expiration Date (dd/mm/yyyy):\033[0m ");
-    scanf(" %[^\n]", pro[newRow][newColumn].valDate);
+    // printf("\n\033[4mProduct Expiration Date (dd/mm/yyyy):\033[0m ");
+    // scanf(" %[^\n]", pro[newRow][newColumn].valDate);
+
+    int correctDay = 2;
+    do
+    {
+      if (correctDay == 0)
+      {
+        system("clear");
+        printf("\nPlease insert a proper \033[1mDay\033[0m.\n");
+      }
+
+      printf("\nProduct Expiration \033[1mDay\033[0m:");
+      if (scanf("%d", &pro[newRow][newColumn].expDate.day) != 1)
+      {
+        correctDay = 0;
+        while (getchar() != '\n')
+          ;
+        continue;
+      }
+      else if (pro[newRow][newColumn].expDate.day < 1 || pro[newRow][newColumn].expDate.day > 31)
+      {
+        correctDay = 0;
+      }
+      else
+      {
+        correctDay = 1;
+      }
+
+      getchar();
+    } while (correctDay == 0);
+
+    int correctMonth = 2;
+
+    do
+    {
+      if (correctMonth == 0)
+      {
+        system("clear");
+        printf("\nPlease insert a valid month \033[1mMonth\033[0m.\n");
+      }
+
+      printf("\nProduct Expiration \033[1mMonth\033[0m:");
+      if (scanf("%d", &pro[newRow][newColumn].expDate.month) != 1)
+      {
+        correctMonth = 0;
+        while (getchar() != '\n')
+          ;
+        continue;
+      }
+      else if (pro[newRow][newColumn].expDate.month < 1 || pro[newRow][newColumn].expDate.month > 31)
+      {
+        correctMonth = 0;
+      }
+      else
+      {
+        correctMonth = 1;
+      }
+
+      getchar();
+    } while (correctMonth == 0);
+
+    int correctYear = 2;
+    do
+    {
+      if (correctYear == 0)
+      {
+        system("clear");
+        printf("\nPlease insert a proper \033[1mYear\033[0m.\n");
+      }
+
+      printf("\nProduct Expiration \033[1mYear\033[0m:");
+      if (scanf("%d", &pro[newRow][newColumn].expDate.year) != 1)
+      {
+        correctYear = 0;
+        while (getchar() != '\n')
+          ;
+        continue;
+      }
+      else if (pro[newRow][newColumn].expDate.year < 1 || pro[newRow][newColumn].expDate.year > 31)
+      {
+        correctYear = 0;
+      }
+      else
+      {
+        correctYear = 1;
+      }
+
+      getchar();
+    } while (correctYear == 0);
 
     // This Process runs until a valid input is put and checks if contains Characters and restart the loop until it goes ok
     int correctPriceInput = 1;
@@ -1390,7 +1493,7 @@ void ProductTotalInfo(struct Products product, int shelf, int productID)
   printf("Product Type: \033[1m%s \033[0m\n", product.type);
   printf("Product Name: \033[1m%s \033[0m\n", product.name);
   printf("Product Brand: \033[1m%s \033[0m\n", product.brand);
-  printf("Product Expiration Date: \033[1m%s \033[0m\n", product.valDate);
+  printf("Product Expiration Date: \033[1m%d/%d/%d \033[0m\n", product.expDate.day, product.expDate.month, product.expDate.year);
   printf("Product Price: \033[1m%.2lf€ \033[0m\n", product.price);
   printf("Product Quantity: \033[1m%d \033[0m\n", product.qty);
 }
