@@ -21,6 +21,7 @@ OK 15. Somatório do valor (em €) de todos os produtos armazenados na máquina
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct sExpiration
 {
@@ -37,7 +38,6 @@ struct Products
   char type[100];
   char brand[100];
   Expiration expDate;
-  char valDate[100];
   double price;
   int qty;
   int qtySold;
@@ -129,27 +129,22 @@ int main()
       {
           {
               //{Name, Type, Brand, Expiration, Price, Quantity, Qty Sold}
-              {"Soda", "Beverage", "Coca-Cola", {12, 12, 2023}, "10/10/2023", 1.50, 4, 4},
-              {"Chips", "Snack", "Lays", {12, 12, 2023}, "10/10/2023", 1.25, 6, 4},
-              {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2023}, "10/10/2023", 1.75, 2, 4},
-              {"Water", "Beverage", "Dasani", {12, 12, 2023}, "10/10/2023", 1.00, 4, 4},
-              {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2023}, "10/10/2023", 1.50, 5},
-              {"Gum", "Candy", "Wrigley's", {12, 12, 2023}, "10/10/2023", 0.75, 4},
-              {"Apple", "Fruit", "Granny Smith", {12, 12, 2023}, "10/10/2023", 1.25, 3},
-              {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2023}, "10/10/2023", 2.00, 7},
+              {"Soda", "Beverage", "Coca-Cola", {12, 12, 2023}, 1.50, 4, 4},
+              {"Chips", "Snack", "Lays", {12, 12, 2023}, 1.25, 6, 4},
+              {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2023}, 1.75, 2, 4},
+              {"Water", "Beverage", "Dasani", {12, 12, 2023}, 1.00, 4, 4},
+              {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2023}, 1.50, 5},
+              {"Gum", "Candy", "Wrigley's", {12, 12, 2023}, 0.75, 4},
+              {"Apple", "Fruit", "Granny Smith", {12, 12, 2023}, 1.25, 3},
+              {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2023}, 2.00, 7},
           },
       };
-
-  // printf("%d/%d/%d\n", vendingMachine[0][0].expDate.day, vendingMachine[0][0].expDate.month, vendingMachine[0][0].expDate.year);
 
   // This function gets the standard total sales already define above.
   EachProductSale(vendingMachine);
 
-  // Start The Program Interface
-   MainMenu(vendingMachine);
-
-  //insertProduct(vendingMachine);
-  //  ProductTotalInfo(vendingMachine[0][0], 0, 0);
+  // // Start The Program Interface
+  MainMenu(vendingMachine);
 
   return 0;
 }
@@ -789,7 +784,7 @@ void insertProduct(struct Products pro[][8])
       if (correctDay == 0)
       {
         system("clear");
-        printf("\nPlease insert a proper \033[1mDay\033[0m.\n");
+        printf("\nPlease insert a valid \033[1mDay between 1 and 31\033[0m.\n");
       }
 
       printf("\nProduct Expiration \033[1mDay\033[0m:");
@@ -813,14 +808,17 @@ void insertProduct(struct Products pro[][8])
     } while (correctDay == 0);
 
     int correctMonth = 2;
-
+    int wrongMonth = 0;
     do
     {
       if (correctMonth == 0)
       {
         system("clear");
-        printf("\nPlease insert a valid month \033[1mMonth\033[0m.\n");
+        printf("\nPlease insert a valid \033[1mMonth between 1 and 12\033[0m.\n");
       }
+
+      if (wrongMonth == 1)
+        printf("This month \033[1mdoens't contain %d of days\033[0m.\n", pro[newRow][newColumn].expDate.day);
 
       printf("\nProduct Expiration \033[1mMonth\033[0m:");
       if (scanf("%d", &pro[newRow][newColumn].expDate.month) != 1)
@@ -830,7 +828,7 @@ void insertProduct(struct Products pro[][8])
           ;
         continue;
       }
-      else if (pro[newRow][newColumn].expDate.month < 1 || pro[newRow][newColumn].expDate.month > 31)
+      else if (pro[newRow][newColumn].expDate.month < 1 || pro[newRow][newColumn].expDate.month > 12)
       {
         correctMonth = 0;
       }
@@ -839,16 +837,43 @@ void insertProduct(struct Products pro[][8])
         correctMonth = 1;
       }
 
+      if (pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 2 ||
+          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 4 ||
+          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 6 ||
+          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 9 ||
+          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 11)
+      {
+        correctMonth = 0;
+        wrongMonth = 1;
+      }
+      else if (pro[newRow][newColumn].expDate.day == 30 && pro[newRow][newColumn].expDate.month == 2)
+      {
+        correctMonth = 0;
+        wrongMonth = 1;
+      }
+      else
+      {
+        correctMonth = 1;
+        wrongMonth = 0;
+      }
+
       getchar();
     } while (correctMonth == 0);
 
     int correctYear = 2;
+    time_t currentTime;
+    struct tm *localTime;
+    time(&currentTime);
+    localTime = localtime(&currentTime);
+    // Extract the year
+    int year = localTime->tm_year + 1900;
+
     do
     {
       if (correctYear == 0)
       {
         system("clear");
-        printf("\nPlease insert a proper \033[1mYear\033[0m.\n");
+        printf("\nPlease insert a \033[1myear above %d\033[0m.\n", year);
       }
 
       printf("\nProduct Expiration \033[1mYear\033[0m:");
@@ -859,7 +884,7 @@ void insertProduct(struct Products pro[][8])
           ;
         continue;
       }
-      else if (pro[newRow][newColumn].expDate.year < 1 || pro[newRow][newColumn].expDate.year > 31)
+      else if (pro[newRow][newColumn].expDate.year < year)
       {
         correctYear = 0;
       }
@@ -1018,7 +1043,9 @@ void RemoveProduct(struct Products pro[][8], int xPos, int yPos)
   strcpy(pro[xPos][yPos].type, "");
   strcpy(pro[xPos][yPos].name, "");
   strcpy(pro[xPos][yPos].brand, "");
-  strcpy(pro[xPos][yPos].valDate, "");
+  pro[xPos][yPos].expDate.day = 0;
+  pro[xPos][yPos].expDate.month = 0;
+  pro[xPos][yPos].expDate.year = 0;
   pro[xPos][yPos].price = 0.0;
   pro[xPos][yPos].qty = 0;
   pro[xPos][yPos].qtySold = 0;
@@ -1041,14 +1068,7 @@ void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
       system("clear");
 
     printf("\n\t\033[4mProduct Information\033[0m\n\n");
-    printf("\033[4mProduct Type\033[0m: \033[1m%s\033[0m;\n\n", pro[xPos][yPos].type);
-    printf("\033[4mProduct Name\033[0m: \033[1m%s\033[0m;\n\n", pro[xPos][yPos].name);
-    printf("\033[4mProduct Brand\033[0m: \033[1m%s\033[0m;\n\n", pro[xPos][yPos].brand);
-    printf("\033[4mProduct Expiration Date\033[0m: \033[1m%s\033[0m;\n\n", pro[xPos][yPos].valDate);
-    printf("\033[4mProduct Price\033[0m: \033[1m%.2lf€\033[0m;\n\n", pro[xPos][yPos].price);
-    printf("\033[4mProduct Quantity\033[0m: \033[1m%d\033[0m;\n\n", pro[xPos][yPos].qty);
-    printf("\033[4mProduct Sold\033[0m: \033[1m%d\033[0m;\n\n", pro[xPos][yPos].qtySold);
-    printf("\033[4mProduct Sales\033[0m: \033[1m%.2lf€\033[0m;\n", pro[xPos][yPos].TotalSales);
+    ProductTotalInfo(pro[xPos][yPos], xPos, yPos);
 
     MenuTitle("Options Menu");
     MenuLinks(1, "Change Product Price");
