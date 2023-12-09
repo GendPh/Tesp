@@ -21,6 +21,7 @@ OK 15. Somatório do valor (em €) de todos os produtos armazenados na máquina
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <time.h>
 #define UserSize 100
 
@@ -51,6 +52,9 @@ struct Products
   int qty;
   int qtySold;
   double TotalSales;
+  // This will inform my program if the product is available to be purchased
+  int purchasable;
+  char state[100];
 };
 
 struct ProductTypeList
@@ -64,7 +68,7 @@ typedef void (*MenuFunction)(struct Products pro[][8]);
 typedef void (*Menu)(struct Products pro[][8], Users user[], int userState);
 
 void StartProgramMenu(Users user[], struct Products pro[][8]);
-
+void SignUp(Users user[], struct Products pro[][8]);
 void SignIn(Users user[], struct Products pro[][8]);
 
 void MenuTitle(char title[100]);
@@ -84,47 +88,47 @@ void ShowProducts(struct Products pro[][8]);
 void BuyProduct(struct Products pro[][8], Users user[], int userState);
 
 // Menu of Stock information
-void StockMenu(struct Products pro[][8]);
+void StockMenu(struct Products pro[][8], Users user[], int userState);
 // Function to inform the total products quantity the is inside the vending machine
-void CheckStock(struct Products pro[][8]);
+void CheckStock(struct Products pro[][8], Users user[], int userState);
 // Function to Separate All Products Types
 void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize);
 // Function to Count all the Separated All Products Types
-void CheckTypeListCount(struct Products pro[][8]);
+void CheckTypeListCount(struct Products pro[][8], Users user[], int userState);
 // Check stock below 5 units
-void CheckLowStock(struct Products pro[][8]);
+void CheckLowStock(struct Products pro[][8], Users user[], int userState);
 // Refill every product to contain 10 units and remove the money from machine
-void RefillProducts(struct Products pro[][8]);
+void RefillProducts(struct Products pro[][8], Users user[], int userState);
 
 // Menu of Money information
-void MoneyMenu(struct Products pro[][8]);
+void MoneyMenu(struct Products pro[][8], Users user[], int userState);
 // Verify each item sales
-void MachineMoney(struct Products pro[][8]);
+void MachineMoney(struct Products pro[][8], Users user[], int userState);
 // Reset all products sales
-void RemoveMoney(struct Products pro[][8]);
+void RemoveMoney(struct Products pro[][8], Users user[], int userState);
 
 // Menu of Products information
-void ProductMenu(struct Products pro[][8], Users user[]);
+void ProductMenu(struct Products pro[][8], Users user[], int userState);
 // Verify information about a product
-void CheckProduct(struct Products pro[][8]);
+void CheckProduct(struct Products pro[][8], Users user[], int userState);
 // Add a product to the next available position
-void insertProduct(struct Products pro[][8]);
+void InsertProduct(struct Products pro[][8], Users user[], int userState);
 // Menu of the selected product
-void ProductOption(struct Products pro[][8], int xPos, int yPos);
+void ProductOption(struct Products pro[][8], Users user[], int userState, int xPos, int yPos);
 // Remove Product
-void RemoveProduct(struct Products pro[][8], int xPos, int yPos);
+void RemoveProduct(struct Products pro[][8], Users user[], int userState, int xPos, int yPos);
 // Access options to change individual information about a selected product
-void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos);
+void ChangeProductPrice(struct Products pro[][8], Users user[], int userState, int xPos, int yPos);
 // Let me alter a specific Product a specific price
-void AlterProductInformation(struct Products pro[][8], int xPos, int yPos);
+void AlterProductInformation(struct Products pro[][8], Users user[], int userState, int xPos, int yPos);
 // Checks the average Price of each item
-void MoneyAverage(struct Products pro[][8]);
+void MoneyAverage(struct Products pro[][8], Users user[], int userState);
 // Verify each items quantity left to be sold and show the total
-void VerifyItemsToBeSold(struct Products pro[][8]);
+void VerifyItemsToBeSold(struct Products pro[][8], Users user[], int userState);
 // Verify all products that are above a certain value
-void HighPrices(struct Products pro[][8]);
+void HighPrices(struct Products pro[][8], Users user[], int userState);
 // Change all prices throw a percentage
-void ChangeAllPrices(struct Products pro[][8]);
+void ChangeAllPrices(struct Products pro[][8], Users user[], int userState);
 
 // Show product information
 void ProductTotalInfo(struct Products product, int shelf, int productID);
@@ -139,6 +143,9 @@ int getRowColumn(char text[100]);
 // End Game
 void EndProgram();
 
+int GetTodayYear();
+void CheckAvailableProduct(struct Products product[][8]);
+
 int main()
 {
   Users users[100] = {
@@ -151,21 +158,24 @@ int main()
       {
           {
               //{Name, Type, Brand, Expiration, Price, Quantity, Qty Sold}
-              {"Soda", "Beverage", "Coca-Cola", {12, 12, 2023}, 1.50, 4, 4},
+              {"Soda", "Beverage", "Coca-Cola", {12, 12, 2022}, 1.50, 4, 4},
               {"Chips", "Snack", "Lays", {12, 12, 2023}, 1.25, 6, 4},
               {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2023}, 1.75, 2, 4},
-              {"Water", "Beverage", "Dasani", {12, 12, 2023}, 1.00, 4, 4},
+              {"Water", "Beverage", "Dasani", {12, 12, 2022}, 1.00, 4, 4},
               {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2023}, 1.50, 5},
               {"Gum", "Candy", "Wrigley's", {12, 12, 2023}, 0.75, 4},
-              {"Apple", "Fruit", "Granny Smith", {12, 12, 2023}, 1.25, 3},
+              {"Apple", "Fruit", "Granny Smith", {12, 12, 2022}, 1.25, 3},
               {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2023}, 2.00, 7},
           },
       };
 
   // This function gets the standard total sales already define above.
   EachProductSale(vendingMachine);
+  // This function check all product if they are expired.
+  CheckAvailableProduct(vendingMachine);
 
   StartProgramMenu(users, vendingMachine);
+  // AdminMenu(vendingMachine, users, 1);
 
   return 0;
 }
@@ -178,7 +188,7 @@ void StartProgramMenu(Users user[], struct Products pro[][8])
 
   do
   {
-    // system("clear");
+    system("clear");
     MenuTitle("Sign Up / Sign In");
     MenuLinks(1, "Sign Up");
     MenuLinks(2, "Sign In");
@@ -210,7 +220,7 @@ void StartProgramMenu(Users user[], struct Products pro[][8])
     switch (choice)
     {
     case 1:
-
+      SignUp(user, pro);
       break;
     case 2:
       SignIn(user, pro);
@@ -220,6 +230,126 @@ void StartProgramMenu(Users user[], struct Products pro[][8])
       break;
     }
   } while (wrongInput != 0);
+}
+
+void SignUp(Users user[], struct Products pro[][8])
+{
+  system("clear");
+
+  int availableId;
+
+  for (int i = 0; i < UserSize; i++)
+  {
+    if (user[i].id == 0)
+    {
+      availableId = i + 1;
+      user[i].id = availableId;
+      break;
+    }
+  }
+  // printf("USER ID: %d\n", user[availableId - 1].id);
+
+  char name[100];
+  char pass[100];
+
+  MenuTitle("Please insert the following information");
+  int availableName = 1;
+  do
+  {
+    if (availableName == 0)
+    {
+      system("clear");
+      printf("\n\033[1mUnavailable\033[0m name.\n\n");
+    }
+
+    printf("Name specifications:\n");
+    printf("\t- Name size atleast 6 elements\n\n");
+
+    printf("Name: ");
+    scanf("%99s", name);
+
+    for (int i = 0; i < UserSize; i++)
+    {
+      if (strcmp(user[i].name, name) == 0)
+      {
+        availableName = 0;
+        break;
+      }
+      else
+      {
+        availableName = 1;
+      }
+    }
+
+    if (availableName == 1)
+    {
+      availableName = (strlen(name) < 6) ? 0 : 1;
+    }
+
+  } while (availableName == 0);
+
+  int availablePass = 1;
+  int hasSize = 0;
+  int hasUpper = 0;
+  int hasDigit = 0;
+
+  do
+  {
+    if (availablePass == 0)
+    {
+      system("clear");
+      printf("\n\033[1mInvalid\033[0m Password.\n");
+    }
+
+    printf("\nPassword specifications:\n");
+    printf("\t- Size atleast 8 elements;\n");
+    printf("\t- Atleast 1 Digit;\n");
+    printf("\t- Atleast 1 UpperCase\n\n");
+
+    printf("Password: ");
+    scanf("%99s", pass);
+
+    hasSize = (strlen(pass) < 8) ? 0 : 1;
+
+    for (int i = 0; i < pass[i] != '\0'; i++)
+    {
+      if (isupper(pass[i]))
+      {
+        hasUpper = 1;
+        break;
+      }
+      else
+      {
+        availablePass = 0;
+        hasUpper = 0;
+      }
+    }
+
+    for (int i = 0; i < pass[i] != '\0'; i++)
+    {
+      if (isdigit(pass[i]))
+      {
+        hasDigit = 1;
+        break;
+      }
+      else
+      {
+        availablePass = 0;
+        hasDigit = 0;
+      }
+    }
+
+  } while (hasSize == 0 || hasUpper == 0 || hasDigit == 0);
+
+  strcpy(user[availableId - 1].name, name);
+  strcpy(user[availableId - 1].pass, pass);
+
+  // printf("\n\t\033[4mUser Information\033[0m\n\n");
+  // printf("ID: \033[1m%d\033[0m\n", user[availableId - 1].id);
+  // printf("Name: \033[1m%s\033[0m\n", user[availableId - 1].name);
+  // printf("Password: \033[1m%s\033[0m\n", user[availableId - 1].pass);
+
+  SignIn(user, pro);
 }
 
 void SignIn(Users user[], struct Products pro[][8])
@@ -291,7 +421,7 @@ void AdminMenu(struct Products pro[][8], Users user[], int userState)
   do
   {
     system("clear");
-    MenuTitle("Main Menu");
+    MenuTitle("Admin Menu");
     MenuLinks(1, "Vending Machine ");
     MenuLinks(2, "Vending Machine Stocks");
     MenuLinks(3, "Vending Machine Money");
@@ -328,13 +458,13 @@ void AdminMenu(struct Products pro[][8], Users user[], int userState)
       MachineMenu(pro, user, userState);
       break;
     case 2:
-      //  StockMenu(pro);
+      StockMenu(pro, user, userState);
       break;
     case 3:
-      //  MoneyMenu(pro);
+      MoneyMenu(pro, user, userState);
       break;
     case 4:
-      //  ProductMenu(pro);
+      ProductMenu(pro, user, userState);
       break;
     case 5:
       StartProgramMenu(user, pro);
@@ -355,7 +485,7 @@ void ClientMenu(struct Products pro[][8], Users user[], int userState)
   do
   {
     system("clear");
-    MenuTitle("Main Menu");
+    MenuTitle("Client Menu");
     MenuLinks(1, "Vending Machine ");
     MenuLinks(2, "Logout");
     MenuLinks(3, "Exit Program");
@@ -480,7 +610,6 @@ void MachineMenu(struct Products pro[][8], Users user[], int userState)
   {
     printf("\n\033[4mThis Vending Machine doesn't contain Products\033[0m.\n");
     // Menu to return back or end Program
-    // ReturnExitMenu(pro, MainMenu, user, userState);
     (userState == 0) ? Return(pro, ClientMenu, user, userState) : Return(pro, AdminMenu, user, userState);
   }
 }
@@ -494,22 +623,29 @@ void ShowProducts(struct Products pro[][8])
 
   // Temporary variable to collect the product name
   char tempName[100];
-
   // For loop for the shelf
   for (int i = 0; i < 8; ++i)
   {
     // Variable just to define an Product Position
     int id = 1;
     printf("\t\033[4mShelf %d\033[0m\n", i + 1);
-    printf("\n\033[4mID\033[0m | \033[4mName\033[0m | \033[4mQuantity\033[0m | \033[4mPrice\033[0m\n\n");
+    printf("\n\033[4mID\033[0m | \033[4mName\033[0m | \033[4mQuantity\033[0m | \033[4mPrice\033[0m | \033[4mState\033[0m\n\n");
 
     // For loop for the products inside the shelf
     for (int j = 0; j < 8; ++j)
     {
       // If the Product Name is empty i will tell set tempName as "Empty" other wise it will be the Product Name set in the Struct
-      (strlen(pro[i][j].name) == 0) ? strcpy(tempName, "Empty") : strcpy(tempName, pro[i][j].name);
+      if (strlen(pro[i][j].name) == 0)
+      {
+        strcpy(tempName, "-------");
+        strcpy(pro[i][j].state, "-------");
+      }
+      else
+      {
+        strcpy(tempName, pro[i][j].name);
+      }
 
-      printf(" => \033[1m%d\033[0m | \033[1m%s\033[0m | \033[1m%d\033[0m | \033[1m%.2f€\033[0m |\n\n", id++, tempName, pro[i][j].qty, pro[i][j].price);
+      printf(" => \033[1m%d\033[0m | \033[1m%s\033[0m | \033[1m%d\033[0m | \033[1m%.2f€\033[0m | \033[1m%s\033[0m\n\n", id++, tempName, pro[i][j].qty, pro[i][j].price, pro[i][j].state);
     }
   }
 }
@@ -546,22 +682,25 @@ void BuyProduct(struct Products pro[][8], Users user[], int userState)
 
   } while (productAvailable != 1);
 
-  printf("\nSelected Product: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
+  if (pro[newRow][newColumn].purchasable == 1)
+  {
+    printf("\nSelected Product: \033[1m%s\033[0m\n\n", pro[newRow][newColumn].name);
+    printf("Product Successively \033[1mPurchased\033[0m!\n");
+    // Add to the Product Object a sold quantity;
+    pro[newRow][newColumn].qty--;
+    pro[newRow][newColumn].qtySold++;
+    pro[newRow][newColumn].TotalSales += pro[newRow][newColumn].price;
+  }
+  else
+  {
+    printf("\nThe Product \033[1m%s isn't available\033[0m to be Purchased.\n", pro[newRow][newColumn].name);
+  }
 
-  printf("Product Successively \033[1mPurchased\033[0m!\n");
-
-  // Add to the Product Object a sold quantity;
-  pro[newRow][newColumn].qty--;
-  pro[newRow][newColumn].qtySold++;
-  pro[newRow][newColumn].TotalSales += pro[newRow][newColumn].price;
-
-  // MachineMenu(struct Products pro[][8], Users user[], int userState);
   Return(pro, MachineMenu, user, userState);
-  //  ReturnExitMenu(pro, MachineMenu);
 }
 
 // All Stock Information Menu
-void StockMenu(struct Products pro[][8])
+void StockMenu(struct Products pro[][8], Users user[], int userState)
 {
   int choice = 1;
   int totalChoices = 6;
@@ -604,28 +743,28 @@ void StockMenu(struct Products pro[][8])
     switch (choice)
     {
     case 1:
-      // CheckStock(pro);
+      CheckStock(pro, user, userState);
       break;
     case 2:
-      // CheckTypeListCount(pro);
+      CheckTypeListCount(pro, user, userState);
       break;
     case 3:
-      // CheckLowStock(pro);
+      CheckLowStock(pro, user, userState);
       break;
     case 4:
-      // RefillProducts(pro);
+      RefillProducts(pro, user, userState);
       break;
     case 5:
-      // ClientMenu(pro);
+      AdminMenu(pro, user, userState);
       break;
     case 6:
-      // EndProgram();
+      EndProgram();
       break;
     }
   } while (wrongInput != 0);
 }
 // 9. Saber o stock total atual (totalidade de produtos existentes na máquina);
-void CheckStock(struct Products pro[][8])
+void CheckStock(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -643,6 +782,7 @@ void CheckStock(struct Products pro[][8])
   printf("\n\033[4mThis Vending Machine contains in total\033[0m \033[1m%d Products\033[0m.\n", stock);
 
   // ReturnExitMenu(pro, StockMenu);
+  Return(pro, StockMenu, user, userState);
 }
 // 14. Listar para cada tipo de produtos (água, cerveja, etc.), a quantidade de stock atual;
 void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int *typeListSize)
@@ -687,7 +827,7 @@ void TypesList(struct Products pro[][8], struct ProductTypeList typeList[], int 
     }
   }
 }
-void CheckTypeListCount(struct Products pro[][8])
+void CheckTypeListCount(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
   struct ProductTypeList typeList[64]; // Assuming a maximum of 64 different types
@@ -701,10 +841,10 @@ void CheckTypeListCount(struct Products pro[][8])
     printf("\n\033[4mType\033[0m: \033[1m%s\033[0m, \033[4mCount\033[0m: \033[1m%d\033[0m\n", typeList[i].type, typeList[i].count);
   }
 
-  // ReturnExitMenu(pro, StockMenu);
+  Return(pro, StockMenu, user, userState);
 }
 // 10.  Saber a informação sobre o(s) produto(s) com quantidade em stock mais baixa;
-void CheckLowStock(struct Products pro[][8])
+void CheckLowStock(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
   int min = 5;
@@ -731,10 +871,10 @@ void CheckLowStock(struct Products pro[][8])
   if (existProducts == 0)
     printf("\n\033[1mNo products\033[0m above %d.\n", min);
 
-  // ReturnExitMenu(pro, StockMenu);
+  Return(pro, StockMenu, user, userState);
 }
 // 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
-void RefillProducts(struct Products pro[][8])
+void RefillProducts(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -744,18 +884,18 @@ void RefillProducts(struct Products pro[][8])
   {
     for (int j = 0; j < 8; j++)
     {
-      if (strlen(pro[i][j].name) != 0)
+      if (strlen(pro[i][j].name) != 0 && pro[i][j].purchasable != 0)
       {
         pro[i][j].qty = 10;
       }
     }
   }
 
-  // ReturnExitMenu(pro, StockMenu);
+  Return(pro, StockMenu, user, userState);
 }
 
 // All Money Information Menu
-void MoneyMenu(struct Products pro[][8])
+void MoneyMenu(struct Products pro[][8], Users user[], int userState)
 {
   int choice = 1;
   int totalChoices = 4;
@@ -796,22 +936,22 @@ void MoneyMenu(struct Products pro[][8])
     switch (choice)
     {
     case 1:
-      // MachineMoney(pro);
+      MachineMoney(pro, user, userState);
       break;
     case 2:
-      // RemoveMoney(pro);
+      RemoveMoney(pro, user, userState);
       break;
     case 3:
-      // ClientMenu(pro);
+      AdminMenu(pro, user, userState);
       break;
     case 4:
-      // EndProgram();
+      EndProgram();
       break;
     }
   } while (wrongInput != 0);
 }
 // 7. Saber o valor, em €, acumulado na máquina até ao momento;
-void MachineMoney(struct Products pro[][8])
+void MachineMoney(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -826,10 +966,10 @@ void MachineMoney(struct Products pro[][8])
 
   printf("\nInside the machine there is a total of \033[4m\033[1m%.2lf€\033[0m\033[0m!\n", moneyOnMachine);
 
-  // ReturnExitMenu(pro, MoneyMenu);
+  Return(pro, MoneyMenu, user, userState);
 }
 // 8. Reabastecer a máquina e recolher o dinheiro existente na máquina;
-void RemoveMoney(struct Products pro[][8])
+void RemoveMoney(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
   printf("\nAll \033[1mmoney removed\033[0m from this vending machine.\n");
@@ -846,11 +986,11 @@ void RemoveMoney(struct Products pro[][8])
     }
   }
 
-  // ReturnExitMenu(pro, MoneyMenu);
+  Return(pro, MoneyMenu, user, userState);
 }
 
 // Products Menu
-void ProductMenu(struct Products pro[][8], Users user[])
+void ProductMenu(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -898,34 +1038,34 @@ void ProductMenu(struct Products pro[][8], Users user[])
     switch (choice)
     {
     case 1:
-      // CheckProduct(pro);
+      CheckProduct(pro, user, userState);
       break;
     case 2:
-      // insertProduct(pro);
+      InsertProduct(pro, user, userState);
       break;
     case 3:
-      // VerifyItemsToBeSold(pro);
+      VerifyItemsToBeSold(pro, user, userState);
       break;
     case 4:
-      // MoneyAverage(pro);
+      MoneyAverage(pro, user, userState);
       break;
     case 5:
-      // HighPrices(pro);
+      HighPrices(pro, user, userState);
       break;
     case 6:
-      // ChangeAllPrices(pro);
+      ChangeAllPrices(pro, user, userState);
       break;
     case 7:
-      // ClientMenu(pro, user);
+      AdminMenu(pro, user, userState);
       break;
     case 8:
-      // EndProgram();
+      EndProgram();
       break;
     }
   } while (wrongInput != 0);
 }
 // 1. Inserir um novo produto, dado o número da prateleira e posição.
-void insertProduct(struct Products pro[][8])
+void InsertProduct(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -1006,7 +1146,7 @@ void insertProduct(struct Products pro[][8])
       }
 
       if (wrongMonth == 1)
-        printf("This month \033[1mdoens't contain %d of days\033[0m.\n", pro[newRow][newColumn].expDate.day);
+        printf("This month \033[1mdoens't contain %d days\033[0m.\n", pro[newRow][newColumn].expDate.day);
 
       printf("\nProduct Expiration \033[1mMonth\033[0m:");
       if (scanf("%d", &pro[newRow][newColumn].expDate.month) != 1)
@@ -1029,7 +1169,8 @@ void insertProduct(struct Products pro[][8])
           pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 4 ||
           pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 6 ||
           pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 9 ||
-          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 11)
+          pro[newRow][newColumn].expDate.day == 31 && pro[newRow][newColumn].expDate.month == 11 ||
+          pro[newRow][newColumn].expDate.month > 12)
       {
         correctMonth = 0;
         wrongMonth = 1;
@@ -1049,12 +1190,7 @@ void insertProduct(struct Products pro[][8])
     } while (correctMonth == 0);
 
     int correctYear = 2;
-    time_t currentTime;
-    struct tm *localTime;
-    time(&currentTime);
-    localTime = localtime(&currentTime);
-    // Extract the year
-    int year = localTime->tm_year + 1900;
+    int year = GetTodayYear();
 
     do
     {
@@ -1123,10 +1259,10 @@ void insertProduct(struct Products pro[][8])
     printf("\n\033[1mNo available positions\033[0m in this Vending Machine\n");
   }
 
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 // 3. Listar a informação sobre um produto específico, dada a localização (prateleira e posição);
-void CheckProduct(struct Products pro[][8])
+void CheckProduct(struct Products pro[][8], Users user[], int userState)
 {
   // Clear the Terminal
   system("clear");
@@ -1155,10 +1291,10 @@ void CheckProduct(struct Products pro[][8])
   newRow--;
   newColumn--;
 
-  ProductOption(pro, newRow, newColumn);
+  ProductOption(pro, user, userState, newRow, newColumn);
 }
 // This ProductOption gives a menu to access the personal information about the Product Selected in CheckProduct
-void ProductOption(struct Products pro[][8], int xPos, int yPos)
+void ProductOption(struct Products pro[][8], Users user[], int userState, int xPos, int yPos)
 {
 
   ProductTotalInfo(pro[xPos][yPos], xPos, yPos);
@@ -1204,25 +1340,25 @@ void ProductOption(struct Products pro[][8], int xPos, int yPos)
     switch (choice)
     {
     case 1:
-      // AlterProductInformation(pro, xPos, yPos);
+      AlterProductInformation(pro, user, userState, xPos, yPos);
       break;
     case 2:
-      // RemoveProduct(pro, xPos, yPos);
+      RemoveProduct(pro, user, userState, xPos, yPos);
       break;
     case 3:
-      // CheckProduct(pro);
+      CheckProduct(pro, user, userState);
       break;
     case 4:
-      // ProductMenu(pro);
+      ProductMenu(pro, user, userState);
       break;
     case 5:
-      // EndProgram();
+      EndProgram();
       break;
     }
   } while (wrongInput != 0);
 }
 // 1. Inserir um novo produto, dado o número da prateleira e posição.
-void RemoveProduct(struct Products pro[][8], int xPos, int yPos)
+void RemoveProduct(struct Products pro[][8], Users user[], int userState, int xPos, int yPos)
 {
   system("clear");
 
@@ -1239,10 +1375,10 @@ void RemoveProduct(struct Products pro[][8], int xPos, int yPos)
   pro[xPos][yPos].qtySold = 0;
   pro[xPos][yPos].TotalSales = 0;
 
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 // This Function let me choose to alter personal information about a Product. At the Moment i can only alter the price
-void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
+void AlterProductInformation(struct Products pro[][8], Users user[], int userState, int xPos, int yPos)
 {
   system("clear");
 
@@ -1288,10 +1424,10 @@ void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
     switch (choice)
     {
     case 1:
-      ChangeProductPrice(pro, xPos, yPos);
+      ChangeProductPrice(pro, user, userState, xPos, yPos);
       break;
     case 2:
-      ProductOption(pro, xPos, yPos);
+      ProductMenu(pro, user, userState);
       break;
     case 3:
       EndProgram();
@@ -1300,7 +1436,7 @@ void AlterProductInformation(struct Products pro[][8], int xPos, int yPos)
   } while (wrongInput != 0);
 }
 // 5. Atualizar o preço de um determinado produto, identificado pelo utilizador;
-void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
+void ChangeProductPrice(struct Products pro[][8], Users user[], int userState, int xPos, int yPos)
 {
   int correctPriceInput = 1;
   int priceConfirmed = 0;
@@ -1379,10 +1515,11 @@ void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
     switch (choice)
     {
     case 1:
-      AlterProductInformation(pro, xPos, yPos);
+      // AlterProductInformation(pro, xPos, yPos);
+      AlterProductInformation(pro, user, userState, xPos, yPos);
       break;
     case 2:
-      ProductOption(pro, xPos, yPos);
+      ProductOption(pro, user, userState, xPos, yPos);
       break;
     case 3:
       EndProgram();
@@ -1391,7 +1528,7 @@ void ChangeProductPrice(struct Products pro[][8], int xPos, int yPos)
   } while (wrongInput != 0);
 }
 // 11.  Calcular a média dos preços dos produtos;
-void MoneyAverage(struct Products pro[][8])
+void MoneyAverage(struct Products pro[][8], Users user[], int userState)
 {
   double average = 0.0;
   int products = 0;
@@ -1432,10 +1569,10 @@ void MoneyAverage(struct Products pro[][8])
   if (areProducts == 0)
     printf("There are no products above the average.\n");
 
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 // 15.  Somatório do valor (em €) de todos os produtos armazenados na máquina (ainda não vendidos);
-void VerifyItemsToBeSold(struct Products pro[][8])
+void VerifyItemsToBeSold(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -1461,10 +1598,10 @@ void VerifyItemsToBeSold(struct Products pro[][8])
 
   printf("\n There is a total of \033[1m%.2lf€\033[0m in this Vending Machine.\n", total);
 
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 // 13.  Saber a informação sobre o(s) produto(s) com preço mais alto;
-void HighPrices(struct Products pro[][8])
+void HighPrices(struct Products pro[][8], Users user[], int userState)
 {
 
   system("clear");
@@ -1489,10 +1626,10 @@ void HighPrices(struct Products pro[][8])
   if (qtyProducts <= 0)
     printf("\n\033[1mNo Products\033[0m above the High Price.\n");
 
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 // 6. Atualizar, numa percentagem, o preço de todos os produtos;
-void ChangeAllPrices(struct Products pro[][8])
+void ChangeAllPrices(struct Products pro[][8], Users user[], int userState)
 {
   system("clear");
 
@@ -1577,8 +1714,7 @@ void ChangeAllPrices(struct Products pro[][8])
   {
     printf("\n\033[1mNo Products\033[0m in this vending machine.\n");
   }
-
-  // ReturnExitMenu(pro, ProductMenu);
+  Return(pro, ProductMenu, user, userState);
 }
 
 // Calculates the start product sales and difine the Product.TotalSales to the price * the quantity already sold. So if the price allters after the start count it doesnt influence the quantity money inside the machine before that change.
@@ -1744,7 +1880,7 @@ void ProductTotalInfo(struct Products product, int shelf, int productID)
 {
   system("clear");
 
-  printf("\n\t\033[4mSuccess Adding the following Product\033[0m\n\n");
+  printf("\n\t\033[4mProduct Information\033[0m\n\n");
   printf("Product Shelf: \033[1m%d \033[0m\n", 1 + shelf);
   printf("Product ID: \033[1m%d \033[0m\n", 1 + productID);
   printf("Product Type: \033[1m%s \033[0m\n", product.type);
@@ -1767,4 +1903,36 @@ void EndProgram()
   printf("\t*                           *\n");
   printf("\t*****************************\n");
   printf("\n");
+}
+
+int GetTodayYear()
+{
+  time_t currentTime;
+  struct tm *localTime;
+  time(&currentTime);
+  localTime = localtime(&currentTime);
+  // Extract the year
+  return localTime->tm_year + 1900;
+}
+
+void CheckAvailableProduct(struct Products product[][8])
+{
+  int year = GetTodayYear();
+
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      if (product[i][j].expDate.year < year)
+      {
+        strcpy(product[i][j].state, "Product Expired");
+        product[i][j].purchasable = 0;
+      }
+      else
+      {
+        strcpy(product[i][j].state, "Available");
+        product[i][j].purchasable = 1;
+      }
+    }
+  }
 }
