@@ -1251,6 +1251,7 @@ void InsertProduct(struct Products pro[][8], Users user[], int userState)
     } while (priceConfirmed != 1);
 
     pro[newRow][newColumn].qty = 10;
+    pro[newRow][newColumn].purchasable = 1;
 
     ProductTotalInfo(pro[newRow][newColumn], newRow, newColumn);
   }
