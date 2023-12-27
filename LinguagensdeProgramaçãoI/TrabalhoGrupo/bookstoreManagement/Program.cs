@@ -193,6 +193,14 @@ namespace bookstoreManagement
 
       return choice;
     }
+    static void ReturnMenu(List<Employee> employees, Manager manager, Action<List<Employee>, Manager> menu)
+    {
+      var menuOptions = new List<string> { "Return" };
+      int choice = Menu(menuOptions, employees[manager.id - 1]);
+
+      // Invoke the provided menu function
+      menu(employees, manager);
+    }
 
     static void ManagerMenu(List<Employee> employees, Manager manager)
     {
@@ -240,18 +248,6 @@ namespace bookstoreManagement
           break;
       }
     }
-
-    static void ReturnMenu(List<Employee> employees, Manager manager, Action<List<Employee>, Manager> menu)
-    {
-      var menuOptions = new List<string> { "Return" };
-      int choice = Menu(menuOptions, employees[manager.id - 1]);
-
-      // Invoke the provided menu function
-      menu(employees, manager);
-    }
-
-
-
 
 
     static void StockerMenu(List<Employee> employees, Stocker stocker)
