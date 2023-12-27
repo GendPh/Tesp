@@ -15,8 +15,7 @@
   {
     void showUsers(List<Employee> listUsers);
     void addUsers(List<Employee> listUsers);
-    void removeUsers(List<Employee> listUsers);
-    void promoteUsers(List<Employee> listUsers);
+    void removeUsers(List<Employee> listUsers, Manager manager);
   }
 
 }

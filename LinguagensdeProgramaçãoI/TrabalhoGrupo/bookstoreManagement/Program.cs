@@ -20,27 +20,65 @@ namespace bookstoreManagement
       #region List of users
       List<Employee> employees = new List<Employee>
             {
-                new Manager(2, "Olivia", "Teste2", 2),
-                new Stocker(3, "Jackson", "Teste3", 3),
-                new Cashier(4, "Maya", "Teste4", 4),
+                new Manager(1, "Olivia", "Teste2", "Manager"),
+                new Stocker(2, "Jackson", "Teste3", "Stocker"),
+                new Cashier(3, "Maya", "Teste4", "Cashier"),
+                new Manager(4, "Gabriel", "Teste2", "Manager"),
             };
       #endregion
 
+      StartProgram(employees, books);
+    }
+    static void StartProgram(List<Employee> employees)
+    {
       int employee = Login(employees);
       string? employeeName = employees[employee].name;
 
       if (employees[employee] is Manager manager)
       {
-        ManagerMenu(employees, employeeName);
+        ManagerMenu(employees, manager);
+        //manager.removeUsers(employees);
+
       }
       else if (employees[employee] is Stocker stocker)
       {
-        StockerMenu(books, employeeName);
+        StockerMenu(employees, stocker);
       }
       else if (employees[employee] is Cashier cashier)
       {
-        CashierMenu(books, employeeName);
+        CashierMenu(employees, cashier);
       }
+    }
+    static void StartProgram(List<Employee> employees, List<Book> bookList)
+    {
+      int employee = /* Login(employees) */ 0;
+      string? employeeName = employees[employee].name;
+
+      if (employees[employee] is Manager manager)
+      {
+        ManagerMenu(employees, manager);
+      }
+      else if (employees[employee] is Stocker stocker)
+      {
+        StockerMenu(employees, stocker);
+      }
+      else if (employees[employee] is Cashier cashier)
+      {
+        CashierMenu(employees, cashier);
+      }
+    }
+
+    static string UnderlineText(string? input)
+    {
+      // ASCII escape sequence for underline: \x1B[4m
+      // ASCII escape sequence to reset formatting: \x1B[0m
+      return $"\x1B[4m{input}\x1B[0m";
+    }
+    static string BoldText(string? input)
+    {
+      // ASCII escape sequence for bold: \x1B[1m
+      // ASCII escape sequence to reset formatting: \x1B[0m
+      return $"\x1B[1m{input}\x1B[0m";
     }
 
     static int Login(List<Employee> employees)
@@ -116,81 +154,31 @@ namespace bookstoreManagement
       return index;
     }
 
-    static void ManagerMenu(List<Employee> employees, string? employeeName)
-    {
-      var menuOptions = new List<string> { "Users", "Return" };
-      int choice = Menu(menuOptions, employeeName, "Manager");
-
-      switch (choice)
-      {
-        case 1:
-          System.Console.WriteLine("Option 1");
-          break;
-        case 2:
-          break;
-      }
-    }
-    static void StockerMenu(List<Book> books, string? employeeName)
-    {
-      var menuOptions = new List<string> { "Books", "Return" };
-      int choice = Menu(menuOptions, employeeName, "Stocker");
-
-      switch (choice)
-      {
-        case 1:
-          System.Console.WriteLine("Option 1");
-          break;
-        case 2:
-          System.Console.WriteLine("Option 2");
-          break;
-      }
-    }
-    static void CashierMenu(List<Book> books, string? employeeName)
-    {
-      var menuOptions = new List<string> { "Buy Book", "Sell Book", "Return" };
-      int choice = Menu(menuOptions, employeeName, "Cashier");
-
-      switch (choice)
-      {
-        case 1:
-          System.Console.WriteLine("Option 1");
-          break;
-        case 2:
-          System.Console.WriteLine("Option 2");
-          break;
-        case 3:
-          System.Console.WriteLine("Option 3");
-          break;
-      }
-    }
-
-    static int Menu(List<string> menuOptions, string? employeeName, string? Position)
+    static int Menu(List<string> menuOptions, Employee employee)
     {
       bool correctChoice = true;
       int choice = 0;
 
       do
       {
-        Console.Clear();
-        System.Console.WriteLine($"Welcome {Position} {employeeName}!");
-        System.Console.WriteLine("");
-        System.Console.WriteLine($"{Position} Menu");
-        System.Console.WriteLine("");
+        if (!correctChoice)
+        {
+          Console.Clear();
+        }
+
+        System.Console.WriteLine($"\t{employee.position} Menu\n");
 
         for (int i = 0; i < menuOptions.Count; i++)
         {
           Console.WriteLine($"{i + 1}. {menuOptions[i]}");
         }
 
-        System.Console.WriteLine("");
-
         if (!correctChoice)
         {
-          System.Console.WriteLine($"Please insert a valid input between 1 and {menuOptions.Count}");
-          System.Console.WriteLine("");
+          System.Console.WriteLine($"\n\tPlease insert a valid input between 1 and {menuOptions.Count}");
         }
 
-        System.Console.Write("Choice: ");
+        System.Console.Write("\nChoice: ");
         try
         {
           choice = Convert.ToInt32(Console.ReadLine());
@@ -205,5 +193,99 @@ namespace bookstoreManagement
 
       return choice;
     }
+
+    static void ManagerMenu(List<Employee> employees, Manager manager)
+    {
+      Console.Clear();
+
+      Console.WriteLine($"\n{BoldText(manager.position)} {UnderlineText(manager.name)} {BoldText("ID")} {UnderlineText(manager.id.ToString())}\n");
+
+      var menuOptions = new List<string> { "Users", "Log Out" };
+      int choice = Menu(menuOptions, employees[manager.id - 1]);
+
+      switch (choice)
+      {
+        case 1:
+          UsersMenu(employees, manager);
+          break;
+        case 2:
+          StartProgram(employees);
+          break;
+      }
+    }
+    static void UsersMenu(List<Employee> employees, Manager manager)
+    {
+      Console.Clear();
+      manager.showUsers(employees);
+
+      var menuOptions = new List<string> { "Add User", "Remove User", "Change Role", "Return" };
+      int choice = Menu(menuOptions, employees[manager.id - 1]);
+
+      switch (choice)
+      {
+        case 1:
+          manager.addUsers(employees);
+          ReturnMenu(employees, manager, UsersMenu);
+          break;
+        case 2:
+          manager.removeUsers(employees, manager);
+          ReturnMenu(employees, manager, UsersMenu);
+          break;
+        case 3:
+          manager.promoteUsers(employees, manager);
+          ReturnMenu(employees, manager, UsersMenu);
+          break;
+        case 4:
+          ManagerMenu(employees, manager);
+          break;
+      }
+    }
+
+    static void ReturnMenu(List<Employee> employees, Manager manager, Action<List<Employee>, Manager> menu)
+    {
+      var menuOptions = new List<string> { "Return" };
+      int choice = Menu(menuOptions, employees[manager.id - 1]);
+
+      // Invoke the provided menu function
+      menu(employees, manager);
+    }
+
+
+
+
+
+    static void StockerMenu(List<Employee> employees, Stocker stocker)
+    {
+      Console.Clear();
+      var menuOptions = new List<string> { "stocker", "Return" };
+      int choice = Menu(menuOptions, employees[stocker.id - 1]);
+
+      switch (choice)
+      {
+        case 1:
+          System.Console.WriteLine("1");
+          break;
+        case 2:
+          System.Console.WriteLine("Return");
+          break;
+      }
+    }
+    static void CashierMenu(List<Employee> employees, Cashier cashier)
+    {
+      Console.Clear();
+      var menuOptions = new List<string> { "Cashier", "Return" };
+      int choice = Menu(menuOptions, employees[cashier.id - 1]);
+
+      switch (choice)
+      {
+        case 1:
+          System.Console.WriteLine("1");
+          break;
+        case 2:
+          System.Console.WriteLine("Return");
+          break;
+      }
+    }
+
   }
 }
