@@ -1,16 +1,30 @@
 ﻿namespace bookstoreManagement
 {
+
   public class Employee
   {
-    protected string name { get; set; }
-    protected string password { get; set; }
+    public int id { get; protected set; }
+    public string name { get; protected set; }
+    public string password { get; protected set; }
 
-    public Employee(string name, string password)
+    // Position 1: Admin; 2: Manager; 3: Stocker; 4: Cashier;
+    public int position { get; protected set; }
+
+    public Employee(int id, string name, string password, int position)
     {
+      this.id = id;
       this.name = name;
       this.password = password;
+      this.position = position;
     }
 
+    public void PrintEmployeeDetails()
+    {
+      System.Console.WriteLine($"Manager ID: {id}");
+      System.Console.WriteLine($"Manager Name: {name}");
+      System.Console.WriteLine($"Manager Password: {password}");
+      System.Console.WriteLine($"Manager Position: {position}");
+    }
     public void consultBookList(List<Book> bookList)
     {
       foreach (Book book in bookList)
@@ -122,17 +136,96 @@
     }
   }
 
-  public class Cashier : Employee
+  public class Stocker : Employee, AbsStocker
+  {
+    public Stocker(int id, string name, string password, int position) : base(id, name, password, position) { }
+
+    public void addBook(List<Book> listBook)
+    {
+      System.Console.WriteLine($"Stocker ID: {id}");
+      System.Console.WriteLine($"Stocker Name: {name}");
+      System.Console.WriteLine($"Stocker Password: {password}");
+      System.Console.WriteLine($"Stocker Position: {position}");
+    }
+    public void removeBook(List<Book> listBook)
+    {
+      System.Console.WriteLine($"Stocker ID: {id}");
+      System.Console.WriteLine($"Stocker Name: {name}");
+      System.Console.WriteLine($"Stocker Password: {password}");
+      System.Console.WriteLine($"Stocker Position: {position}");
+    }
+    public void updateBook(List<Book> listBook)
+    {
+      System.Console.WriteLine($"Stocker ID: {id}");
+      System.Console.WriteLine($"Stocker Name: {name}");
+      System.Console.WriteLine($"Stocker Password: {password}");
+      System.Console.WriteLine($"Stocker Position: {position}");
+    }
+  }
+  public class Manager : Employee, AbsManager
+  {
+    public Manager(int id, string name, string password, int position) : base(id, name, password, position) { }
+
+    public void showUsers(List<Employee> listUsers)
+    {
+      foreach (Employee user in listUsers)
+      {
+        System.Console.WriteLine($"Manager ID: {id}");
+        System.Console.WriteLine($"Manager Name: {name}");
+        System.Console.WriteLine($"Manager Password: {password}");
+        System.Console.WriteLine($"Manager Position: {position}");
+        System.Console.WriteLine("");
+      }
+    }
+    public void addUsers(List<Employee> listUsers)
+    {
+      System.Console.WriteLine($"Manager ID: {id}");
+      System.Console.WriteLine($"Manager Name: {name}");
+      System.Console.WriteLine($"Manager Password: {password}");
+      System.Console.WriteLine($"Manager Position: {position}");
+
+    }
+    public void removeUsers(List<Employee> listUsers)
+    {
+      System.Console.WriteLine($"Manager ID: {id}");
+      System.Console.WriteLine($"Manager Name: {name}");
+      System.Console.WriteLine($"Manager Password: {password}");
+      System.Console.WriteLine($"Manager Position: {position}");
+    }
+    public void promoteUsers(List<Employee> listUsers)
+    {
+      System.Console.WriteLine($"Manager ID: {id}");
+      System.Console.WriteLine($"Manager Name: {name}");
+      System.Console.WriteLine($"Manager Password: {password}");
+      System.Console.WriteLine($"Manager Position: {position}");
+    }
+
+  }
+  public class Cashier : Employee, AbsCashier
   {
     private int booksSold { get; set; }
     private int booksBought { get; set; }
     private double moneyEarned { get; set; }
 
-    public Cashier(string name, string password) : base(name, password)
+    public Cashier(int id, string name, string password, int position) : base(id, name, password, position)
     {
       booksBought = 0;
       booksSold = 0;
       moneyEarned = 0;
+    }
+    public void sellBook(List<Book> listBook)
+    {
+      System.Console.WriteLine($"Cashier ID: {id}");
+      System.Console.WriteLine($"Cashier Name: {name}");
+      System.Console.WriteLine($"Cashier Password: {password}");
+      System.Console.WriteLine($"Cashier Position: {position}");
+    }
+    public void buyBook(List<Book> listBook)
+    {
+      System.Console.WriteLine($"Cashier ID: {id}");
+      System.Console.WriteLine($"Cashier Name: {name}");
+      System.Console.WriteLine($"Cashier Password: {password}");
+      System.Console.WriteLine($"Cashier Position: {position}");
     }
   }
 }
