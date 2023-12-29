@@ -11,9 +11,26 @@ namespace bookstoreManagement
       List<Book> books = new List<Book>
             {
                 // Initialize the list with 20 Book objects
-                new Book(1,"The Great Gatsby", "F. Scott Fitzgerald", "978-3-16-148410-0", "Fiction", 15.45, 0,50),
-                // ... (other book entries)
-                new Book(20,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 0,50)
+                new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 0,50),
+                new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 0, 50),
+                new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 0, 50),
+                new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 0, 50),
+                new Book(5, "Pride and Prejudice", "Jane Austen", "978-0-48-640648-5", "Romance", 11.50, 0, 50),
+                new Book(6, "The Hobbit", "J.R.R. Tolkien", "978-0-26-110334-4", "Fantasy", 18.99, 0, 50),
+                new Book(7, "The Lord of the Rings", "J.R.R. Tolkien", "978-0-54-457221-1", "Fantasy", 27.99, 0, 50),
+                new Book(8, "Brave New World", "Aldous Huxley", "978-0-60-641322-3", "Dystopian", 13.20, 0, 50),
+                new Book(9, "The Great Gatsby", "F. Scott Fitzgerald", "978-0-74-327356-5", "Fiction", 16.00, 0, 50),
+                new Book(10, "Moby-Dick", "Herman Melville", "978-1-58-049580-9", "Adventure", 22.45, 0, 50),
+                new Book(11, "Frankenstein", "Mary Shelley", "978-0-48-628211-4", "Gothic", 14.99, 0, 50),
+                new Book(12, "The Picture of Dorian Gray", "Oscar Wilde", "978-0-14-143957-0", "Gothic", 9.75, 0, 50),
+                new Book(13, "Crime and Punishment", "Fyodor Dostoevsky", "978-0-67-973450-5", "Psychological Fiction", 17.80, 0, 50),
+                new Book(14, "The Odyssey", "Homer", "978-0-14-303995-2", "Epic", 11.30, 0, 50),
+                new Book(15, "The Road", "Cormac McCarthy", "978-0-30-738789-9", "Post-Apocalyptic", 16.85, 0, 50),
+                new Book(16, "The Alchemist", "Paulo Coelho", "978-0-06-112241-5", "Philosophical", 14.50, 0, 50),
+                new Book(17, "The Brothers Karamazov", "Fyodor Dostoevsky", "978-0-14-119861-9", "Philosophical", 19.25, 0, 50),
+                new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 0, 50),
+                new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 0, 50),
+                new Book(20, "War and Peace", "Leo Tolstoy", "978-1-86-050940-6", "Historical Fiction", 24.99, 0, 50),
             };
       #endregion
 
@@ -29,34 +46,14 @@ namespace bookstoreManagement
 
       StartProgram(employees, books);
     }
-    static void StartProgram(List<Employee> employees)
+    static void StartProgram(List<Employee> employees, List<Book> books)
     {
-      int employee = Login(employees);
+      int employee = /* Login(employees) */0;
       string? employeeName = employees[employee].name;
 
       if (employees[employee] is Manager manager)
       {
-        ManagerMenu(employees, manager);
-        //manager.removeUsers(employees);
-
-      }
-      else if (employees[employee] is Stocker stocker)
-      {
-        StockerMenu(employees, stocker);
-      }
-      else if (employees[employee] is Cashier cashier)
-      {
-        CashierMenu(employees, cashier);
-      }
-    }
-    static void StartProgram(List<Employee> employees, List<Book> bookList)
-    {
-      int employee = /* Login(employees) */ 0;
-      string? employeeName = employees[employee].name;
-
-      if (employees[employee] is Manager manager)
-      {
-        ManagerMenu(employees, manager);
+        ManagerMenu(employees, manager, books);
       }
       else if (employees[employee] is Stocker stocker)
       {
@@ -68,18 +65,6 @@ namespace bookstoreManagement
       }
     }
 
-    static string UnderlineText(string? input)
-    {
-      // ASCII escape sequence for underline: \x1B[4m
-      // ASCII escape sequence to reset formatting: \x1B[0m
-      return $"\x1B[4m{input}\x1B[0m";
-    }
-    static string BoldText(string? input)
-    {
-      // ASCII escape sequence for bold: \x1B[1m
-      // ASCII escape sequence to reset formatting: \x1B[0m
-      return $"\x1B[1m{input}\x1B[0m";
-    }
 
     static int Login(List<Employee> employees)
     {
@@ -166,7 +151,7 @@ namespace bookstoreManagement
           Console.Clear();
         }
 
-        System.Console.WriteLine($"\t{employee.position} Menu\n");
+        System.Console.WriteLine($"\t{employee.name} Menu\n");
 
         for (int i = 0; i < menuOptions.Count; i++)
         {
@@ -193,62 +178,115 @@ namespace bookstoreManagement
 
       return choice;
     }
-    static void ReturnMenu(List<Employee> employees, Manager manager, Action<List<Employee>, Manager> menu)
+    static void ReturnMenu(Action menu)
+    {
+      menu();
+    }
+    static void ReturnMenu(Employee employee, Action menu)
     {
       var menuOptions = new List<string> { "Return" };
-      int choice = Menu(menuOptions, employees[manager.id - 1]);
+      int choice = Menu(menuOptions, employee);
 
       // Invoke the provided menu function
-      menu(employees, manager);
+      menu();
     }
 
-    static void ManagerMenu(List<Employee> employees, Manager manager)
+    static void ManagerMenu(List<Employee> employees, Employee employee, List<Book> books)
     {
       Console.Clear();
 
-      Console.WriteLine($"\n{BoldText(manager.position)} {UnderlineText(manager.name)} {BoldText("ID")} {UnderlineText(manager.id.ToString())}\n");
-
-      var menuOptions = new List<string> { "Users", "Log Out" };
-      int choice = Menu(menuOptions, employees[manager.id - 1]);
-
-      switch (choice)
+      if (employee is Manager manager)
       {
-        case 1:
-          UsersMenu(employees, manager);
-          break;
-        case 2:
-          StartProgram(employees);
-          break;
+        Console.WriteLine($"\n{manager.position} {manager.name} ID {manager.id}\n");
+
+        var menuOptions = new List<string> { "Users", "Books", "Log Out" };
+        int choice = Menu(menuOptions, manager);
+
+        switch (choice)
+        {
+          case 1:
+            UsersMenu(employees, manager, books);
+            break;
+          case 2:
+            BooksMenu(employees, manager, books);
+            break;
+          case 3:
+            StartProgram(employees, books);
+            break;
+        }
       }
     }
-    static void UsersMenu(List<Employee> employees, Manager manager)
+    static void UsersMenu(List<Employee> employees, Employee employee, List<Book> books)
     {
       Console.Clear();
-      manager.showUsers(employees);
+      if (employee is Manager manager)
+      {
 
-      var menuOptions = new List<string> { "Add User", "Remove User", "Change Role", "Return" };
-      int choice = Menu(menuOptions, employees[manager.id - 1]);
+        manager.showUsers(employees);
+
+        var menuOptions = new List<string> { "Add User", "Remove User", "Change Role", "Return" };
+        int choice = Menu(menuOptions, manager);
+
+        switch (choice)
+        {
+          case 1:
+            manager.addUsers(employees);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            break;
+          case 2:
+            manager.removeUsers(employees, manager);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            break;
+          case 3:
+            manager.promoteUsers(employees, manager);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            break;
+          case 4:
+            ManagerMenu(employees, manager, books);
+            break;
+        }
+      }
+      else
+      {
+        System.Console.WriteLine("You are not allowed here.");
+      }
+    }
+
+    static void BooksMenu(List<Employee> employees, Employee employee, List<Book> books)
+    {
+      Console.Clear();
+      System.Console.WriteLine("");
+      var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Return" };
+      int choice = Menu(menuOptions, employee);
 
       switch (choice)
       {
         case 1:
-          manager.addUsers(employees);
-          ReturnMenu(employees, manager, UsersMenu);
+          employee.consultBookList(books);
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
           break;
         case 2:
-          manager.removeUsers(employees, manager);
-          ReturnMenu(employees, manager, UsersMenu);
+          employee.consultBookByCode(books);
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
           break;
         case 3:
-          manager.promoteUsers(employees, manager);
-          ReturnMenu(employees, manager, UsersMenu);
+          employee.consultBookByGenre(books);
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
           break;
         case 4:
-          ManagerMenu(employees, manager);
+          employee.consultBookByAuthor(books);
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          break;
+        case 5:
+          employee.consultStock(books);
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          break;
+        case 6:
+          ReturnMenu(() => ManagerMenu(employees, employee, books));
           break;
       }
-    }
 
+    }
 
     static void StockerMenu(List<Employee> employees, Stocker stocker)
     {

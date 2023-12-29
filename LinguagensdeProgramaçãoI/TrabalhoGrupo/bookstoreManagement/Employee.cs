@@ -16,120 +16,139 @@
       this.position = position;
     }
 
-    public void PrintEmployeeDetails()
+    public void printBookDetail(Book book)
     {
-      System.Console.WriteLine($"Manager ID: {id}");
-      System.Console.WriteLine($"Manager Name: {name}");
-      System.Console.WriteLine($"Manager Password: {password}");
-      System.Console.WriteLine($"Manager Position: {position}");
+      Console.WriteLine($"Code: {book.Code}");
+      Console.WriteLine($"Title: {book.Title}");
+      Console.WriteLine($"Author: {book.Author}");
+      Console.WriteLine($"ISBN: {book.ISBN}");
+      Console.WriteLine($"Genre: {book.Genre}");
+      Console.WriteLine($"Price: {book.Price:C}");
+      Console.WriteLine($"IVA: {book.Iva}%");
+      Console.WriteLine($"Stock: {book.Stock}");
+      Console.WriteLine($"Sold: {book.Sold}\n");
     }
     public void consultBookList(List<Book> bookList)
     {
+      Console.Clear();
+
       foreach (Book book in bookList)
       {
-        Console.WriteLine($"Code: {book.code}");
-        Console.WriteLine($"Title: {book.title}");
-        Console.WriteLine($"Author: {book.author}");
-        Console.WriteLine($"ISBN: {book.ISBN}");
-        Console.WriteLine($"Genre: {book.genre}");
-        Console.WriteLine($"Price: {book.price:C}");
-        Console.WriteLine($"IVA: {book.iva}%");
-        Console.WriteLine($"Stock: {book.stock}");
-        Console.WriteLine($"Sold: {book.sold}");
-        Console.WriteLine();
+        printBookDetail(book);
       }
     }
-    public void consultBookByCode(List<Book> bookList, int Code)
+    public void consultBookByCode(List<Book> bookList)
     {
       Console.Clear();
 
-      int size = bookList.Count;
+      string? targetISBN = "978-0-06-112008-4";
 
-      if (Code >= 1 && Code <= size)
+      System.Console.Write("Insert a ISBN (978-0-06-112008-4): ");
+
+      targetISBN = Console.ReadLine();
+
+      System.Console.WriteLine("");
+
+      Book? book = bookList.Find(e => e.ISBN == targetISBN);
+
+      if (book != null)
       {
-        for (int i = 0; i < size; i++)
-        {
-          if (bookList[i].code == Code)
-          {
-            Console.WriteLine($"Code: {bookList[i].code}");
-            Console.WriteLine($"Title: {bookList[i].title}");
-            Console.WriteLine($"Author: {bookList[i].author}");
-            Console.WriteLine($"ISBN: {bookList[i].ISBN}");
-            Console.WriteLine($"Genre: {bookList[i].genre}");
-            Console.WriteLine($"Price: {bookList[i].price:C}");
-            Console.WriteLine($"IVA: {bookList[i].iva}%");
-            Console.WriteLine($"Stock: {bookList[i].stock}");
-            Console.WriteLine($"Sold: {bookList[i].sold}");
-            break;
-          }
-        }
+        printBookDetail(book);
       }
       else
       {
-        System.Console.WriteLine("Wasn't able to find this book");
+        Console.WriteLine($"Book with ISBN {targetISBN} not found.\n");
       }
     }
     public void consultStock(List<Book> bookList)
     {
-      int totalStock = 0;
+      Console.Clear();
+
+      int stock = 0;
+
       foreach (Book book in bookList)
       {
-        totalStock += book.stock;
+        stock += book.Stock;
       }
-      System.Console.WriteLine($"There are a total of {totalStock} books.");
-    }
-    public void consultBookByGenre(List<Book> bookList, string Genre)
-    {
-      int exist = 0;
 
-      for (int i = 0; i < bookList.Count; i++)
+      System.Console.WriteLine($"\nThere is a total of {stock} books available.\n");
+    }
+    public void consultBookByGenre(List<Book> bookList)
+    {
+      Console.Clear();
+
+      List<string> allGenres = bookList.Select(book => book.Genre).Distinct().ToList();
+
+      // Display the list of genres
+      Console.WriteLine("\nList of all genres:\n");
+
+      for (int index = 0; index < allGenres.Count; index++)
       {
-        if (bookList[i].genre.ToLowerInvariant().Contains(Genre.ToLowerInvariant()))
+        Console.WriteLine($"\t{index + 1}. {allGenres[index]};");
+      }
+
+      string? genreSelected;
+      System.Console.Write("\nSelect one off the genres above: ");
+      genreSelected = Console.ReadLine();
+
+      if (genreSelected == null)
+        genreSelected = "Empty";
+
+
+      List<Book>? selectedBooks = bookList.Where(book => book.Genre.ToLower() == genreSelected.ToLower()).ToList();
+
+      Console.Clear();
+      System.Console.WriteLine("");
+
+      if (selectedBooks != null && selectedBooks.Count > 0)
+      {
+        foreach (Book book in selectedBooks)
         {
-          exist = 1;
-          Console.WriteLine($"Code: {bookList[i].code}");
-          Console.WriteLine($"Title: {bookList[i].title}");
-          Console.WriteLine($"Author: {bookList[i].author}");
-          Console.WriteLine($"ISBN: {bookList[i].ISBN}");
-          Console.WriteLine($"Genre: {bookList[i].genre}");
-          Console.WriteLine($"Price: {bookList[i].price:C}");
-          Console.WriteLine($"IVA: {bookList[i].iva}%");
-          Console.WriteLine($"Stock: {bookList[i].stock}");
-          Console.WriteLine($"Sold: {bookList[i].sold}");
-          Console.WriteLine("");
+          printBookDetail(book);
         }
       }
-
-      if (exist == 0)
+      else
       {
-        Console.WriteLine($"No books found with the genre {Genre}.");
+        System.Console.WriteLine($"No books found with the genre {genreSelected}.\n");
       }
     }
-    public void consultBookByAuthor(List<Book> bookList, string Author)
+    public void consultBookByAuthor(List<Book> bookList)
     {
-      int exist = 0;
+      Console.Clear();
 
-      for (int i = 0; i < bookList.Count; i++)
+      List<string> allAuthors = bookList.Select(book => book.Author).Distinct().ToList();
+
+      // Display the list of genres
+      Console.WriteLine("\nList of all Authors:\n");
+
+      for (int index = 0; index < allAuthors.Count; index++)
       {
-        if (bookList[i].author.ToLowerInvariant().Contains(Author.ToLowerInvariant()))
-        {
-          exist = 1;
-          Console.WriteLine($"Code: {bookList[i].code}");
-          Console.WriteLine($"Title: {bookList[i].title}");
-          Console.WriteLine($"Author: {bookList[i].author}");
-          Console.WriteLine($"ISBN: {bookList[i].ISBN}");
-          Console.WriteLine($"Genre: {bookList[i].genre}");
-          Console.WriteLine($"Price: {bookList[i].price:C}");
-          Console.WriteLine($"IVA: {bookList[i].iva}%");
-          Console.WriteLine($"Stock: {bookList[i].stock}");
-          Console.WriteLine($"Sold: {bookList[i].sold}");
-          Console.WriteLine("");
-        }
+        Console.WriteLine($"\t{index + 1}. {allAuthors[index]};");
       }
 
-      if (exist == 0)
+      string? authorSelected;
+      System.Console.Write("\nSelect one off the Authors above: ");
+      authorSelected = Console.ReadLine();
+
+      if (authorSelected == null)
+        authorSelected = "Empty";
+
+
+      List<Book>? selectedAuthors = bookList.Where(book => book.Author.ToLower().Contains(authorSelected.ToLower())).ToList();
+
+      Console.Clear();
+      System.Console.WriteLine("");
+
+      if (selectedAuthors != null && selectedAuthors.Count > 0)
       {
-        Console.WriteLine($"No books found with the genre {Author}.");
+        foreach (Book book in selectedAuthors)
+        {
+          printBookDetail(book);
+        }
+      }
+      else
+      {
+        System.Console.WriteLine($"No books found with the Author {authorSelected}.\n");
       }
     }
   }
@@ -150,8 +169,7 @@
         System.Console.WriteLine($"Employee ID: {listUsers[i].id}");
         System.Console.WriteLine($"Employee Name: {listUsers[i].name}");
         System.Console.WriteLine($"Employee Password: {listUsers[i].password}");
-        System.Console.WriteLine($"Employee Position: {listUsers[i].position}");
-        System.Console.WriteLine("");
+        System.Console.WriteLine($"Employee Position: {listUsers[i].position}\n");
       }
     }
     public void addUsers(List<Employee> listUsers)
