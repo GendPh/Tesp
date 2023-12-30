@@ -48,7 +48,7 @@ namespace bookstoreManagement
     }
     static void StartProgram(List<Employee> employees, List<Book> books)
     {
-      int employee = /* Login(employees) */0;
+      int employee = /* Login(employees) */1;
       string? employeeName = employees[employee].name;
 
       if (employees[employee] is Manager manager)
@@ -57,11 +57,11 @@ namespace bookstoreManagement
       }
       else if (employees[employee] is Stocker stocker)
       {
-        StockerMenu(employees, stocker);
+        StockerMenu(employees, stocker, books);
       }
       else if (employees[employee] is Cashier cashier)
       {
-        CashierMenu(employees, cashier);
+        //CashierMenu(employees, cashier);
       }
     }
 
@@ -256,6 +256,7 @@ namespace bookstoreManagement
     {
       Console.Clear();
       System.Console.WriteLine("");
+
       var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Return" };
       int choice = Menu(menuOptions, employee);
 
@@ -285,30 +286,64 @@ namespace bookstoreManagement
           ReturnMenu(() => ManagerMenu(employees, employee, books));
           break;
       }
-
     }
 
-    static void StockerMenu(List<Employee> employees, Stocker stocker)
+    static void StockerMenu(List<Employee> employees, Employee employee, List<Book> books)
     {
       Console.Clear();
-      var menuOptions = new List<string> { "stocker", "Return" };
-      int choice = Menu(menuOptions, employees[stocker.id - 1]);
+      System.Console.WriteLine("");
 
-      switch (choice)
+      if (employee is Stocker stocker)
       {
-        case 1:
-          System.Console.WriteLine("1");
-          break;
-        case 2:
-          System.Console.WriteLine("Return");
-          break;
+        var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Add Book", "Remove Book", "Update Book", "Log Out" };
+        int choice = Menu(menuOptions, employee);
+
+        switch (choice)
+        {
+          case 1:
+            employee.consultBookList(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 2:
+            employee.consultBookByCode(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 3:
+            employee.consultBookByGenre(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 4:
+            employee.consultBookByAuthor(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 5:
+            employee.consultStock(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 6:
+            stocker.addBook(books);
+            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            break;
+          case 7:
+            // Remove
+            break;
+          case 8:
+            // Update
+            break;
+          case 9:
+            StartProgram(employees, books);
+            break;
+        }
       }
     }
-    static void CashierMenu(List<Employee> employees, Cashier cashier)
+
+
+
+    static void CashierMenu(List<Employee> employees, Employee employee, List<Book> books)
     {
       Console.Clear();
       var menuOptions = new List<string> { "Cashier", "Return" };
-      int choice = Menu(menuOptions, employees[cashier.id - 1]);
+      int choice = Menu(menuOptions, employee);
 
       switch (choice)
       {

@@ -653,10 +653,206 @@
 
     public void addBook(List<Book> listBook)
     {
-      System.Console.WriteLine($"Stocker ID: {id}");
-      System.Console.WriteLine($"Stocker Name: {name}");
-      System.Console.WriteLine($"Stocker Password: {password}");
-      System.Console.WriteLine($"Stocker Position: {position}");
+      Console.Clear();
+
+      bool createdBook = false;
+      Random random = new Random();
+
+      int id = listBook[listBook.Count - 1].Code + 1;
+      string? titleBook;
+      string? authorBook;
+      string? newISBN;
+      string? genreBook;
+      float priceBook = 0;
+      int ivaBook = random.Next(0, 2) == 0 ? 6 : 23;
+      int stockBook = 50;
+
+      do
+      {
+        System.Console.WriteLine("\nAdd a new Book by entering:\n - Book Id;\n - Book Title;\n - Book Author;\n - Book ISBN;\n - Book Genre;\n - Book Price;\n - Iva;\n - Stock;\n - Sold;\n\nThe system will assign a unique ID, ISBN and Iva.\n");
+
+
+        bool possibleTitle = true;
+        do
+        {
+          if (!possibleTitle)
+          {
+            Console.Clear();
+            System.Console.WriteLine("\nPlease insert a title.");
+          }
+
+          System.Console.Write("Book Title: ");
+          titleBook = Console.ReadLine();
+
+          if (string.IsNullOrEmpty(titleBook))
+          {
+            possibleTitle = false;
+          }
+          else
+          {
+            possibleTitle = true;
+          }
+
+        } while (!possibleTitle);
+
+        bool possibleAuthor = true;
+        do
+        {
+          if (!possibleAuthor)
+          {
+            Console.Clear();
+            System.Console.WriteLine("\nPlease insert a Author.");
+          }
+
+          System.Console.Write("Book Author: ");
+          authorBook = Console.ReadLine();
+
+          if (string.IsNullOrEmpty(authorBook))
+          {
+            possibleAuthor = false;
+          }
+          else
+          {
+            possibleAuthor = true;
+          }
+
+        } while (!possibleAuthor);
+
+        bool availableISBN = true;
+        do
+        {
+          int part1 = random.Next(0, 1000);
+          int part2 = random.Next(0, 10);
+          int part3 = random.Next(0, 100);
+          int part4 = random.Next(0, 1000000);
+          int part5 = random.Next(0, 10);
+
+          newISBN = $"{part1:D3}-{part2}-{part3}-{part4:D5}-{part5}";
+
+          for (int i = 0; i < listBook.Count; i++)
+          {
+            if (listBook[i].ISBN == newISBN)
+            {
+              availableISBN = false;
+              break;
+            }
+          }
+        } while (!availableISBN);
+
+        bool possibleGenre = true;
+        do
+        {
+          if (!possibleGenre)
+          {
+            Console.Clear();
+            System.Console.WriteLine("\nPlease insert a Genre.");
+          }
+
+          System.Console.Write("Book Genre: ");
+          genreBook = Console.ReadLine();
+
+          if (string.IsNullOrEmpty(genreBook))
+          {
+            possibleGenre = false;
+          }
+          else
+          {
+            possibleGenre = true;
+          }
+
+        } while (!possibleGenre);
+
+
+        bool availablePrice = false;
+
+        do
+        {
+          try
+          {
+            System.Console.Write("Book Price: ");
+            priceBook = Convert.ToSingle(Console.ReadLine());
+            availablePrice = true;
+          }
+          catch (FormatException)
+          {
+            Console.Clear();
+            Console.WriteLine("\nInvalid input. Please enter a valid numeric value for the book price.");
+          }
+          catch (OverflowException)
+          {
+            Console.Clear();
+            Console.WriteLine("\nEntered value is too large or too small for a float.");
+          }
+          catch (Exception ex)
+          {
+            Console.Clear();
+            Console.WriteLine($"\nAn unexpected error occurred: {ex.Message}");
+          }
+        } while (!availablePrice);
+
+        string? validation;
+        bool availableAuth = true;
+
+        do
+        {
+          Console.Clear();
+          System.Console.WriteLine("\n\tNew Book\n");
+          System.Console.WriteLine($"Book Code: {id}");
+          System.Console.WriteLine($"Book Title: {titleBook}");
+          System.Console.WriteLine($"Book Author: {authorBook}");
+          System.Console.WriteLine($"Book Genre: {genreBook}");
+          System.Console.WriteLine($"Book ISBN: {newISBN}");
+          System.Console.WriteLine($"Book IVA: {ivaBook}");
+          System.Console.WriteLine($"Book Price: {priceBook}");
+          System.Console.WriteLine($"Book Stock: {stockBook}\n");
+
+          if (!availableAuth)
+            System.Console.WriteLine("Please insert y or n.");
+
+          System.Console.Write("Do you wish to add this book?(y/n) ");
+          validation = Console.ReadLine();
+
+          if (!string.IsNullOrEmpty(validation))
+          {
+            switch (validation.ToLower())
+            {
+              case "y":
+                createdBook = true;
+                availableAuth = true;
+
+                if (titleBook != null && authorBook != null && newISBN != null && genreBook != null)
+                {
+                  Book newBook = new Book(id, titleBook, authorBook, newISBN, genreBook, priceBook, ivaBook, stockBook);
+                  listBook.Add(newBook);
+                  System.Console.WriteLine("\nBook Added successfully!\n");
+                }
+                else
+                {
+                  System.Console.WriteLine("Something went wrong!");
+                }
+
+                break;
+              case "n":
+                createdBook = true;
+                availableAuth = true;
+                Console.Clear();
+                System.Console.WriteLine("\nOperation Cancelled.\n");
+                break;
+              default:
+                createdBook = false;
+                availableAuth = false;
+                break;
+            }
+          }
+          else
+          {
+            availableAuth = false;
+          }
+
+        } while (!availableAuth);
+
+      } while (!createdBook);
+
     }
     public void removeBook(List<Book> listBook)
     {
