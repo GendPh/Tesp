@@ -11,27 +11,32 @@ namespace bookstoreManagement
       List<Book> books = new List<Book>
             {
                 // Initialize the list with 20 Book objects
-                new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 0,50),
-                new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 0, 50),
-                new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 0, 50),
-                new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 0, 50),
-                new Book(5, "Pride and Prejudice", "Jane Austen", "978-0-48-640648-5", "Romance", 11.50, 0, 50),
-                new Book(6, "The Hobbit", "J.R.R. Tolkien", "978-0-26-110334-4", "Fantasy", 18.99, 0, 50),
-                new Book(7, "The Lord of the Rings", "J.R.R. Tolkien", "978-0-54-457221-1", "Fantasy", 27.99, 0, 50),
-                new Book(8, "Brave New World", "Aldous Huxley", "978-0-60-641322-3", "Dystopian", 13.20, 0, 50),
-                new Book(9, "The Great Gatsby", "F. Scott Fitzgerald", "978-0-74-327356-5", "Fiction", 16.00, 0, 50),
-                new Book(10, "Moby-Dick", "Herman Melville", "978-1-58-049580-9", "Adventure", 22.45, 0, 50),
-                new Book(11, "Frankenstein", "Mary Shelley", "978-0-48-628211-4", "Gothic", 14.99, 0, 50),
-                new Book(12, "The Picture of Dorian Gray", "Oscar Wilde", "978-0-14-143957-0", "Gothic", 9.75, 0, 50),
-                new Book(13, "Crime and Punishment", "Fyodor Dostoevsky", "978-0-67-973450-5", "Psychological Fiction", 17.80, 0, 50),
-                new Book(14, "The Odyssey", "Homer", "978-0-14-303995-2", "Epic", 11.30, 0, 50),
-                new Book(15, "The Road", "Cormac McCarthy", "978-0-30-738789-9", "Post-Apocalyptic", 16.85, 0, 50),
-                new Book(16, "The Alchemist", "Paulo Coelho", "978-0-06-112241-5", "Philosophical", 14.50, 0, 50),
-                new Book(17, "The Brothers Karamazov", "Fyodor Dostoevsky", "978-0-14-119861-9", "Philosophical", 19.25, 0, 50),
-                new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 0, 50),
-                new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 0, 50),
+                new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 6, 50),
+                new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 6, 50),
+                new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 6, 50),
+                new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 6, 50),
+                new Book(5, "Pride and Prejudice", "Jane Austen", "978-0-48-640648-5", "Romance", 11.50, 6, 50),
+                new Book(6, "The Hobbit", "J.R.R. Tolkien", "978-0-26-110334-4", "Fantasy", 18.99, 6, 50),
+                new Book(7, "The Lord of the Rings", "J.R.R. Tolkien", "978-0-54-457221-1", "Fantasy", 27.99, 6, 50),
+                new Book(8, "Brave New World", "Aldous Huxley", "978-0-60-641322-3", "Dystopian", 13.20, 6, 50),
+                new Book(9, "The Great Gatsby", "F. Scott Fitzgerald", "978-0-74-327356-5", "Fiction", 16.00, 6, 50),
+                new Book(10, "Moby-Dick", "Herman Melville", "978-1-58-049580-9", "Adventure", 22.45, 6, 50),
+                new Book(11, "Frankenstein", "Mary Shelley", "978-0-48-628211-4", "Gothic", 14.99, 6, 50),
+                new Book(12, "The Picture of Dorian Gray", "Oscar Wilde", "978-0-14-143957-0", "Gothic", 9.75, 6, 50),
+                new Book(13, "Crime and Punishment", "Fyodor Dostoevsky", "978-0-67-973450-5", "Psychological Fiction", 17.80, 6, 50),
+                new Book(14, "The Odyssey", "Homer", "978-0-14-303995-2", "Epic", 11.30, 6, 50),
+                new Book(15, "The Road", "Cormac McCarthy", "978-0-30-738789-9", "Post-Apocalyptic", 16.85, 6, 50),
+                new Book(16, "The Alchemist", "Paulo Coelho", "978-0-06-112241-5", "Philosophical", 14.50, 6, 50),
+                new Book(17, "The Brothers Karamazov", "Fyodor Dostoevsky", "978-0-14-119861-9", "Philosophical", 19.25, 6, 50),
+                new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 6, 50),
+                new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 6, 50),
                 new Book(20, "War and Peace", "Leo Tolstoy", "978-1-86-050940-6", "Historical Fiction", 24.99, 0, 50),
             };
+      #endregion
+
+
+      #region List Cart
+      List<Book> cart = new List<Book>();
       #endregion
 
       #region List of users
@@ -44,16 +49,16 @@ namespace bookstoreManagement
             };
       #endregion
 
-      StartProgram(employees, books);
+      StartProgram(employees, books, cart);
     }
-    static void StartProgram(List<Employee> employees, List<Book> books)
+    static void StartProgram(List<Employee> employees, List<Book> books, List<Book> cart)
     {
-      int employee = /* Login(employees) */1;
+      int employee = /* Login(employees) */0;
       string? employeeName = employees[employee].name;
 
       if (employees[employee] is Manager manager)
       {
-        ManagerMenu(employees, manager, books);
+        ManagerMenu(employees, manager, books, cart);
       }
       else if (employees[employee] is Stocker stocker)
       {
@@ -191,7 +196,7 @@ namespace bookstoreManagement
       menu();
     }
 
-    static void ManagerMenu(List<Employee> employees, Employee employee, List<Book> books)
+    static void ManagerMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
       Console.Clear();
 
@@ -205,18 +210,18 @@ namespace bookstoreManagement
         switch (choice)
         {
           case 1:
-            UsersMenu(employees, manager, books);
+            UsersMenu(employees, manager, books, cart);
             break;
           case 2:
-            BooksMenu(employees, manager, books);
+            BooksMenu(employees, manager, books, cart);
             break;
           case 3:
-            StartProgram(employees, books);
+            StartProgram(employees, books, cart);
             break;
         }
       }
     }
-    static void UsersMenu(List<Employee> employees, Employee employee, List<Book> books)
+    static void UsersMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
       Console.Clear();
       if (employee is Manager manager)
@@ -231,18 +236,18 @@ namespace bookstoreManagement
         {
           case 1:
             manager.addUsers(employees);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 2:
             manager.removeUsers(employees, manager);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 3:
             manager.promoteUsers(employees, manager);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books));
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 4:
-            ManagerMenu(employees, manager, books);
+            ManagerMenu(employees, manager, books, cart);
             break;
         }
       }
@@ -252,38 +257,49 @@ namespace bookstoreManagement
       }
     }
 
-    static void BooksMenu(List<Employee> employees, Employee employee, List<Book> books)
+    static void BooksMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
       Console.Clear();
       System.Console.WriteLine("");
 
-      var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Return" };
+      var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Buy Book", "Return" };
       int choice = Menu(menuOptions, employee);
 
       switch (choice)
       {
         case 1:
           employee.consultBookList(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 2:
           employee.consultBookByCode(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 3:
           employee.consultBookByGenre(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 4:
           employee.consultBookByAuthor(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 5:
           employee.consultStock(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books));
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 6:
-          ReturnMenu(() => ManagerMenu(employees, employee, books));
+          if (employee is Manager manager)
+          {
+            manager.SellBook(books, cart, employee);
+          }
+          else if (employee is Cashier cashier)
+          {
+            //cashier.SellBook(books, cart, employee);
+          }
+          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+          break;
+        case 7:
+          ReturnMenu(() => ManagerMenu(employees, employee, books, cart));
           break;
       }
     }
@@ -331,7 +347,7 @@ namespace bookstoreManagement
             // Update
             break;
           case 9:
-            StartProgram(employees, books);
+            //StartProgram(employees, books);
             break;
         }
       }

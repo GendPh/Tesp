@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/aula31123/aula31123/aula31123.csproj",
+      "projectUniqueName": "/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel Ferreira 03-11-23/aula31123/aula31123.csproj",
       "projectName": "aula31123",
-      "projectPath": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/aula31123/aula31123/aula31123.csproj",
+      "projectPath": "/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel Ferreira 03-11-23/aula31123/aula31123.csproj",
       "packagesPath": "/Users/gabrielferreira/.nuget/packages/",
-      "outputPath": "/Users/gabrielferreira/Desktop/Tesp/Linguagens de Programação I/C_Projetos/aula31123/aula31123/obj/",
+      "outputPath": "/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel Ferreira 03-11-23/aula31123/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/gabrielferreira/.nuget/NuGet/NuGet.Config"
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.309/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.403/RuntimeIdentifierGraph.json"
       }
     }
   }

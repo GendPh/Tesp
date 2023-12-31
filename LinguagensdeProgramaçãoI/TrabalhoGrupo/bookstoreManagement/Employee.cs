@@ -151,6 +151,157 @@
         System.Console.WriteLine($"No books found with the Author {authorSelected}.\n");
       }
     }
+
+    protected void OperationSellBook(List<Book> bookList, List<Book> cart, Employee employee)
+    {
+
+      bool allBooksSelected = false;
+      int bookId = 0;
+      Book? bookToAdd = bookList.Find(e => e.Code == 0);
+      double price = 0;
+      var sortedList = cart.OrderBy(book => book.Title).ToList();
+
+      do
+      {
+        sortedList = cart.OrderBy(book => book.Title).ToList();
+
+        Console.Clear();
+
+        consultBookList(bookList);
+
+        Console.WriteLine($"Hello {employee.name}, let's buy a product\n");
+
+        if (cart.Count > 0)
+        {
+          int count = 0;
+          price = 0;
+
+          foreach (Book book in sortedList)
+          {
+
+            double ivaAmount = (book.Iva / 100) * book.Price;
+            double totalPrice = book.Price + ivaAmount;
+            price += totalPrice;
+
+            count = cart.Count(b => b.Title == book.Title);
+
+            Console.WriteLine($" - {book.Title} / {count} / {book.Iva}% IVA / {book.Stock}");
+          }
+
+          System.Console.WriteLine($"\nCart Price: {price:F2}€.\n");
+        }
+        else
+        {
+          System.Console.WriteLine("Cart Empty.\n");
+        }
+
+        try
+        {
+          Console.Write("Please select the books you want to add to the cart: ");
+
+          bookId = Convert.ToInt32(Console.ReadLine());
+
+          if (bookId > 0 && bookId < bookList.Count)
+          {
+            // Find the selected book in the bookList
+            bookToAdd = bookList.Find(e => e.Code == bookId);
+            if (bookToAdd != null && bookToAdd.Stock > 0 && bookToAdd.Stock <= 50)
+            {
+              bookToAdd.Stock--;
+              cart.Add(bookToAdd);
+            }
+          }
+          else if (bookId == 0)
+          {
+            allBooksSelected = true;
+          }
+        }
+        catch (FormatException)
+        {
+          allBooksSelected = false;
+          continue;
+        }
+        catch (Exception)
+        {
+          allBooksSelected = false;
+          continue;
+        }
+      } while (!allBooksSelected);
+
+      bool endCartOperation = true;
+      string? cartAnswer;
+      double finalPrice = 0;
+      double discount = 0;
+      do
+      {
+        Console.Clear();
+
+        System.Console.WriteLine("");
+
+        if (cart.Count > 0)
+        {
+          int count = 0;
+          foreach (Book book in sortedList)
+          {
+            count = cart.Count(b => b.Title == book.Title);
+            Console.WriteLine($" - {book.Title} / {count}");
+          }
+
+
+          discount = (price > 50) ? 10 : 0;
+          finalPrice = (price > 50) ? price - (price * 0.10) : price;
+
+          System.Console.WriteLine($"\nCart Price: {price:F2}€\nDiscount: {discount}%\nFinal Price: {finalPrice:F2}.\n");
+
+
+          System.Console.Write("Do you want to proceed?(y/n): ");
+          cartAnswer = Console.ReadLine();
+
+          if (!string.IsNullOrEmpty(cartAnswer))
+          {
+            switch (cartAnswer.ToLower())
+            {
+              case "y":
+                endCartOperation = true;
+
+                foreach (Book book in cart)
+                {
+                  Book? thisBook = bookList.Find(b => b.Title == book.Title);
+
+                  if (thisBook != null)
+                  {
+                    thisBook.Stock = book.Stock;
+                  }
+                }
+                cart.Clear();
+
+                Console.Clear();
+                System.Console.WriteLine("\nPurchase Complete!\n");
+                break;
+              case "n":
+                endCartOperation = true;
+                cart.Clear();
+                Console.Clear();
+                System.Console.WriteLine("\nPurchase Cancelled!\n");
+                break;
+              default:
+                endCartOperation = false;
+                break;
+            }
+          }
+          else
+          {
+            endCartOperation = false;
+          }
+
+        }
+        else
+        {
+          System.Console.WriteLine("Operation Canceled.\n");
+          endCartOperation = true;
+        }
+      } while (!endCartOperation);
+    }
   }
 
   public class Manager : Employee, AbsManager
@@ -645,6 +796,11 @@
       Console.Clear();
       showUsers(listUsers);
     }
+    internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
+    {
+      // Manager can access the internal method of the base class
+      OperationSellBook(bookList, cart, employee);
+    }
   }
 
   public class Stocker : Employee, AbsStocker
@@ -896,5 +1052,6 @@
       System.Console.WriteLine($"Cashier Password: {password}");
       System.Console.WriteLine($"Cashier Position: {position}");
     }
+
   }
 }

@@ -18,5 +18,12 @@
     void removeUsers(List<Employee> listUsers, Manager manager);
   }
 
+  public interface BuyAction
+  {
+    void BuyProduct()
+    {
+      System.Console.WriteLine("Testing");
+    }
+  }
 }
 

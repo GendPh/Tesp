@@ -24,5 +24,6 @@
       Stock = stock;
     }
   }
+
 }
 
