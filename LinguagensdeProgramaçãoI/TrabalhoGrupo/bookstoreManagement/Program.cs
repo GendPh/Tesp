@@ -53,21 +53,14 @@ namespace bookstoreManagement
     }
     static void StartProgram(List<Employee> employees, List<Book> books, List<Book> cart)
     {
-      int employee = /* Login(employees) */0;
-      string? employeeName = employees[employee].name;
+      int employeeId = /* Login(employees) */1;
 
-      if (employees[employee] is Manager manager)
-      {
-        ManagerMenu(employees, manager, books, cart);
-      }
-      else if (employees[employee] is Stocker stocker)
-      {
-        StockerMenu(employees, stocker, books);
-      }
-      else if (employees[employee] is Cashier cashier)
-      {
-        //CashierMenu(employees, cashier);
-      }
+      // if (employees[employeeId] is Stocker stocker)
+      // {
+      //   stocker.RemoveBook(books);
+      // }
+
+      EmployeeMenu(employees, employees[employeeId], books, cart);
     }
 
 
@@ -144,233 +137,343 @@ namespace bookstoreManagement
       return index;
     }
 
+
+    // Method: Menu
+    // Purpose: Display a menu to the user, prompt for a choice, and validate the input.
+    //          This method ensures the user selects a valid option from the menu.
+    // Parameters:
+    //   - menuOptions: A list of strings representing the menu options.
+    //   - employee: An Employee object representing the current user.
+    // Returns:
+    //   - An integer representing the user's valid menu choice.
     static int Menu(List<string> menuOptions, Employee employee)
     {
+      // Initialize variables
       bool correctChoice = true;
       int choice = 0;
 
+      // Execute the menu loop until a correct choice is made
       do
       {
+        // Clear the console if the previous choice was incorrect
         if (!correctChoice)
         {
           Console.Clear();
         }
 
+        // Display the employee's menu header
         System.Console.WriteLine($"\t{employee.name} Menu\n");
 
+        // Display the menu options with corresponding numbers
         for (int i = 0; i < menuOptions.Count; i++)
         {
           Console.WriteLine($"{i + 1}. {menuOptions[i]}");
         }
 
+        // Display an error message if the previous choice was incorrect
         if (!correctChoice)
         {
-          System.Console.WriteLine($"\n\tPlease insert a valid input between 1 and {menuOptions.Count}");
+          // Determine the error message based on the number of menu options
+          string? errorMessage = (menuOptions.Count > 1) ? $"Invalid input.\nPlease enter a number between 1 and {menuOptions.Count} corresponding to the menu options." : "Invalid input.\nPlease enter 1 for the available menu option.";
+          System.Console.WriteLine($"\n{errorMessage}");
         }
 
+        // Prompt the user for their choice
         System.Console.Write("\nChoice: ");
+
         try
         {
+          // Attempt to convert user input to an integer
           choice = Convert.ToInt32(Console.ReadLine());
+
+          // Update the correctChoice flag based on the validity of the input
           correctChoice = (choice >= 1 && choice <= menuOptions.Count) ? true : false;
         }
         catch (FormatException)
         {
+          // If a FormatException occurs (non-integer input), set correctChoice to false
           correctChoice = false;
         }
 
-      } while (!correctChoice);
+      } while (!correctChoice); // Repeat the loop until a correct choice is made
 
+      // Return the user's valid choice
       return choice;
     }
+
+    // Method: ReturnMenu
+    // Purpose: Execute the provided menu action.
+    // Parameters:
+    //   - menu: Action representing the menu to be executed.
     static void ReturnMenu(Action menu)
     {
+      // Invoke the provided menu action
       menu();
     }
+
+    // Method: ReturnMenu
+    // Purpose: Execute the provided menu action after displaying a simple return menu.
+    // Parameters:
+    //   - employee: An Employee object representing the current user.
+    //   - menu: Action representing the menu to be executed.
     static void ReturnMenu(Employee employee, Action menu)
     {
+      // Create a list with a single menu option for returning
       var menuOptions = new List<string> { "Return" };
+
+      // Display a menu with the single return option and get the user's choice
       int choice = Menu(menuOptions, employee);
 
-      // Invoke the provided menu function
+      // Invoke the provided menu action
       menu();
     }
 
-    static void ManagerMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
+    // Method: EmployeeMenu
+    // Purpose: Display the menu for different types of employees (Manager, Stocker, Cashier).
+    //          Allow employees to navigate to specific menus based on their roles.
+    // Parameters:
+    //   - employees: A list of all employees in the system.
+    //   - employee: An Employee object representing the current user.
+    //   - books: A list of Book objects representing the available books.
+    //   - cart: A list of Book objects representing the user's cart.
+    static void EmployeeMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
+      // Clear the console for a clean display
       Console.Clear();
 
+      // Display employee information
+      Console.WriteLine($"\n{employee.position} {employee.name} ID {employee.id}\n");
+
+      // Get user choice using the Menu function
+      int choice = 0;
+
+      // Define common menu options for all employees
+      var menuOptions = new List<string> { "Log Out", "Books" };
+
+      // Define additional menu options for specific employee types
+      var additionalOptions = new List<string> { };
+
+      // Check the employee type and adjust menu options accordingly
       if (employee is Manager manager)
       {
-        Console.WriteLine($"\n{manager.position} {manager.name} ID {manager.id}\n");
+        additionalOptions = new List<string> { "Users" };
+        menuOptions.AddRange(additionalOptions);
 
-        var menuOptions = new List<string> { "Users", "Books", "Log Out" };
-        int choice = Menu(menuOptions, manager);
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
 
+        // Execute specific actions based on the user's choice
         switch (choice)
         {
-          case 1:
+          case 3:
             UsersMenu(employees, manager, books, cart);
             break;
-          case 2:
-            BooksMenu(employees, manager, books, cart);
-            break;
-          case 3:
-            StartProgram(employees, books, cart);
-            break;
         }
       }
-    }
-    static void UsersMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
-    {
-      Console.Clear();
-      if (employee is Manager manager)
+      else if (employee is Stocker stocker)
       {
-
-        manager.showUsers(employees);
-
-        var menuOptions = new List<string> { "Add User", "Remove User", "Change Role", "Return" };
-        int choice = Menu(menuOptions, manager);
-
-        switch (choice)
-        {
-          case 1:
-            manager.addUsers(employees);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
-            break;
-          case 2:
-            manager.removeUsers(employees, manager);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
-            break;
-          case 3:
-            manager.promoteUsers(employees, manager);
-            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
-            break;
-          case 4:
-            ManagerMenu(employees, manager, books, cart);
-            break;
-        }
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
       }
-      else
+      else if (employee is Cashier cashier)
       {
-        System.Console.WriteLine("You are not allowed here.");
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
+      }
+
+      // Execute actions based on the user's final choice
+      switch (choice)
+      {
+        case 0:
+          // If the employee is not a Manager, Stocker, or Cashier, display a specific message
+          System.Console.WriteLine("Access Denied: Only Managers, Stockers, and Cashiers have permission to access this menu.");
+          break;
+        case 1:
+          // Log out and return to the main program
+          StartProgram(employees, books, cart);
+          break;
+        case 2:
+          // View or manipulate the book inventory
+          BooksMenu(employees, employee, books, cart);
+          break;
       }
     }
 
+    // Method: BooksMenu
+    // Purpose: Display the menu for managing books based on the employee's role (Manager, Stocker, Cashier).
+    //          Allow employees to perform specific actions related to the book inventory.
+    // Parameters:
+    //   - employees: A list of all employees in the system.
+    //   - employee: An Employee object representing the current user.
+    //   - books: A list of Book objects representing the available books.
+    //   - cart: A list of Book objects representing the user's cart.
     static void BooksMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
+      // Clear the console for a clean display
       Console.Clear();
       System.Console.WriteLine("");
 
-      var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Buy Book", "Return" };
-      int choice = Menu(menuOptions, employee);
+      // Define common menu options for all employees
+      var menuOptions = new List<string> { "Return", "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock" };
 
+      // Define additional menu options for specific employee types
+      var additionalOptions = new List<string> { };
+
+      // Get user choice using the Menu function
+      int choice = 0;
+
+      // Check the employee type and adjust menu options accordingly
+      if (employee is Manager manager)
+      {
+        additionalOptions = new List<string> { "Sell Book" };
+        menuOptions.AddRange(additionalOptions);
+
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
+
+        // Execute specific actions based on the user's choice
+        switch (choice)
+        {
+          case 7:
+            manager.SellBook(books, cart, employee);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+        }
+      }
+      else if (employee is Stocker stocker)
+      {
+
+        additionalOptions = new List<string> { "Add Book", "Remove Book", "Restock Book" };
+        menuOptions.AddRange(additionalOptions);
+
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
+
+        // Execute specific actions based on the user's choice
+        switch (choice)
+        {
+          case 7:
+            stocker.AddBook(books);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+          case 8:
+            stocker.RemoveBook(books);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+        }
+      }
+      else if (employee is Cashier cashier)
+      {
+        additionalOptions = new List<string> { "Sell Book", "Buy Book" };
+        menuOptions.AddRange(additionalOptions);
+
+        // Display the menu and get the user's choice
+        choice = Menu(menuOptions, employee);
+
+        // Execute specific actions based on the user's choice
+        switch (choice)
+        {
+          case 7:
+            cashier.SellBook(books, cart, employee);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+        }
+      }
+
+      // Common options for all employees
       switch (choice)
       {
         case 1:
-          employee.consultBookList(books);
-          ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+          // Return to the EmployeeMenu
+          ReturnMenu(() => EmployeeMenu(employees, employee, books, cart));
           break;
         case 2:
-          employee.consultBookByCode(books);
+          // Consult the entire book list
+          employee.ConsultBookList(books);
+          // Return to the BooksMenu
           ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 3:
-          employee.consultBookByGenre(books);
+          // Consult a book by its code
+          employee.ConsultBookByCode(books);
+          // Return to the BooksMenu
           ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 4:
-          employee.consultBookByAuthor(books);
+          // Consult books by genre
+          employee.ConsultBookByGenre(books);
+          // Return to the BooksMenu
           ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 5:
-          employee.consultStock(books);
+          // Consult books by author
+          employee.ConsultBookByAuthor(books);
+          // Return to the BooksMenu
           ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
           break;
         case 6:
-          if (employee is Manager manager)
-          {
-            manager.SellBook(books, cart, employee);
-          }
-          else if (employee is Cashier cashier)
-          {
-            //cashier.SellBook(books, cart, employee);
-          }
+          // Consult the book stock
+          employee.ConsultStock(books);
+          // Return to the BooksMenu
           ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
-          break;
-        case 7:
-          ReturnMenu(() => ManagerMenu(employees, employee, books, cart));
           break;
       }
     }
 
-    static void StockerMenu(List<Employee> employees, Employee employee, List<Book> books)
+
+    // Method: UsersMenu
+    // Purpose: Display the menu for managing users, specifically designed for the Manager role.
+    //          Allow the Manager to view, add, remove, and promote users.
+    // Parameters:
+    //   - employees: A list of all employees in the system.
+    //   - employee: An Employee object representing the current user (Manager).
+    //   - books: A list of Book objects representing the available books.
+    //   - cart: A list of Book objects representing the user's cart.
+    static void UsersMenu(List<Employee> employees, Employee employee, List<Book> books, List<Book> cart)
     {
+      // Clear the console for a clean display
       Console.Clear();
-      System.Console.WriteLine("");
 
-      if (employee is Stocker stocker)
+      // Check if the employee is a Manager
+      if (employee is Manager manager)
       {
-        var menuOptions = new List<string> { "All Books", "Book by Code", "Book by Genre", "Book by Author", "Books Stock", "Add Book", "Remove Book", "Update Book", "Log Out" };
-        int choice = Menu(menuOptions, employee);
+        // Display information about all users in the system
+        manager.ShowUsers(employees);
 
+        // Define menu options for user management
+        var menuOptions = new List<string> { "Add User", "Remove User", "Change Role", "Return" };
+
+        // Get the user's choice using the Menu function
+        int choice = Menu(menuOptions, manager);
+
+        // Execute specific actions based on the user's choice
         switch (choice)
         {
           case 1:
-            employee.consultBookList(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            // Add a new user and return to the UsersMenu
+            manager.AddUsers(employees);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 2:
-            employee.consultBookByCode(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            // Remove a user and return to the UsersMenu
+            manager.RemoveUsers(employees, manager);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 3:
-            employee.consultBookByGenre(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
+            // Change the role of a user and return to the UsersMenu
+            manager.PromoteUsers(employees, manager);
+            ReturnMenu(manager, () => UsersMenu(employees, manager, books, cart));
             break;
           case 4:
-            employee.consultBookByAuthor(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
-            break;
-          case 5:
-            employee.consultStock(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
-            break;
-          case 6:
-            stocker.addBook(books);
-            ReturnMenu(employee, () => StockerMenu(employees, employee, books));
-            break;
-          case 7:
-            // Remove
-            break;
-          case 8:
-            // Update
-            break;
-          case 9:
-            //StartProgram(employees, books);
+            // Return to the EmployeeMenu
+            EmployeeMenu(employees, manager, books, cart);
             break;
         }
       }
     }
-
-
-
-    static void CashierMenu(List<Employee> employees, Employee employee, List<Book> books)
-    {
-      Console.Clear();
-      var menuOptions = new List<string> { "Cashier", "Return" };
-      int choice = Menu(menuOptions, employee);
-
-      switch (choice)
-      {
-        case 1:
-          System.Console.WriteLine("1");
-          break;
-        case 2:
-          System.Console.WriteLine("Return");
-          break;
-      }
-    }
-
   }
 }

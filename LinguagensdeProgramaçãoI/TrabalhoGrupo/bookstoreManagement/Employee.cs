@@ -28,7 +28,7 @@
       Console.WriteLine($"Stock: {book.Stock}");
       Console.WriteLine($"Sold: {book.Sold}\n");
     }
-    public void consultBookList(List<Book> bookList)
+    public void ConsultBookList(List<Book> bookList)
     {
       Console.Clear();
 
@@ -37,7 +37,7 @@
         printBookDetail(book);
       }
     }
-    public void consultBookByCode(List<Book> bookList)
+    public void ConsultBookByCode(List<Book> bookList)
     {
       Console.Clear();
 
@@ -60,7 +60,7 @@
         Console.WriteLine($"Book with ISBN {targetISBN} not found.\n");
       }
     }
-    public void consultStock(List<Book> bookList)
+    public void ConsultStock(List<Book> bookList)
     {
       Console.Clear();
 
@@ -73,7 +73,7 @@
 
       System.Console.WriteLine($"\nThere is a total of {stock} books available.\n");
     }
-    public void consultBookByGenre(List<Book> bookList)
+    public void ConsultBookByGenre(List<Book> bookList)
     {
       Console.Clear();
 
@@ -112,7 +112,7 @@
         System.Console.WriteLine($"No books found with the genre {genreSelected}.\n");
       }
     }
-    public void consultBookByAuthor(List<Book> bookList)
+    public void ConsultBookByAuthor(List<Book> bookList)
     {
       Console.Clear();
 
@@ -167,7 +167,7 @@
 
         Console.Clear();
 
-        consultBookList(bookList);
+        ConsultBookList(bookList);
 
         Console.WriteLine($"Hello {employee.name}, let's buy a product\n");
 
@@ -197,17 +197,18 @@
 
         try
         {
-          Console.Write("Please select the books you want to add to the cart: ");
+          Console.Write("Please select the books you want to add to the cart (0 to stop): ");
 
           bookId = Convert.ToInt32(Console.ReadLine());
 
-          if (bookId > 0 && bookId < bookList.Count)
+          if (bookId > 0 && bookId <= bookList.Count)
           {
             // Find the selected book in the bookList
             bookToAdd = bookList.Find(e => e.Code == bookId);
-            if (bookToAdd != null && bookToAdd.Stock > 0 && bookToAdd.Stock <= 50)
+            if (bookToAdd != null && bookToAdd.Stock > 0)
             {
               bookToAdd.Stock--;
+              bookToAdd.Sold++;
               cart.Add(bookToAdd);
             }
           }
@@ -312,7 +313,7 @@
     {
     }
 
-    public void showUsers(List<Employee> listUsers)
+    public void ShowUsers(List<Employee> listUsers)
     {
       System.Console.WriteLine("");
       for (int i = 0; i < listUsers.Count; i++)
@@ -323,7 +324,7 @@
         System.Console.WriteLine($"Employee Position: {listUsers[i].position}\n");
       }
     }
-    public void addUsers(List<Employee> listUsers)
+    public void AddUsers(List<Employee> listUsers)
     {
       int Id = listUsers[listUsers.Count - 1].id + 1;
       string? Name;
@@ -529,9 +530,9 @@
       Console.Clear();
       System.Console.WriteLine("\nUser added successfully!");
 
-      showUsers(listUsers);
+      ShowUsers(listUsers);
     }
-    public void removeUsers(List<Employee> listUsers, Manager manager)
+    public void RemoveUsers(List<Employee> listUsers, Manager manager)
     {
       int userId = 0;
 
@@ -543,7 +544,7 @@
       {
         Console.Clear();
 
-        showUsers(listUsers);
+        ShowUsers(listUsers);
 
         System.Console.WriteLine("\nRemove a user profile by entering:\n - Unique ID;\n\nThis action will permanently delete the user's profile from the system.\nPlease be cautious when removing users.\n");
 
@@ -627,12 +628,12 @@
 
       Console.Clear();
 
-      showUsers(listUsers);
+      ShowUsers(listUsers);
 
       System.Console.WriteLine("User removed successfully!\n");
 
     }
-    protected internal void promoteUsers(List<Employee> listUsers, Manager manager)
+    protected internal void PromoteUsers(List<Employee> listUsers, Manager manager)
     {
       int userId = 0;
       Employee? employeeToPromote = listUsers.Find(e => e.id == 0);
@@ -643,7 +644,7 @@
       {
         Console.Clear();
 
-        showUsers(listUsers);
+        ShowUsers(listUsers);
 
         System.Console.WriteLine("\nPromote a user role by entering:\n - Unique ID;\n\nThis action will change the user's role within the system.\nPlease exercise caution when promoting users.\n");
 
@@ -794,7 +795,7 @@
       } while (!promoteUser);
 
       Console.Clear();
-      showUsers(listUsers);
+      ShowUsers(listUsers);
     }
     internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
@@ -807,7 +808,7 @@
   {
     public Stocker(int id, string? name, string? password, string? position) : base(id, name, password, position) { }
 
-    public void addBook(List<Book> listBook)
+    public void AddBook(List<Book> listBook)
     {
       Console.Clear();
 
@@ -1010,19 +1011,226 @@
       } while (!createdBook);
 
     }
-    public void removeBook(List<Book> listBook)
+    public void RemoveBook(List<Book> listBook)
     {
-      System.Console.WriteLine($"Stocker ID: {id}");
-      System.Console.WriteLine($"Stocker Name: {name}");
-      System.Console.WriteLine($"Stocker Password: {password}");
-      System.Console.WriteLine($"Stocker Position: {position}");
+      int bookId = 0;
+      bool completeRemoveBook = true;
+      string? errorMessage = "Error";
+
+      do
+      {
+        Console.Clear();
+
+        ConsultBookList(listBook);
+
+        System.Console.WriteLine("\nRemove a book by entering:\n - Book ID;\n\nWarning: This action will permanently remove the book from the inventory, including all existing stock.\n");
+
+        if (!completeRemoveBook)
+          System.Console.WriteLine(errorMessage);
+
+        System.Console.Write("Please insert an ID: ");
+
+        try
+        {
+          bookId = Convert.ToInt32(Console.ReadLine());
+
+          // Check if the bookId is within the valid range
+          completeRemoveBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
+
+          if (completeRemoveBook)
+          {
+            // Adjust the index to match the zero-based indexing used in lists
+            bookId--;
+
+            Console.Clear();
+
+            System.Console.WriteLine("\nBook Selected:\n");
+
+            // Access the listBook only if completeRemoveBook is true
+            printBookDetail(listBook[bookId]);
+
+            bool continueRemoveVal = true;
+
+            do
+            {
+              if (!continueRemoveVal)
+              {
+                Console.Clear();
+
+                System.Console.WriteLine("\nBook Selected:\n");
+
+                printBookDetail(listBook[bookId]);
+
+                System.Console.WriteLine(errorMessage);
+              }
+
+              try
+              {
+                System.Console.Write("Do you want to continue? (y/n): ");
+                string? userInput = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                  Console.Clear();
+                  switch (userInput.ToLower())
+                  {
+                    case "y":
+                      System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
+                      listBook[bookId].Stock = 0;
+                      continueRemoveVal = true;
+                      break;
+                    case "n":
+                      System.Console.WriteLine("\nOperation Cancelled.\n");
+                      continueRemoveVal = true;
+                      break;
+                    default:
+                      errorMessage = "Please insert y or n.\n";
+                      continueRemoveVal = false;
+                      break;
+                  }
+                }
+                else
+                {
+                  errorMessage = "Please insert y or n.\n";
+                  continueRemoveVal = false;
+                }
+              }
+              catch (Exception)
+              {
+                continueRemoveVal = false;
+                // Handle unexpected exceptions
+                errorMessage = "Unexpected error.\n";
+              }
+            } while (!continueRemoveVal);
+          }
+          else
+          {
+            errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
+            // You might want to set a default or handle the error in a way that makes sense for your application.
+          }
+        }
+        catch (FormatException)
+        {
+          errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
+          completeRemoveBook = false;
+          // You might want to set a default or handle the error in a way that makes sense for your application.
+        }
+
+
+
+      } while (!completeRemoveBook);
+
     }
-    public void updateBook(List<Book> listBook)
+    public void RestockBook(List<Book> listBook)
     {
-      System.Console.WriteLine($"Stocker ID: {id}");
-      System.Console.WriteLine($"Stocker Name: {name}");
-      System.Console.WriteLine($"Stocker Password: {password}");
-      System.Console.WriteLine($"Stocker Position: {position}");
+      int bookId = 0;
+      bool completeRestockBook = true;
+      string? errorMessage = "Error";
+
+      do
+      {
+        Console.Clear();
+
+        ConsultBookList(listBook);
+
+        System.Console.WriteLine("\nRestock a book by entering:\n - Book ID;\n\nWarning: This action will add stock to the inventory for the specified book.\n");
+
+
+        if (!completeRestockBook)
+          System.Console.WriteLine(errorMessage);
+
+        System.Console.Write("Please insert an ID: ");
+
+        try
+        {
+          bookId = Convert.ToInt32(Console.ReadLine());
+
+          // Check if the bookId is within the valid range
+          completeRestockBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
+
+          if (completeRestockBook)
+          {
+            // Adjust the index to match the zero-based indexing used in lists
+            bookId--;
+
+            Console.Clear();
+
+            System.Console.WriteLine("\nBook Selected:\n");
+
+            // Access the listBook only if completeRestockBook is true
+            printBookDetail(listBook[bookId]);
+
+            bool continueRemoveVal = true;
+
+            do
+            {
+              if (!continueRemoveVal)
+              {
+                Console.Clear();
+
+                System.Console.WriteLine("\nBook Selected:\n");
+
+                printBookDetail(listBook[bookId]);
+
+                System.Console.WriteLine(errorMessage);
+              }
+
+              try
+              {
+                System.Console.Write("Do you want to continue? (y/n): ");
+                string? userInput = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                  Console.Clear();
+                  switch (userInput.ToLower())
+                  {
+                    case "y":
+                      System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
+                      listBook[bookId].Stock = 0;
+                      continueRemoveVal = true;
+                      break;
+                    case "n":
+                      System.Console.WriteLine("\nOperation Cancelled.\n");
+                      continueRemoveVal = true;
+                      break;
+                    default:
+                      errorMessage = "Please insert y or n.\n";
+                      continueRemoveVal = false;
+                      break;
+                  }
+                }
+                else
+                {
+                  errorMessage = "Please insert y or n.\n";
+                  continueRemoveVal = false;
+                }
+              }
+              catch (Exception)
+              {
+                continueRemoveVal = false;
+                // Handle unexpected exceptions
+                errorMessage = "Unexpected error.\n";
+              }
+            } while (!continueRemoveVal);
+          }
+          else
+          {
+            errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
+            // You might want to set a default or handle the error in a way that makes sense for your application.
+          }
+        }
+        catch (FormatException)
+        {
+          errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
+          completeRestockBook = false;
+          // You might want to set a default or handle the error in a way that makes sense for your application.
+        }
+
+
+
+      } while (!completeRestockBook);
+
     }
   }
 
@@ -1045,13 +1253,17 @@
       System.Console.WriteLine($"Cashier Password: {password}");
       System.Console.WriteLine($"Cashier Position: {position}");
     }
-    public void buyBook(List<Book> listBook)
+    public void BuyBook(List<Book> listBook)
     {
       System.Console.WriteLine($"Cashier ID: {id}");
       System.Console.WriteLine($"Cashier Name: {name}");
       System.Console.WriteLine($"Cashier Password: {password}");
       System.Console.WriteLine($"Cashier Position: {position}");
     }
-
+    internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
+    {
+      // Manager can access the internal method of the base class
+      OperationSellBook(bookList, cart, employee);
+    }
   }
 }

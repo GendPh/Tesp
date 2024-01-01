@@ -3,27 +3,19 @@
   public interface AbsCashier
   {
     void sellBook(List<Book> listBook);
-    void buyBook(List<Book> listBook);
+    void BuyBook(List<Book> listBook);
   }
   public interface AbsStocker
   {
-    void addBook(List<Book> listBook);
-    void removeBook(List<Book> listBook);
-    void updateBook(List<Book> listBook);
+    void AddBook(List<Book> listBook);
+    void RemoveBook(List<Book> listBook);
+    void RestockBook(List<Book> listBook);
   }
   public interface AbsManager
   {
-    void showUsers(List<Employee> listUsers);
-    void addUsers(List<Employee> listUsers);
-    void removeUsers(List<Employee> listUsers, Manager manager);
-  }
-
-  public interface BuyAction
-  {
-    void BuyProduct()
-    {
-      System.Console.WriteLine("Testing");
-    }
+    void ShowUsers(List<Employee> listUsers);
+    void AddUsers(List<Employee> listUsers);
+    void RemoveUsers(List<Employee> listUsers, Manager manager);
   }
 }
 
