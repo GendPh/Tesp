@@ -9,29 +9,29 @@ namespace bookstoreManagement
     {
       #region Create a list of books
       List<Book> books = new List<Book>
-            {
-                // Initialize the list with 20 Book objects
-                new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 6, 50),
-                new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 6, 50),
-                new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 6, 50),
-                new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 6, 50),
-                new Book(5, "Pride and Prejudice", "Jane Austen", "978-0-48-640648-5", "Romance", 11.50, 6, 50),
-                new Book(6, "The Hobbit", "J.R.R. Tolkien", "978-0-26-110334-4", "Fantasy", 18.99, 6, 50),
-                new Book(7, "The Lord of the Rings", "J.R.R. Tolkien", "978-0-54-457221-1", "Fantasy", 27.99, 6, 50),
-                new Book(8, "Brave New World", "Aldous Huxley", "978-0-60-641322-3", "Dystopian", 13.20, 6, 50),
-                new Book(9, "The Great Gatsby", "F. Scott Fitzgerald", "978-0-74-327356-5", "Fiction", 16.00, 6, 50),
-                new Book(10, "Moby-Dick", "Herman Melville", "978-1-58-049580-9", "Adventure", 22.45, 6, 50),
-                new Book(11, "Frankenstein", "Mary Shelley", "978-0-48-628211-4", "Gothic", 14.99, 6, 50),
-                new Book(12, "The Picture of Dorian Gray", "Oscar Wilde", "978-0-14-143957-0", "Gothic", 9.75, 6, 50),
-                new Book(13, "Crime and Punishment", "Fyodor Dostoevsky", "978-0-67-973450-5", "Psychological Fiction", 17.80, 6, 50),
-                new Book(14, "The Odyssey", "Homer", "978-0-14-303995-2", "Epic", 11.30, 6, 50),
-                new Book(15, "The Road", "Cormac McCarthy", "978-0-30-738789-9", "Post-Apocalyptic", 16.85, 6, 50),
-                new Book(16, "The Alchemist", "Paulo Coelho", "978-0-06-112241-5", "Philosophical", 14.50, 6, 50),
-                new Book(17, "The Brothers Karamazov", "Fyodor Dostoevsky", "978-0-14-119861-9", "Philosophical", 19.25, 6, 50),
-                new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 6, 50),
-                new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 6, 50),
-                new Book(20, "War and Peace", "Leo Tolstoy", "978-1-86-050940-6", "Historical Fiction", 24.99, 0, 50),
-            };
+      {
+        // Initialize the list with 20 Book objects
+        // new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 6, 50),
+        // new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 6, 50),
+        // new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 6, 50),
+        // new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 6, 50),
+        // new Book(5, "Pride and Prejudice", "Jane Austen", "978-0-48-640648-5", "Romance", 11.50, 6, 50),
+        // new Book(6, "The Hobbit", "J.R.R. Tolkien", "978-0-26-110334-4", "Fantasy", 18.99, 6, 50),
+        // new Book(7, "The Lord of the Rings", "J.R.R. Tolkien", "978-0-54-457221-1", "Fantasy", 27.99, 6, 50),
+        // new Book(8, "Brave New World", "Aldous Huxley", "978-0-60-641322-3", "Dystopian", 13.20, 6, 50),
+        // new Book(9, "The Great Gatsby", "F. Scott Fitzgerald", "978-0-74-327356-5", "Fiction", 16.00, 6, 50),
+        // new Book(10, "Moby-Dick", "Herman Melville", "978-1-58-049580-9", "Adventure", 22.45, 6, 50),
+        // new Book(11, "Frankenstein", "Mary Shelley", "978-0-48-628211-4", "Gothic", 14.99, 6, 50),
+        // new Book(12, "The Picture of Dorian Gray", "Oscar Wilde", "978-0-14-143957-0", "Gothic", 9.75, 6, 50),
+        // new Book(13, "Crime and Punishment", "Fyodor Dostoevsky", "978-0-67-973450-5", "Psychological Fiction", 17.80, 6, 50),
+        // new Book(14, "The Odyssey", "Homer", "978-0-14-303995-2", "Epic", 11.30, 6, 50),
+        // new Book(15, "The Road", "Cormac McCarthy", "978-0-30-738789-9", "Post-Apocalyptic", 16.85, 6, 50),
+        // new Book(16, "The Alchemist", "Paulo Coelho", "978-0-06-112241-5", "Philosophical", 14.50, 6, 50),
+        // new Book(17, "The Brothers Karamazov", "Fyodor Dostoevsky", "978-0-14-119861-9", "Philosophical", 19.25, 6, 50),
+        // new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 6, 50),
+        // new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 6, 50),
+        // new Book(20, "War and Peace", "Leo Tolstoy", "978-1-86-050940-6", "Historical Fiction", 24.99, 0, 50),
+      };
       #endregion
 
 
@@ -253,7 +253,6 @@ namespace bookstoreManagement
       // Define additional menu options for specific employee types
       var additionalOptions = new List<string> { };
 
-      // Check the employee type and adjust menu options accordingly
       if (employee is Manager manager)
       {
         additionalOptions = new List<string> { "Users" };
@@ -297,6 +296,8 @@ namespace bookstoreManagement
           BooksMenu(employees, employee, books, cart);
           break;
       }
+
+
     }
 
     // Method: BooksMenu
@@ -360,6 +361,11 @@ namespace bookstoreManagement
             break;
           case 8:
             stocker.RemoveBook(books);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+          case 9:
+            stocker.RestockBook(books);
             // Return to the BooksMenu after the action is performed
             ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
             break;

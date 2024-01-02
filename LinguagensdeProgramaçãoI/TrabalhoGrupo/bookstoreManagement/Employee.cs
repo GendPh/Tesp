@@ -1,40 +1,52 @@
 ﻿namespace bookstoreManagement
 {
-
+  // Define a class named Employee
   public class Employee
   {
+    // Properties for the employee's ID, name, password, and position
     public int id { get; protected set; }
     public string? name { get; protected set; }
     public string? password { get; protected set; }
     public string? position { get; protected set; }
 
+    // Constructor for creating an instance of the Employee class
+    // Takes parameters for ID, name, password, and position
     public Employee(int id, string? name, string? password, string? position)
     {
+      // Initialize the properties with the provided values
       this.id = id;
       this.name = name;
       this.password = password;
       this.position = position;
     }
-
-    public void printBookDetail(Book book)
+    protected void PrintBookDetail(Book book)
     {
-      Console.WriteLine($"Code: {book.Code}");
-      Console.WriteLine($"Title: {book.Title}");
-      Console.WriteLine($"Author: {book.Author}");
-      Console.WriteLine($"ISBN: {book.ISBN}");
-      Console.WriteLine($"Genre: {book.Genre}");
-      Console.WriteLine($"Price: {book.Price:C}");
-      Console.WriteLine($"IVA: {book.Iva}%");
-      Console.WriteLine($"Stock: {book.Stock}");
-      Console.WriteLine($"Sold: {book.Sold}\n");
+      // Print the details of the book in a formatted manner
+      Console.WriteLine($" - Code: {book.Code}");
+      Console.WriteLine($" - Title: {book.Title}");
+      Console.WriteLine($" - Author: {book.Author}");
+      Console.WriteLine($" - ISBN: {book.ISBN}");
+      Console.WriteLine($" - Genre: {book.Genre}");
+      Console.WriteLine($" - Price: {book.Price:C}");
+      Console.WriteLine($" - IVA: {book.Iva}%");
+      Console.WriteLine($" - Stock: {book.Stock}");
+      Console.WriteLine($" - Sold: {book.Sold}\n");
     }
+
     public void ConsultBookList(List<Book> bookList)
     {
       Console.Clear();
 
-      foreach (Book book in bookList)
+      if (bookList.Count > 0)
       {
-        printBookDetail(book);
+        foreach (Book book in bookList)
+        {
+          PrintBookDetail(book);
+        }
+      }
+      else
+      {
+        System.Console.WriteLine("\nBook Store is Empty.\n");
       }
     }
     public void ConsultBookByCode(List<Book> bookList)
@@ -53,7 +65,7 @@
 
       if (book != null)
       {
-        printBookDetail(book);
+        PrintBookDetail(book);
       }
       else
       {
@@ -104,7 +116,7 @@
       {
         foreach (Book book in selectedBooks)
         {
-          printBookDetail(book);
+          PrintBookDetail(book);
         }
       }
       else
@@ -143,7 +155,7 @@
       {
         foreach (Book book in selectedAuthors)
         {
-          printBookDetail(book);
+          PrintBookDetail(book);
         }
       }
       else
@@ -154,7 +166,6 @@
 
     protected void OperationSellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
-
       bool allBooksSelected = false;
       int bookId = 0;
       Book? bookToAdd = bookList.Find(e => e.Code == 0);
@@ -302,6 +313,59 @@
           endCartOperation = true;
         }
       } while (!endCartOperation);
+    }
+    protected int GetNumber(string? text)
+    {
+      int number = 0;
+
+      System.Console.Write($"Enter a Book {text}: ");
+
+      try
+      {
+        number = Convert.ToInt32(Console.ReadLine());
+      }
+      catch (FormatException)
+      {
+        return 0;
+      }
+      catch (OverflowException)
+      {
+        return 0;
+      }
+
+
+      return number;
+    }
+    protected string GetContinueValidation()
+    {
+      string answer = "n"; // Initialize to a default value
+      bool continueVal = true;
+
+      do
+      {
+
+        if (!continueVal)
+        {
+          Console.Clear();
+          System.Console.WriteLine("\nPlease choose between:\n'y' -> to continue;\n'n' -> to cancel change\n");
+        }
+
+        System.Console.Write("Do you wish to continue (y/n): ");
+
+        answer = Console.ReadLine()?.ToLower() ?? ""; // Use the null-conditional operator and provide a default value
+
+        if (!string.IsNullOrEmpty(answer) && (answer == "y" || answer == "n"))
+        {
+          continueVal = true;
+        }
+        else
+        {
+          continueVal = false;
+        }
+
+      } while (!continueVal);
+
+      return answer;
     }
   }
 
@@ -1047,7 +1111,7 @@
             System.Console.WriteLine("\nBook Selected:\n");
 
             // Access the listBook only if completeRemoveBook is true
-            printBookDetail(listBook[bookId]);
+            PrintBookDetail(listBook[bookId]);
 
             bool continueRemoveVal = true;
 
@@ -1059,7 +1123,7 @@
 
                 System.Console.WriteLine("\nBook Selected:\n");
 
-                printBookDetail(listBook[bookId]);
+                PrintBookDetail(listBook[bookId]);
 
                 System.Console.WriteLine(errorMessage);
               }
@@ -1124,112 +1188,84 @@
     public void RestockBook(List<Book> listBook)
     {
       int bookId = 0;
-      bool completeRestockBook = true;
-      string? errorMessage = "Error";
-
+      bool availableBook = true;
       do
       {
         Console.Clear();
 
         ConsultBookList(listBook);
 
-        System.Console.WriteLine("\nRestock a book by entering:\n - Book ID;\n\nWarning: This action will add stock to the inventory for the specified book.\n");
+        System.Console.WriteLine("\nChange a Book Stock by entering:\n - Book ID;\n\nWarning: This action will permanently change the stock from the inventory, including all existing stock.\n");
 
+        bookId = GetNumber("ID");
 
-        if (!completeRestockBook)
-          System.Console.WriteLine(errorMessage);
+        availableBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
 
-        System.Console.Write("Please insert an ID: ");
-
-        try
+        if (!availableBook)
         {
-          bookId = Convert.ToInt32(Console.ReadLine());
+          Console.Clear();
 
-          // Check if the bookId is within the valid range
-          completeRestockBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
+          System.Console.WriteLine($"\nError retrieving the book with the ID: {bookId}.\nPlease confirm the ID to insert.\n\nPress Any Key to Continue.");
+          Console.ReadKey();
+          continue;
+        }
+        else
+        {
+          bookId--;
+        }
 
-          if (completeRestockBook)
+        int stockQtyToInsert = 0;
+        bool correctQty = true;
+
+        do
+        {
+          Console.Clear();
+
+          System.Console.WriteLine("\nYou selected the following Book:\n");
+
+          PrintBookDetail(listBook[bookId]);
+
+          stockQtyToInsert = GetNumber("Quantity");
+
+          correctQty = (stockQtyToInsert > 0) ? true : false;
+
+          if (!correctQty)
           {
-            // Adjust the index to match the zero-based indexing used in lists
-            bookId--;
-
             Console.Clear();
 
-            System.Console.WriteLine("\nBook Selected:\n");
-
-            // Access the listBook only if completeRestockBook is true
-            printBookDetail(listBook[bookId]);
-
-            bool continueRemoveVal = true;
-
-            do
-            {
-              if (!continueRemoveVal)
-              {
-                Console.Clear();
-
-                System.Console.WriteLine("\nBook Selected:\n");
-
-                printBookDetail(listBook[bookId]);
-
-                System.Console.WriteLine(errorMessage);
-              }
-
-              try
-              {
-                System.Console.Write("Do you want to continue? (y/n): ");
-                string? userInput = Console.ReadLine();
-
-                if (!string.IsNullOrEmpty(userInput))
-                {
-                  Console.Clear();
-                  switch (userInput.ToLower())
-                  {
-                    case "y":
-                      System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
-                      listBook[bookId].Stock = 0;
-                      continueRemoveVal = true;
-                      break;
-                    case "n":
-                      System.Console.WriteLine("\nOperation Cancelled.\n");
-                      continueRemoveVal = true;
-                      break;
-                    default:
-                      errorMessage = "Please insert y or n.\n";
-                      continueRemoveVal = false;
-                      break;
-                  }
-                }
-                else
-                {
-                  errorMessage = "Please insert y or n.\n";
-                  continueRemoveVal = false;
-                }
-              }
-              catch (Exception)
-              {
-                continueRemoveVal = false;
-                // Handle unexpected exceptions
-                errorMessage = "Unexpected error.\n";
-              }
-            } while (!continueRemoveVal);
+            System.Console.WriteLine($"\nError retrieving the book quantity: {stockQtyToInsert}.\nPlease confirm the quantity to be higher then 0.\n\nPress Any Key to Continue.");
+            Console.ReadKey();
+            continue;
           }
-          else
-          {
-            errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
-            // You might want to set a default or handle the error in a way that makes sense for your application.
-          }
-        }
-        catch (FormatException)
+        } while (!correctQty);
+
+        int prevCount = listBook[bookId].Stock;
+        int futureCount = listBook[bookId].Stock + stockQtyToInsert;
+
+        Console.Clear();
+
+        System.Console.WriteLine($"\nThe Book {listBook[bookId].Title} Stock will go from {prevCount} to {futureCount} units.\n");
+
+        string? val = GetContinueValidation();
+
+        switch (val)
         {
-          errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
-          completeRestockBook = false;
-          // You might want to set a default or handle the error in a way that makes sense for your application.
+          case "y":
+            listBook[bookId].Stock = futureCount;
+            Console.Clear();
+            System.Console.WriteLine($"\nYou successfully increased the Book '{listBook[bookId].Title}' Stock to {listBook[bookId].Stock} units!\n");
+            break;
+          case "n":
+            availableBook = false;
+
+            Console.Clear();
+            System.Console.WriteLine("\nYou have cancel this operation!\n\nPress any Key to restart process.");
+            Console.ReadKey();
+            break;
         }
 
+      } while (!availableBook);
 
-
-      } while (!completeRestockBook);
 
     }
   }
