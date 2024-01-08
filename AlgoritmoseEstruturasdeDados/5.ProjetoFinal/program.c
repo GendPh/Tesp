@@ -159,20 +159,21 @@ int main()
           {
               //{Name, Type, Brand, Expiration, Price, Quantity, Qty Sold}
               {"Soda", "Beverage", "Coca-Cola", {12, 12, 2022}, 1.50, 4, 4},
-              {"Chips", "Snack", "Lays", {12, 12, 2023}, 1.25, 6, 4},
-              {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2023}, 1.75, 2, 4},
+              {"Chips", "Snack", "Lays", {12, 12, 2024}, 1.25, 6, 4},
+              {"Chocolate Bar", "Snack", "Hershey's", {12, 12, 2024}, 1.75, 2, 4},
               {"Water", "Beverage", "Dasani", {12, 12, 2022}, 1.00, 4, 4},
-              {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2023}, 1.50, 5},
-              {"Gum", "Candy", "Wrigley's", {12, 12, 2023}, 0.75, 4},
+              {"Granola Bar", "Snack", "Nature Valley", {12, 12, 2024}, 1.50, 5},
+              {"Gum", "Candy", "Wrigley's", {12, 12, 2024}, 0.75, 4},
               {"Apple", "Fruit", "Granny Smith", {12, 12, 2022}, 1.25, 3},
-              {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2023}, 2.00, 7},
+              {"Orange Juice", "Beverage", "Tropicana", {12, 12, 2024}, 2.00, 7},
           },
       };
 
+  // CheckAvailableProduct(vendingMachine);
+  // ShowProducts(vendingMachine);
+
   // This function gets the standard total sales already define above.
   EachProductSale(vendingMachine);
-  // This function check all product if they are expired.
-  CheckAvailableProduct(vendingMachine);
 
   StartProgramMenu(users, vendingMachine);
   // AdminMenu(vendingMachine, users, 1);
@@ -616,6 +617,9 @@ void MachineMenu(struct Products pro[][8], Users user[], int userState)
 // 2. Listar a informação de todos os produtos disponíveis;
 void ShowProducts(struct Products pro[][8])
 {
+  // This function check all product if they are expired.
+  CheckAvailableProduct(pro);
+
   // Clear Terminal
   system("clear");
 
