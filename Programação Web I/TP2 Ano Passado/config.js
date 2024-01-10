@@ -32,8 +32,6 @@ function addTaskEl(text) {
   `
 }
 
-
-
 function removeTask() {
   const removeButtons = document.querySelectorAll(".remove-tarefa");
 
@@ -47,7 +45,6 @@ function removeTask() {
     });
   });
 }
-
 
 document.getElementById("trocar-task").addEventListener("click", () => {
   taskSuccessEl.textContent = "";
@@ -73,7 +70,6 @@ document.getElementById("trocar-task").addEventListener("click", () => {
   tarefaTrocaEl1.value = "";
   tarefaTrocaEl2.value = "";
 })
-
 
 function reverseTask(index1, index2) {
   const allTask = document.querySelectorAll(".tarefa-div");
