@@ -456,28 +456,11 @@
           System.Console.Write("Choose a Password: ");
           Password = Console.ReadLine();
 
-          if (Password?.Length > 4)
-          {
-            for (int i = 0; i < listUsers.Count; i++)
-            {
-              if (listUsers[i].password == Password)
-              {
-                hasPassword = true;
-                errorMessage = "Already exist user password.";
-                break;
-              }
-              else
-              {
-                hasPassword = false;
-              }
-            }
-          }
-          else
+          if (Password?.Length < 5)
           {
             hasPassword = true;
             errorMessage = "User Password as to be at least 5 characters long.";
           }
-
         } while (hasPassword);
 
         // Define a position
@@ -598,12 +581,10 @@
     }
     public void RemoveUsers(List<Employee> listUsers, Manager manager)
     {
-      int userId = 0;
-
-      Employee? employeeToRemove = listUsers.Find(e => e.id == 0);
-
-
-      bool removeUser = false;
+      bool removed = true;
+      int userId = -1;
+      Employee? empToRemove;
+      string? errorMessage = " ";
       do
       {
         Console.Clear();
@@ -612,254 +593,307 @@
 
         System.Console.WriteLine("\nRemove a user profile by entering:\n - Unique ID;\n\nThis action will permanently delete the user's profile from the system.\nPlease be cautious when removing users.\n");
 
-        System.Console.WriteLine($"There are a total of {listUsers.Count} users.\n");
-
-        string? errorMessage = "Error";
-        bool availableId = true;
-
-        do
+        if (!removed)
         {
-          if (!availableId)
-          {
-            Console.Clear();
-            System.Console.WriteLine($"{errorMessage}.\n");
-          }
+          System.Console.WriteLine($"{errorMessage}\n");
+        }
 
-          System.Console.Write("Please select one of the above users Id: ");
-
+        System.Console.Write("Please insert the user ID (0 to cancel):");
+        try
+        {
           userId = Convert.ToInt32(Console.ReadLine());
 
-          if (userId >= 1 && userId <= listUsers.Count && userId != manager.id)
+          if (userId == manager.id)
           {
-            availableId = true;
-            employeeToRemove = listUsers.Find(e => e.id == userId);
+            removed = false;
+            errorMessage = "You can't choose your ID.";
+            continue;
+          }
+        }
+        catch (FormatException)
+        {
+          removed = false;
+          errorMessage = "Please insert a proper ID.";
+          continue;
+        }
+
+        Console.Clear();
+
+        if (userId == 0)
+        {
+          System.Console.WriteLine("\nOperation Canceled.\n");
+          removed = true;
+        }
+        else
+        {
+          empToRemove = listUsers.Find(empToRemove => empToRemove.id == userId);
+
+          if (empToRemove != null)
+          {
+            System.Console.WriteLine("\nUser selected\n");
+            System.Console.WriteLine($"ID: {empToRemove.id}");
+            System.Console.WriteLine($"Name: {empToRemove.name}");
+            System.Console.WriteLine($"Role: {empToRemove.position}\n");
+
+            string? val = GetContinueValidation();
+
+            Console.Clear();
+            switch (val)
+            {
+              case "y":
+                System.Console.WriteLine($"\nOperation to remove the user {empToRemove.name}, was a success.\n");
+                listUsers.Remove(empToRemove);
+                break;
+              case "n":
+                System.Console.WriteLine($"\nOperation to remove the user {empToRemove.name}, was cancelled.\n");
+                break;
+            }
           }
           else
           {
-            availableId = false;
-            errorMessage = $"Please inset a number between 1 and {listUsers.Count} with exception {manager.id}";
+            removed = false;
+            errorMessage = $"The user with the ID {userId}, couldn't be found.";
             continue;
           }
+        }
 
-          bool removeAuth = true;
-          string? addConfirmation = "Answer";
-          do
-          {
-            Console.Clear();
-
-            if (employeeToRemove != null)
-            {
-              System.Console.WriteLine("\nUser selected\n");
-              System.Console.WriteLine($"ID: {employeeToRemove.id}");
-              System.Console.WriteLine($"Name: {employeeToRemove.name}");
-              System.Console.WriteLine($"Role: {employeeToRemove.position}\n");
-            }
-
-            if (!removeAuth)
-            {
-              System.Console.WriteLine("Please choose between y or n.\n");
-            }
-
-            System.Console.Write("Do you want to remove the user above?(y/n) ");
-            addConfirmation = Console.ReadLine();
-
-            if (addConfirmation != null)
-            {
-              switch (addConfirmation.ToLower())
-              {
-                case "y":
-                  removeAuth = true;
-                  removeUser = true;
-                  break;
-                case "n":
-                  removeAuth = true;
-                  removeUser = false;
-                  break;
-                default:
-                  removeAuth = false;
-                  break;
-              }
-            }
-          } while (!removeAuth);
-
-
-        } while (!availableId);
-
-      } while (!removeUser);
-
-      if (employeeToRemove != null)
-        listUsers.Remove(employeeToRemove);
-
-      Console.Clear();
-
-      ShowUsers(listUsers);
-
-      System.Console.WriteLine("User removed successfully!\n");
+        removed = true;
+      } while (!removed);
 
     }
     protected internal void PromoteUsers(List<Employee> listUsers, Manager manager)
     {
-      int userId = 0;
-      Employee? employeeToPromote = listUsers.Find(e => e.id == 0);
 
-      bool promoteUser = false;
+
+      int userId = 0;
+      Employee? empToPromote;
+      string? errorMessage = " ";
+
+      bool promote = true;
 
       do
       {
+
         Console.Clear();
 
         ShowUsers(listUsers);
 
         System.Console.WriteLine("\nPromote a user role by entering:\n - Unique ID;\n\nThis action will change the user's role within the system.\nPlease exercise caution when promoting users.\n");
 
-        System.Console.WriteLine($"There are a total of {listUsers.Count} users.\n");
-
-        string? errorMessage = "Error";
-        bool availableId = true;
-
-        do
+        if (!promote)
         {
-          if (!availableId)
-          {
-            Console.Clear();
-            System.Console.WriteLine($"{errorMessage}.\n");
-          }
+          System.Console.WriteLine($"{errorMessage}\n");
+        }
 
-          System.Console.Write("Please select one of the above users Id: ");
-
+        System.Console.Write("Please insert the user ID (0 to cancel):");
+        try
+        {
           userId = Convert.ToInt32(Console.ReadLine());
 
-          if (userId >= 1 && userId <= listUsers.Count && userId != manager.id)
+          if (userId == manager.id)
           {
-            availableId = true;
-            employeeToPromote = listUsers.Find(e => e.id == userId);
-          }
-          else
-          {
-            availableId = false;
-            errorMessage = $"Please inset a number between 1 and {listUsers.Count} with exception of {manager.id}";
+            promote = false;
+            errorMessage = "You can't choose your ID.";
             continue;
           }
-        } while (!availableId);
-
-        bool promoteAuth = true;
-        var options = new List<string> { "Manager", "Stocker", "Cashier" };
-        string? roleUnavailable = "...";
-        int roleChosen = 0;
-        string? roleChosenText = " ";
-        do
+        }
+        catch (FormatException)
         {
-          Console.Clear();
+          promote = false;
+          errorMessage = "Please insert a proper ID.";
+          continue;
+        }
 
-          if (employeeToPromote != null)
+        Console.Clear();
+
+        if (userId == 0)
+        {
+          System.Console.WriteLine("\nOperation Canceled.\n");
+          promote = true;
+        }
+        else
+        {
+          empToPromote = listUsers.Find(empToPromote => empToPromote.id == userId);
+
+          if (empToPromote != null)
           {
+
             System.Console.WriteLine("\nUser selected\n");
-            System.Console.WriteLine($"ID: {employeeToPromote.id}");
-            System.Console.WriteLine($"Name: {employeeToPromote.name}");
-            System.Console.WriteLine($"Role: {employeeToPromote.position}\n");
+            System.Console.WriteLine($"\tID: {empToPromote.id}");
+            System.Console.WriteLine($"\tName: {empToPromote.name}");
+            System.Console.WriteLine($"\tRole: {empToPromote.position}\n");
 
-            if (!promoteAuth)
-            {
-              System.Console.WriteLine("Please choose between 1 or 2.\n");
-            }
 
-            System.Console.WriteLine("Options: ");
+            bool correctPosition = true;
+            var options = new List<string> { "Manager", "Stocker", "Cashier" };
 
-            int index = 0;
-            for (int i = 0; i < options.Count; i++)
-            {
-              if (employeeToPromote.position != options[i])
-              {
-                index++;
-                System.Console.WriteLine($"{index} {options[i]}");
-              }
-              else
-              {
-                roleUnavailable = options[i];
-              }
-            }
-            options.Remove(roleUnavailable);
+            string? roleUnavailable = "...";
+            int roleChosen = -1;
+            string? roleChosenText = " ";
 
-            System.Console.Write("\nChoose a Role: ");
-
-            roleChosen = Convert.ToInt32(Console.ReadLine());
-
-            if (roleChosen >= 1 && roleChosen <= 2)
-            {
-              promoteAuth = true;
-            }
-            else
-            {
-              promoteAuth = false;
-              continue;
-            }
-
-            switch (roleChosen)
-            {
-              case 1:
-                roleChosenText = options[roleChosen - 1];
-                break;
-              case 2:
-                roleChosenText = options[roleChosen - 1];
-                break;
-            }
-
-            bool promote = true;
-            string? promoteAnswer = "Y";
             do
             {
-
-              Console.Clear();
-
-              if (!promote)
-                System.Console.WriteLine("Please insert y or n.");
-
-              System.Console.Write($"\nDo you want to Promote {employeeToPromote.name} from {employeeToPromote.position} to {roleChosenText}?(y/n) ");
-
-              promoteAnswer = Console.ReadLine();
-              if (promoteAnswer != null)
+              if (!correctPosition)
               {
-                switch (promoteAnswer.ToLower())
+                Console.Clear();
+                System.Console.WriteLine($"\n{errorMessage}\n");
+              }
+
+              int index = 0;
+
+              System.Console.WriteLine("Please choose a role to Promote.\n");
+              for (int i = 0; i < options.Count; i++)
+              {
+                if (empToPromote.position != options[i])
                 {
-                  case "y":
-                    promote = true;
-                    promoteAuth = true;
-                    promoteUser = true;
-
-                    switch (roleChosenText)
-                    {
-                      case "Manager":
-                        Manager newManager = new Manager(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Manager");
-                        listUsers[userId - 1] = newManager;
-                        break;
-                      case "Stocker":
-                        Stocker newStocker = new Stocker(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Stocker");
-                        listUsers[userId - 1] = newStocker;
-                        break;
-                      case "Cashier":
-                        Cashier newCashier = new Cashier(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Cashier");
-                        listUsers[userId - 1] = newCashier;
-                        break;
-                    }
-                    break;
-
-                  case "n":
-                    promote = true;
-                    break;
-                  default:
-                    promote = false;
-                    break;
+                  index++;
+                  System.Console.WriteLine($"\t{index} {options[i]}");
+                }
+                else
+                {
+                  roleUnavailable = options[i];
                 }
               }
 
-            } while (!promote);
+              options.Remove(roleUnavailable);
+
+              System.Console.Write("\nChoose a Role: ");
+
+              try
+              {
+                roleChosen = Convert.ToInt32(Console.ReadLine());
+
+                if (roleChosen < 1 || roleChosen > 2)
+                {
+                  correctPosition = false;
+                  errorMessage = "Please insert a value between 1 and 2.";
+                  continue;
+                }
+                else
+                {
+                  switch (roleChosen)
+                  {
+                    case 1:
+                      roleChosenText = options[roleChosen - 1];
+                      break;
+                    case 2:
+                      roleChosenText = options[roleChosen - 1];
+                      break;
+                  }
+
+                  Console.Clear();
+                  System.Console.WriteLine($"\nDo you wish to change the user {empToPromote.name} from {empToPromote.position} to {roleChosenText}?\n");
+
+                  string? val = GetContinueValidation();
+
+                  Console.Clear();
+                  switch (val)
+                  {
+                    case "y":
+                      switch (roleChosenText)
+                      {
+                        case "Manager":
+                          Manager newManager = new Manager(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Manager");
+                          listUsers[userId - 1] = newManager;
+                          break;
+                        case "Stocker":
+                          Stocker newStocker = new Stocker(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Stocker");
+                          listUsers[userId - 1] = newStocker;
+                          break;
+                        case "Cashier":
+                          Cashier newCashier = new Cashier(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Cashier");
+                          listUsers[userId - 1] = newCashier;
+                          break;
+                      }
+                      System.Console.WriteLine($"\nOperation to promote the user {empToPromote.name} to {roleChosenText}, was a success.\n");
+                      break;
+                    case "n":
+                      System.Console.WriteLine($"\nOperation to promote the user {empToPromote.name}, was cancelled.\n");
+                      break;
+                  }
+                }
+
+              }
+              catch (FormatException)
+              {
+                correctPosition = false;
+                errorMessage = "Please insert a value between 1 and 2.";
+                continue;
+              }
+
+              correctPosition = true;
+            } while (!correctPosition);
+
+
           }
-        } while (!promoteAuth);
+          else
+          {
+            promote = false;
+            errorMessage = $"The user with the ID {userId}, couldn't be found.";
+            continue;
+          }
+        }
 
-      } while (!promoteUser);
+        promote = true;
+      } while (!promote);
 
-      Console.Clear();
-      ShowUsers(listUsers);
+
+      //       bool promote = true;
+      //       string? promoteAnswer = "Y";
+      //       do
+      //       {
+
+      //         Console.Clear();
+
+      //         if (!promote)
+      //           System.Console.WriteLine("Please insert y or n.");
+
+      //         System.Console.Write($"\nDo you want to Promote {employeeToPromote.name} from {employeeToPromote.position} to {roleChosenText}?(y/n) ");
+
+      //         promoteAnswer = Console.ReadLine();
+      //         if (promoteAnswer != null)
+      //         {
+      //           switch (promoteAnswer.ToLower())
+      //           {
+      //             case "y":
+      //               promote = true;
+      //               promoteAuth = true;
+      //               promoteUser = true;
+
+      //               switch (roleChosenText)
+      //               {
+      //                 case "Manager":
+      //                   Manager newManager = new Manager(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Manager");
+      //                   listUsers[userId - 1] = newManager;
+      //                   break;
+      //                 case "Stocker":
+      //                   Stocker newStocker = new Stocker(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Stocker");
+      //                   listUsers[userId - 1] = newStocker;
+      //                   break;
+      //                 case "Cashier":
+      //                   Cashier newCashier = new Cashier(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Cashier");
+      //                   listUsers[userId - 1] = newCashier;
+      //                   break;
+      //               }
+      //               break;
+
+      //             case "n":
+      //               promote = true;
+      //               break;
+      //             default:
+      //               promote = false;
+      //               break;
+      //           }
+      //         }
+
+      //       } while (!promote);
+      //     }
+      //   } while (!promoteAuth);
+
+      // } while (!promoteUser);
+
+      // Console.Clear();
+      // ShowUsers(listUsers);
     }
     internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
@@ -1077,112 +1111,231 @@
     }
     public void RemoveBook(List<Book> listBook)
     {
-      int bookId = 0;
-      bool completeRemoveBook = true;
-      string? errorMessage = "Error";
-
+      int bookId = -1;
+      string? errorMessage = " ";
+      Book? bookToReStock;
+      bool reStock = true;
       do
       {
         Console.Clear();
 
         ConsultBookList(listBook);
 
-        System.Console.WriteLine("\nRemove a book by entering:\n - Book ID;\n\nWarning: This action will permanently remove the book from the inventory, including all existing stock.\n");
+        System.Console.WriteLine("\nRemove a book by entering:\n - Book ID;\n\nWarning: This action will permanently remove the book from the inventory, including the stock defined.\n");
 
-        if (!completeRemoveBook)
-          System.Console.WriteLine(errorMessage);
+        if (!reStock)
+          System.Console.WriteLine($"{errorMessage}\n");
 
-        System.Console.Write("Please insert an ID: ");
+        System.Console.Write("Please select a ID Book (0 to cancel): ");
 
         try
         {
           bookId = Convert.ToInt32(Console.ReadLine());
 
-          // Check if the bookId is within the valid range
-          completeRemoveBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
+          Console.Clear();
 
-          if (completeRemoveBook)
+          if (bookId == 0)
           {
-            // Adjust the index to match the zero-based indexing used in lists
-            bookId--;
-
-            Console.Clear();
-
-            System.Console.WriteLine("\nBook Selected:\n");
-
-            // Access the listBook only if completeRemoveBook is true
-            PrintBookDetail(listBook[bookId]);
-
-            bool continueRemoveVal = true;
-
-            do
-            {
-              if (!continueRemoveVal)
-              {
-                Console.Clear();
-
-                System.Console.WriteLine("\nBook Selected:\n");
-
-                PrintBookDetail(listBook[bookId]);
-
-                System.Console.WriteLine(errorMessage);
-              }
-
-              try
-              {
-                System.Console.Write("Do you want to continue? (y/n): ");
-                string? userInput = Console.ReadLine();
-
-                if (!string.IsNullOrEmpty(userInput))
-                {
-                  Console.Clear();
-                  switch (userInput.ToLower())
-                  {
-                    case "y":
-                      System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
-                      listBook[bookId].Stock = 0;
-                      continueRemoveVal = true;
-                      break;
-                    case "n":
-                      System.Console.WriteLine("\nOperation Cancelled.\n");
-                      continueRemoveVal = true;
-                      break;
-                    default:
-                      errorMessage = "Please insert y or n.\n";
-                      continueRemoveVal = false;
-                      break;
-                  }
-                }
-                else
-                {
-                  errorMessage = "Please insert y or n.\n";
-                  continueRemoveVal = false;
-                }
-              }
-              catch (Exception)
-              {
-                continueRemoveVal = false;
-                // Handle unexpected exceptions
-                errorMessage = "Unexpected error.\n";
-              }
-            } while (!continueRemoveVal);
+            System.Console.WriteLine("\nOperation Canceled");
           }
           else
           {
-            errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
-            // You might want to set a default or handle the error in a way that makes sense for your application.
+            bookToReStock = listBook.Find(bookToReStock => bookToReStock.Code == bookId);
+
+            if (bookToReStock != null)
+            {
+
+              if (bookToReStock.Stock == 0)
+              {
+                errorMessage = "This Book isn't available to remove Stock.";
+                reStock = false;
+                continue;
+              }
+
+
+              int stockToRemove = -1;
+              bool quantityAvailable = true;
+
+              do
+              {
+                Console.Clear();
+                System.Console.WriteLine("");
+
+                PrintBookDetail(bookToReStock);
+
+                if (!quantityAvailable)
+                  System.Console.WriteLine($"{errorMessage}\n");
+
+                System.Console.Write("Select a quantity to remove: ");
+                try
+                {
+                  stockToRemove = Convert.ToInt32(Console.ReadLine());
+
+                  if (stockToRemove < 1 || stockToRemove > bookToReStock.Stock)
+                  {
+                    errorMessage = "Please insert a proper quantity.";
+                    quantityAvailable = false;
+                    continue;
+                  }
+                  else
+                  {
+                    Console.Clear();
+                    System.Console.WriteLine($"\nDo you want to remove {stockToRemove} units from '{bookToReStock.Title}'?\n");
+
+                    string? val = GetContinueValidation();
+
+                    Console.Clear();
+                    switch (val)
+                    {
+                      case "y":
+                        System.Console.WriteLine($"\nOperation to remove the {stockToRemove} units from '{bookToReStock.Title}', was a success.\n");
+                        listBook[bookId - 1].Stock -= stockToRemove;
+                        break;
+                      case "n":
+                        System.Console.WriteLine($"\nOperation to remove the stock from '{bookToReStock.Title}', was cancelled.\n");
+                        break;
+                    }
+                  }
+
+                }
+                catch (FormatException)
+                {
+                  errorMessage = "Please select a proper quantity.";
+                  quantityAvailable = false;
+                  continue;
+                }
+
+                quantityAvailable = true;
+              } while (!quantityAvailable);
+
+
+            }
+            else
+            {
+              errorMessage = $"Can't find a book with the ID of {bookId}.";
+              reStock = false;
+              continue;
+            }
           }
         }
         catch (FormatException)
         {
-          errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
-          completeRemoveBook = false;
-          // You might want to set a default or handle the error in a way that makes sense for your application.
+          errorMessage = "Please select a proper ID book.";
+          reStock = false;
+          continue;
         }
 
 
+        reStock = true;
+      } while (!reStock);
 
-      } while (!completeRemoveBook);
+
+      // int bookId = 0;
+      // bool completeRemoveBook = true;
+      // string? errorMessage = "Error";
+
+      // do
+      // {
+      //   Console.Clear();
+
+      //   ConsultBookList(listBook);
+
+      //   System.Console.WriteLine("\nRemove a book by entering:\n - Book ID;\n\nWarning: This action will permanently remove the book from the inventory, including the stock defined.\n");
+
+      //   if (!completeRemoveBook)
+      //     System.Console.WriteLine(errorMessage);
+
+      //   System.Console.Write("Please insert an ID: ");
+
+      //   try
+      //   {
+      //     bookId = Convert.ToInt32(Console.ReadLine());
+
+      //     // Check if the bookId is within the valid range
+      //     completeRemoveBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
+
+      //     if (completeRemoveBook)
+      //     {
+      //       // Adjust the index to match the zero-based indexing used in lists
+      //       bookId--;
+
+      //       Console.Clear();
+
+      //       System.Console.WriteLine("\nBook Selected:\n");
+
+      //       // Access the listBook only if completeRemoveBook is true
+      //       PrintBookDetail(listBook[bookId]);
+
+      //       bool continueRemoveVal = true;
+
+      //       do
+      //       {
+      //         if (!continueRemoveVal)
+      //         {
+      //           Console.Clear();
+
+      //           System.Console.WriteLine("\nBook Selected:\n");
+
+      //           PrintBookDetail(listBook[bookId]);
+
+      //           System.Console.WriteLine(errorMessage);
+      //         }
+
+      //         try
+      //         {
+      //           System.Console.Write("Do you want to continue? (y/n): ");
+      //           string? userInput = Console.ReadLine();
+
+      //           if (!string.IsNullOrEmpty(userInput))
+      //           {
+      //             Console.Clear();
+      //             switch (userInput.ToLower())
+      //             {
+      //               case "y":
+      //                 System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
+      //                 listBook[bookId].Stock = 0;
+      //                 continueRemoveVal = true;
+      //                 break;
+      //               case "n":
+      //                 System.Console.WriteLine("\nOperation Cancelled.\n");
+      //                 continueRemoveVal = true;
+      //                 break;
+      //               default:
+      //                 errorMessage = "Please insert y or n.\n";
+      //                 continueRemoveVal = false;
+      //                 break;
+      //             }
+      //           }
+      //           else
+      //           {
+      //             errorMessage = "Please insert y or n.\n";
+      //             continueRemoveVal = false;
+      //           }
+      //         }
+      //         catch (Exception)
+      //         {
+      //           continueRemoveVal = false;
+      //           // Handle unexpected exceptions
+      //           errorMessage = "Unexpected error.\n";
+      //         }
+      //       } while (!continueRemoveVal);
+      //     }
+      //     else
+      //     {
+      //       errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
+      //       // You might want to set a default or handle the error in a way that makes sense for your application.
+      //     }
+      //   }
+      //   catch (FormatException)
+      //   {
+      //     errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
+      //     completeRemoveBook = false;
+      //     // You might want to set a default or handle the error in a way that makes sense for your application.
+      //   }
+
+
+
+      // } while (!completeRemoveBook);
 
     }
     public void RestockBook(List<Book> listBook)

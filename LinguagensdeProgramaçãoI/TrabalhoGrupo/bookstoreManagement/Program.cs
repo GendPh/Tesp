@@ -51,10 +51,16 @@ namespace bookstoreManagement
 
       StartProgram(employees, books, cart);
     }
+
     static void StartProgram(List<Employee> employees, List<Book> books, List<Book> cart)
     {
-      int employeeId = Login(employees);
+      int employeeId = 1;
+      // int employeeId = Login(employees);
 
+      // if (employees[employeeId] is Manager manager)
+      // {
+      //   manager.PromoteUsers(employees, manager);
+      // }
       // if (employees[employeeId] is Stocker stocker)
       // {
       //   stocker.RemoveBook(books);
@@ -62,7 +68,6 @@ namespace bookstoreManagement
 
       EmployeeMenu(employees, employees[employeeId], books, cart);
     }
-
 
     static int Login(List<Employee> employees)
     {
@@ -78,7 +83,7 @@ namespace bookstoreManagement
       do
       {
         Console.Clear();
-        Console.WriteLine("Login");
+        Console.WriteLine("\n\tLogin\n");
 
         if (error)
         {
@@ -114,9 +119,7 @@ namespace bookstoreManagement
           }
         }
 
-        System.Console.WriteLine("");
-
-        Console.Write($"Password: {Password}");
+        Console.Write($"\nPassword: {Password}");
 
         Password = Console.ReadLine();
 
@@ -162,7 +165,7 @@ namespace bookstoreManagement
         }
 
         // Display the employee's menu header
-        System.Console.WriteLine($"\t{employee.name} Menu\n");
+        System.Console.WriteLine($"\t{employee.position} Menu\n");
 
         // Display the menu options with corresponding numbers
         for (int i = 0; i < menuOptions.Count; i++)
