@@ -24,8 +24,8 @@ const standLoader = `<div class="card opacity-50">
 </div>
 `;
 
-export function createMovieBox(data) {
-  const movieContainer = document.querySelector("#movie-container");
+export function createMovieBox(data, container) {
+  const movieContainer = document.querySelector(`${container}`);
   // Clear existing content
   movieContainer.innerHTML = standLoader;
 

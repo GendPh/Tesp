@@ -1,7 +1,16 @@
+html {
+  scroll-padding-top: 4rem;
+}
+
 #movie-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+}
+
+section {
+  width: min(100%, 950px);
+  margin-inline: auto;
 }
 
 @media screen and (min-width: 760px) {
@@ -13,6 +22,10 @@
   #movie-container {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+#fail-search {
+  width: min(100%, 150px);
 }
 
 .btn-container {

@@ -1,26 +1,30 @@
 import { fetchData } from "./API/fetch.js";
-import { createMovieBox, movieBox } from "./CreateMovieContainer/CreateMovieContainer.js";
+import { loadSlide, slideBox } from "./splide.js";
 
-let startPage = 1; // Set the initial page number
-const btnChangePopular = document.querySelectorAll(".btn-change-popular");
-
-
-async function StartPage(page) {
-  const data = await fetchData(page);
-  console.log(data);
-  createMovieBox(data.results);
+function StartPage() {
+  loadSections("movie/popular?language=en-US&page=1", "#popular-slide-list", "#popular.splide");
+  loadSections("movie/top_rated?language=en-US&page=1", "#top-rated-slide-list", "#top-rated.splide");
+  loadSections("movie/now_playing?language=en-US&page=2", "#playing-slide-list", "#playing.splide");
+  loadSections("movie/upcoming?language=en-US&page=2", "#upcoming-slide-list", "#upcoming.splide");
+  const todayYear = new Date().getFullYear();
+  document.getElementById("year").textContent = todayYear;
 }
 
-StartPage(startPage);
+StartPage();
 
-// Function to update the page in the URL and fetch data
-function updatePageAndFetchData(newPage) {
-  history.pushState(null, null, `?page=${newPage}`);
-  StartPage(newPage);
-}
+async function loadSections(ApiData, slideDest, slide) {
+  const data = await fetchData(ApiData);
+  const slicedData = data.results.slice(0, 8);
+  const slideContainer = document.querySelector(slideDest);
 
-btnChangePopular.forEach((btn, index) => {
-  btn.addEventListener("click", () => {
-    updatePageAndFetchData(index + 2)
+  slicedData.forEach(poster => {
+    const newMovieBox = slideBox(poster);
+    // Convert the HTML string to a DOM element before appending
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(newMovieBox, 'text/html');
+    const movieBoxElement = doc.body.firstChild;
+    slideContainer.appendChild(movieBoxElement);
   });
-});
+
+  loadSlide(slide);
+}
