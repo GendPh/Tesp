@@ -1,5 +1,6 @@
 import { fetchData } from "./API/fetch.js";
 import { loadSlide, slideBox } from "./splide.js";
+import { attachMoviePageLinkToCard } from "../movie/goToMoviePage.js";
 
 function StartPage() {
   loadSections("movie/popular?language=en-US&page=1", "#popular-slide-list", "#popular.splide");
@@ -27,6 +28,7 @@ async function loadSections(ApiData, slideDest, slide) {
   });
 
   loadSlide(slide);
+  attachMoviePageLinkToCard(".splide__slide img", "./movie/movie.html");
 }
 
 const linksChangePage = document.querySelectorAll(".change-page");

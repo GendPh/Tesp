@@ -1,3 +1,5 @@
+import { attachMoviePageLinkToCard } from "../../movie/goToMoviePage.js";
+
 const standLoader = `<div class="card opacity-50 h-25">
 <span class="loader mx-auto"></span>
 <div class="card-body">
@@ -40,23 +42,25 @@ export function createMovieBox(data, container) {
       const movieBoxElement = doc.body.firstChild;
       movieContainer.appendChild(movieBoxElement);
     });
+
+    attachMoviePageLinkToCard("#movie-container .card .go-to-movie", "../movie/movie.html")
   }, 1000);
 
 }
 
 export function movieBox(info) {
-
-  const poster = (info.poster_path) ? `https://image.tmdb.org/t/p/w500${info.poster_path}` : "https://picsum.photos/500";
+  const postarSizes = "w440_and_h660_face";
+  const poster = (info.poster_path) ? `https://image.tmdb.org/t/p/${postarSizes}${info.poster_path}` : "https://picsum.photos/440/660";
 
   const releaseDate = (info.release_date) ? info.release_date : "00-00-0000";
 
   return `
-    <div class="card shadow">
+    <div class="card">
       <img src="${poster}" class="card-img-top h-100" alt="...">
-      <div class="card-body fw-bold">
-        <p class="card-text truncate">${info.title}</p>
-        <p class="card-text opacity-50">${releaseDate}</p>
-        <p class="float-end average">${(info.vote_average * 10).toFixed(0)}%</p>
+      <div class="card-body ">
+        <p class="card-text fw-bold mb-0 truncate"><a href="#" class="go-to-movie" data-movie-id="${info.id}">${info.title}</a></p>
+        <p class="card-text mb-0 opacity-50">${releaseDate}</p>
+        <p class="float-end mb-0 fw-bold average">${(info.vote_average * 10).toFixed(0)}%</p>
       </div>
     </div>
   `;

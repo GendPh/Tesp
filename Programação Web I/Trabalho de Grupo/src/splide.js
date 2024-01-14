@@ -3,8 +3,9 @@ export function loadSlide(slide) {
     type: 'loop',
     perPage: 4,
     perMove: 1,
-    focus: "start",
-    padding: { left: "1rem" },
+    focus: "center",
+    // padding: { left: "1rem" },
+    gap: "0.5rem",
     pagination: false,
     breakpoints: {
       600: {
@@ -21,7 +22,7 @@ export function loadSlide(slide) {
 export function slideBox(data) {
   return `
   <div class="splide__slide">
-  <img data-splide-lazy src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="img" class="w-100 rounded-4 ">
-</div>
+    <img data-splide-lazy src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="img" class="w-100 rounded-4" data-movie-id="${data.id}">
+  </div>
   `;
 }

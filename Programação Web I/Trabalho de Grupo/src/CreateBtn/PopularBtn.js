@@ -1,16 +1,16 @@
 function btn(index) {
-  return `<button type="button" class="btn btn-dark btn-page">${index}</button>`;
+  return `<button type="button" class="btn btn-light btn-page">${index}</button>`;
 }
 
 function movePageOne(direction, icon, maxPage) {
-  return `<button type="button" class="btn btn-dark" data-max-page="${maxPage}" id="${direction}">${icon}</button>`;
+  return `<button type="button" class="btn btn-light" data-max-page="${maxPage}" id="${direction}">${icon}</button>`;
 }
 
 export function createBtn(data) {
   const btnContainer = document.querySelector(`#btn-container`);
   const btnMax = Number(btnContainer.getAttribute("data-max-btn"));
 
-  const totalPages = (btnMax == 0) ? Math.round(data.total_results / 20) : btnMax;
+  const totalPages = (btnMax == 0) ? data.total_pages : btnMax;
 
   for (let i = 0; i <= totalPages + 1; i++) {
     let newBtn;

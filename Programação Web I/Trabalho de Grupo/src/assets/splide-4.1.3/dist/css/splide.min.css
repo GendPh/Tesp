@@ -61,19 +61,14 @@
   list-style-type: none !important;
   margin: 0;
   position: relative;
-  opacity: 50%;
-  scale: 0.85;
   padding: 0.5rem 0;
   transition: all 150ms linear;
-}
-.splide__slide.is-active {
-  opacity: 100%;
-  scale: 1;
 }
 
 .splide__slide img {
   vertical-align: bottom;
-  box-shadow: -3px 3px 6px 0px rgba(43, 43, 43, 0.644);
+  box-shadow: 0px 3px 0px 1.5px rgba(203, 203, 203, 0.644);
+  cursor: pointer;
 }
 .splide__spinner {
   animation: splide-loading 1s linear infinite;
