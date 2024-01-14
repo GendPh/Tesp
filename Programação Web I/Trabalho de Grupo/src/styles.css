@@ -2,15 +2,17 @@ html {
   scroll-padding-top: 4rem;
 }
 
-#movie-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
 section {
   width: min(100%, 950px);
   margin-inline: auto;
+}
+
+#movie-container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  min-height: 100vh;
 }
 
 @media screen and (min-width: 760px) {
@@ -22,6 +24,13 @@ section {
   #movie-container {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+#btn-container {
+  display: flex;
+  overflow-x: scroll;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 
 #fail-search {
@@ -82,4 +91,19 @@ section {
   100% {
     transform: rotate(-360deg);
   }
+}
+
+.average {
+  font-size: 0.7rem;
+  background-color: #23a2b7;
+  padding: 0.1rem 0.3rem;
+  border-radius: 5px;
+  color: white;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Adjust this if you want a specific width */
 }

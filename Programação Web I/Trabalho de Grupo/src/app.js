@@ -28,3 +28,14 @@ async function loadSections(ApiData, slideDest, slide) {
 
   loadSlide(slide);
 }
+
+const linksChangePage = document.querySelectorAll(".change-page");
+
+linksChangePage.forEach(links => {
+  links.addEventListener("click", () => {
+    const urlDestination = links.getAttribute("data-page");
+    console.log(urlDestination);
+
+    window.location.href = `./${urlDestination}/${urlDestination}.html?search=` + encodeURIComponent(urlDestination) + '&page=1';
+  })
+});
