@@ -87,42 +87,66 @@
     }
     public void ConsultBookByGenre(List<Book> bookList)
     {
-      Console.Clear();
 
       List<string> allGenres = bookList.Select(book => book.Genre).Distinct().ToList();
 
-      // Display the list of genres
-      Console.WriteLine("\nList of all genres:\n");
-
-      for (int index = 0; index < allGenres.Count; index++)
+      bool showGenre = true;
+      string? errorMessage = " ";
+      do
       {
-        Console.WriteLine($"\t{index + 1}. {allGenres[index]};");
-      }
+        Console.Clear();
 
-      string? genreSelected;
-      System.Console.Write("\nSelect one off the genres above: ");
-      genreSelected = Console.ReadLine();
+        // Display the list of genres
+        Console.WriteLine("\nList of all genres:\n");
 
-      if (genreSelected == null)
-        genreSelected = "Empty";
-
-
-      List<Book>? selectedBooks = bookList.Where(book => book.Genre.ToLower() == genreSelected.ToLower()).ToList();
-
-      Console.Clear();
-      System.Console.WriteLine("");
-
-      if (selectedBooks != null && selectedBooks.Count > 0)
-      {
-        foreach (Book book in selectedBooks)
+        for (int index = 0; index < allGenres.Count; index++)
         {
-          PrintBookDetail(book);
+          Console.WriteLine($"\t{index + 1}. {allGenres[index]};");
         }
-      }
-      else
-      {
-        System.Console.WriteLine($"No books found with the genre {genreSelected}.\n");
-      }
+
+        System.Console.Write((!showGenre) ? $"\n{errorMessage}\n" : " ");
+
+        System.Console.Write("\nInsert a Genre ID: ");
+
+        try
+        {
+          int genreId = Convert.ToInt32(Console.ReadLine());
+
+          if (genreId > 0 && genreId <= allGenres.Count)
+          {
+            genreId--;
+            string? choose_genre = allGenres[genreId];
+
+            List<Book>? books_genre = bookList.Where(book => book.Genre.ToLower().Contains(choose_genre.ToLower())).ToList();
+
+            Console.Clear();
+            if (books_genre != null)
+            {
+              foreach (Book book in books_genre)
+              {
+                PrintBookDetail(book);
+              }
+            }
+            else
+            {
+              System.Console.WriteLine($"There wasn't found any book with {choose_genre}.\n");
+            }
+          }
+          else
+          {
+            showGenre = false;
+            errorMessage = $"The id {genreId} wasn't found.";
+            continue;
+          }
+        }
+        catch (FormatException)
+        {
+          showGenre = false;
+          errorMessage = "Please insert a proper Id.";
+          continue;
+        }
+        showGenre = true;
+      } while (!showGenre);
     }
     public void ConsultBookByAuthor(List<Book> bookList)
     {
@@ -836,64 +860,6 @@
 
         promote = true;
       } while (!promote);
-
-
-      //       bool promote = true;
-      //       string? promoteAnswer = "Y";
-      //       do
-      //       {
-
-      //         Console.Clear();
-
-      //         if (!promote)
-      //           System.Console.WriteLine("Please insert y or n.");
-
-      //         System.Console.Write($"\nDo you want to Promote {employeeToPromote.name} from {employeeToPromote.position} to {roleChosenText}?(y/n) ");
-
-      //         promoteAnswer = Console.ReadLine();
-      //         if (promoteAnswer != null)
-      //         {
-      //           switch (promoteAnswer.ToLower())
-      //           {
-      //             case "y":
-      //               promote = true;
-      //               promoteAuth = true;
-      //               promoteUser = true;
-
-      //               switch (roleChosenText)
-      //               {
-      //                 case "Manager":
-      //                   Manager newManager = new Manager(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Manager");
-      //                   listUsers[userId - 1] = newManager;
-      //                   break;
-      //                 case "Stocker":
-      //                   Stocker newStocker = new Stocker(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Stocker");
-      //                   listUsers[userId - 1] = newStocker;
-      //                   break;
-      //                 case "Cashier":
-      //                   Cashier newCashier = new Cashier(listUsers[userId - 1].id, listUsers[userId - 1].name, listUsers[userId - 1].password, "Cashier");
-      //                   listUsers[userId - 1] = newCashier;
-      //                   break;
-      //               }
-      //               break;
-
-      //             case "n":
-      //               promote = true;
-      //               break;
-      //             default:
-      //               promote = false;
-      //               break;
-      //           }
-      //         }
-
-      //       } while (!promote);
-      //     }
-      //   } while (!promoteAuth);
-
-      // } while (!promoteUser);
-
-      // Console.Clear();
-      // ShowUsers(listUsers);
     }
     internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
@@ -920,7 +886,6 @@
       string? genreBook;
       float priceBook = 0;
       int ivaBook = random.Next(0, 2) == 0 ? 6 : 23;
-      int stockBook = 50;
 
       do
       {
@@ -1044,6 +1009,37 @@
             Console.WriteLine($"\nAn unexpected error occurred: {ex.Message}");
           }
         } while (!availablePrice);
+
+        bool valid_stock = true;
+        int stockBook = 0;
+        do
+        {
+          if (!valid_stock)
+          {
+            Console.Clear();
+            System.Console.WriteLine("\nPlease insert a valid Stock.\n");
+          }
+
+          System.Console.Write("Insert stock to be added: ");
+          try
+          {
+            stockBook = Convert.ToInt32(Console.ReadLine());
+
+            if (stockBook < 1)
+            {
+              valid_stock = false;
+              continue;
+            }
+          }
+          catch (FormatException)
+          {
+            valid_stock = false;
+            continue;
+          }
+
+          valid_stock = true;
+        } while (!valid_stock);
+
 
         string? validation;
         bool availableAuth = true;
@@ -1228,115 +1224,6 @@
 
         reStock = true;
       } while (!reStock);
-
-
-      // int bookId = 0;
-      // bool completeRemoveBook = true;
-      // string? errorMessage = "Error";
-
-      // do
-      // {
-      //   Console.Clear();
-
-      //   ConsultBookList(listBook);
-
-      //   System.Console.WriteLine("\nRemove a book by entering:\n - Book ID;\n\nWarning: This action will permanently remove the book from the inventory, including the stock defined.\n");
-
-      //   if (!completeRemoveBook)
-      //     System.Console.WriteLine(errorMessage);
-
-      //   System.Console.Write("Please insert an ID: ");
-
-      //   try
-      //   {
-      //     bookId = Convert.ToInt32(Console.ReadLine());
-
-      //     // Check if the bookId is within the valid range
-      //     completeRemoveBook = (bookId > 0 && bookId <= listBook.Count) ? true : false;
-
-      //     if (completeRemoveBook)
-      //     {
-      //       // Adjust the index to match the zero-based indexing used in lists
-      //       bookId--;
-
-      //       Console.Clear();
-
-      //       System.Console.WriteLine("\nBook Selected:\n");
-
-      //       // Access the listBook only if completeRemoveBook is true
-      //       PrintBookDetail(listBook[bookId]);
-
-      //       bool continueRemoveVal = true;
-
-      //       do
-      //       {
-      //         if (!continueRemoveVal)
-      //         {
-      //           Console.Clear();
-
-      //           System.Console.WriteLine("\nBook Selected:\n");
-
-      //           PrintBookDetail(listBook[bookId]);
-
-      //           System.Console.WriteLine(errorMessage);
-      //         }
-
-      //         try
-      //         {
-      //           System.Console.Write("Do you want to continue? (y/n): ");
-      //           string? userInput = Console.ReadLine();
-
-      //           if (!string.IsNullOrEmpty(userInput))
-      //           {
-      //             Console.Clear();
-      //             switch (userInput.ToLower())
-      //             {
-      //               case "y":
-      //                 System.Console.WriteLine($"\nThe stock for the book '{listBook[bookId].Title}' has been successfully removed.\n");
-      //                 listBook[bookId].Stock = 0;
-      //                 continueRemoveVal = true;
-      //                 break;
-      //               case "n":
-      //                 System.Console.WriteLine("\nOperation Cancelled.\n");
-      //                 continueRemoveVal = true;
-      //                 break;
-      //               default:
-      //                 errorMessage = "Please insert y or n.\n";
-      //                 continueRemoveVal = false;
-      //                 break;
-      //             }
-      //           }
-      //           else
-      //           {
-      //             errorMessage = "Please insert y or n.\n";
-      //             continueRemoveVal = false;
-      //           }
-      //         }
-      //         catch (Exception)
-      //         {
-      //           continueRemoveVal = false;
-      //           // Handle unexpected exceptions
-      //           errorMessage = "Unexpected error.\n";
-      //         }
-      //       } while (!continueRemoveVal);
-      //     }
-      //     else
-      //     {
-      //       errorMessage = "Invalid input. Please enter a valid numeric ID within the range of available books.\n";
-      //       // You might want to set a default or handle the error in a way that makes sense for your application.
-      //     }
-      //   }
-      //   catch (FormatException)
-      //   {
-      //     errorMessage = "Invalid input. Please enter a valid numeric ID.\n";
-      //     completeRemoveBook = false;
-      //     // You might want to set a default or handle the error in a way that makes sense for your application.
-      //   }
-
-
-
-      // } while (!completeRemoveBook);
-
     }
     public void RestockBook(List<Book> listBook)
     {
@@ -1442,17 +1329,120 @@
       System.Console.WriteLine($"Cashier Password: {password}");
       System.Console.WriteLine($"Cashier Position: {position}");
     }
-    public void BuyBook(List<Book> listBook)
+    public void BuyBook(List<Book> listBook, List<Employee> listEmployees, Employee employee)
     {
-      System.Console.WriteLine($"Cashier ID: {id}");
-      System.Console.WriteLine($"Cashier Name: {name}");
-      System.Console.WriteLine($"Cashier Password: {password}");
-      System.Console.WriteLine($"Cashier Position: {position}");
+      //ConsultBookList(listBook);
+      bool buyBook = true;
+      string? errorMessage = " ";
+      string? new_book_title = " ";
+      do
+      {
+        Console.Clear();
+        System.Console.Write((!buyBook) ? $"\n{errorMessage}\n" : " ");
+
+        System.Console.Write("\nPlease insert the Book Title: ");
+
+        new_book_title = Console.ReadLine().Trim();
+
+        if (string.IsNullOrWhiteSpace(new_book_title))
+        {
+          buyBook = false;
+          errorMessage = "Please insert a title.";
+          continue;
+        }
+
+        Book? exist_book = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
+
+        Console.Clear();
+
+        if (exist_book != null)
+        {
+          System.Console.WriteLine($"\nDo you want to buy the Book '{exist_book.Title}'.\n");
+
+          string? val = GetContinueValidation();
+          Console.Clear();
+          switch (val)
+          {
+            case "y":
+              exist_book.Stock++;
+              System.Console.WriteLine($"\nYou purchased the book '{exist_book.Title}'.\nYour new stock is {exist_book.Stock}.\n");
+              break;
+            case "n":
+              System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{exist_book.Title}'.\n");
+              break;
+          }
+        }
+        else
+        {
+          System.Console.WriteLine($"\nThis library doesn't contain the book '{new_book_title}'.");
+          System.Console.WriteLine("\nIf you wish to continue you will need a Stocker validation.\n");
+
+          string? create_book_validation = GetContinueValidation();
+
+          Console.Clear();
+
+          switch (create_book_validation)
+          {
+            case "y":
+              LoginStockerAddBook(listBook, listEmployees, new_book_title);
+              break;
+            case "n":
+              System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{new_book_title}'.\n");
+              break;
+          }
+        }
+        buyBook = true;
+      } while (!buyBook);
     }
     internal void SellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
       // Manager can access the internal method of the base class
       OperationSellBook(bookList, cart, employee);
+    }
+
+    private void LoginStockerAddBook(List<Book> listBook, List<Employee> listEmployees, string? new_book_title)
+    {
+      bool validateStocker = true;
+      string? stockerLoginError = " ";
+      string? stockerName = " ";
+      Employee? stocker;
+      Book? confirm_book_added;
+
+      do
+      {
+        Console.Clear();
+        System.Console.WriteLine("\nValidate Stocker User.");
+
+        System.Console.Write((!validateStocker) ? $"\n{stockerLoginError}\n" : " ");
+
+        System.Console.Write("\nStocker Name: ");
+        stockerName = Console.ReadLine();
+
+        stocker = listEmployees.Find(user => user.name == stockerName);
+
+        if (stocker != null && stocker is Stocker stocker_confirm)
+        {
+          System.Console.WriteLine($"Stocker ID: {stocker_confirm.id}");
+          stocker_confirm.AddBook(listBook);
+
+          confirm_book_added = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
+
+          Console.Clear();
+
+          System.Console.WriteLine((confirm_book_added?.Title != null)
+              ? $"\nYou have purchased the new book '{new_book_title}'.\n"
+              : $"\nFail to add the Book '{new_book_title}'.\n");
+
+
+        }
+        else
+        {
+          validateStocker = false;
+          stockerLoginError = $"The user {stockerName} isn't a Stocker.";
+          continue;
+        }
+        validateStocker = true;
+      } while (!validateStocker);
     }
   }
 }

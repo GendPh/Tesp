@@ -3,12 +3,10 @@ import { createMovieBox } from "../src/CreateMovieContainer/CreateMovieContainer
 import { createBtn, btnEvents } from "../src/CreateBtn/PopularBtn.js";
 
 async function loadPage() {
-  // Get the search key from the URL
   var searchKey = getQueryParam('search');
   var page = getQueryParam('page');
 
   const data = await fetchData(`search/movie?query=${searchKey}&page=${page}`);
-  console.log(data);
 
   if (data.results.length > 0) {
     createMovieBox(data.results, "#movie-container");

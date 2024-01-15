@@ -3,7 +3,7 @@
   public interface AbsCashier
   {
     void sellBook(List<Book> listBook);
-    void BuyBook(List<Book> listBook);
+    void BuyBook(List<Book> listBook, List<Employee> listEmployees, Employee employee);
   }
   public interface AbsStocker
   {

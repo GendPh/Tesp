@@ -54,7 +54,7 @@ namespace bookstoreManagement
 
     static void StartProgram(List<Employee> employees, List<Book> books, List<Book> cart)
     {
-      int employeeId = 1;
+      int employeeId = 2;
       // int employeeId = Login(employees);
 
       // if (employees[employeeId] is Manager manager)
@@ -64,6 +64,10 @@ namespace bookstoreManagement
       // if (employees[employeeId] is Stocker stocker)
       // {
       //   stocker.RemoveBook(books);
+      // }
+      // if (employees[employeeId] is Cashier cashier)
+      // {
+      //   cashier.BuyBook(books, employees, employees[employeeId]);
       // }
 
       EmployeeMenu(employees, employees[employeeId], books, cart);
@@ -387,6 +391,11 @@ namespace bookstoreManagement
         {
           case 7:
             cashier.SellBook(books, cart, employee);
+            // Return to the BooksMenu after the action is performed
+            ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
+            break;
+          case 8:
+            cashier.BuyBook(books, employees, employee);
             // Return to the BooksMenu after the action is performed
             ReturnMenu(employee, () => BooksMenu(employees, employee, books, cart));
             break;
