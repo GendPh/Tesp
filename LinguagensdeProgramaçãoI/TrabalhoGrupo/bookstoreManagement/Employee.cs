@@ -27,10 +27,12 @@
       Console.WriteLine($" - Author: {book.Author}");
       Console.WriteLine($" - ISBN: {book.ISBN}");
       Console.WriteLine($" - Genre: {book.Genre}");
-      Console.WriteLine($" - Price: {book.Price:C}");
+      Console.WriteLine($" - Price: {book.Price}€");
       Console.WriteLine($" - IVA: {book.Iva}%");
       Console.WriteLine($" - Stock: {book.Stock}");
-      Console.WriteLine($" - Sold: {book.Sold}\n");
+      //Console.WriteLine($" - Possible Stock: {book.PossibleStock}");
+      Console.WriteLine($" - Sold: {book.Sold}");
+      Console.WriteLine($" - Earned: {book.Earned}€\n");
     }
 
     public void ConsultBookList(List<Book> bookList)
@@ -190,154 +192,159 @@
 
     protected void OperationSellBook(List<Book> bookList, List<Book> cart, Employee employee)
     {
-      bool allBooksSelected = false;
-      int bookId = 0;
-      Book? bookToAdd = bookList.Find(e => e.Code == 0);
-      double price = 0;
-      var sortedList = cart.OrderBy(book => book.Title).ToList();
+      // Flag to control the main operation loop
+      bool operationBuy = true;
 
       do
       {
-        sortedList = cart.OrderBy(book => book.Title).ToList();
-
+        // Clear the console screen
         Console.Clear();
 
-        ConsultBookList(bookList);
+        // Display the available books to the employee
+        employee.ConsultBookList(bookList);
 
-        Console.WriteLine($"Hello {employee.name}, let's buy a product\n");
+        // Display the contents of the cart
+        System.Console.WriteLine("Your Cart\n");
+        double total_cart = 0;
 
-        if (cart.Count > 0)
+        if (cart.Count < 1)
         {
-          int count = 0;
-          price = 0;
-
-          foreach (Book book in sortedList)
-          {
-
-            double ivaAmount = (book.Iva / 100) * book.Price;
-            double totalPrice = book.Price + ivaAmount;
-            price += totalPrice;
-
-            count = cart.Count(b => b.Title == book.Title);
-
-            Console.WriteLine($" - {book.Title} / {count} / {book.Iva}% IVA / {book.Stock}");
-          }
-
-          System.Console.WriteLine($"\nCart Price: {price:F2}€.\n");
+          System.Console.WriteLine("Cart Empty");
         }
         else
         {
-          System.Console.WriteLine("Cart Empty.\n");
+          // Group the books in the cart by title and calculate quantities and prices
+          var titleCounts = cart.GroupBy(book => book.Title).Select(group => new { Title = group.Key, Count = group.Count(), Price = group.First().Price, Iva = group.First().Iva }).ToList();
+
+          // Display the titles, quantities, prices, and total price for each book in the cart
+          foreach (var titleCount in titleCounts)
+          {
+            double book_price_count = Math.Round(((titleCount.Price + (titleCount.Price * (titleCount.Iva / 100))) * titleCount.Count), 2);
+            Console.WriteLine($"Book: '{titleCount.Title}' | Quantity: {titleCount.Count} | Price: {book_price_count}€ | IVA: {titleCount.Iva}%");
+            total_cart = Math.Round((total_cart + book_price_count), 2);
+          }
+
+          System.Console.WriteLine($"\nTotal Cart: {total_cart}€");
         }
+
+        // Prompt the user to input a book ID to add to the cart (0 to stop the operation)
+        System.Console.Write("\nPlease insert a Book ID (0 to stop the operation): ");
+
+        int book_id = 0;
 
         try
         {
-          Console.Write("Please select the books you want to add to the cart (0 to stop): ");
+          // Read the user input and convert it to an integer
+          book_id = Convert.ToInt32(Console.ReadLine());
 
-          bookId = Convert.ToInt32(Console.ReadLine());
-
-          if (bookId > 0 && bookId <= bookList.Count)
+          if (book_id != 0)
           {
-            // Find the selected book in the bookList
-            bookToAdd = bookList.Find(e => e.Code == bookId);
-            if (bookToAdd != null && bookToAdd.Stock > 0)
+            operationBuy = false;
+
+            // Find the book with the specified ID in the bookList
+            Book? searched_book = bookList.Find(book => book.Code == book_id);
+
+            // Check if the book exists and is in stock
+            if (searched_book != null && searched_book.Stock > 0)
             {
-              bookToAdd.Stock--;
-              bookToAdd.Sold++;
-              cart.Add(bookToAdd);
-            }
-          }
-          else if (bookId == 0)
-          {
-            allBooksSelected = true;
-          }
-        }
-        catch (FormatException)
-        {
-          allBooksSelected = false;
-          continue;
-        }
-        catch (Exception)
-        {
-          allBooksSelected = false;
-          continue;
-        }
-      } while (!allBooksSelected);
+              int cart_book_stock = 1;
 
-      bool endCartOperation = true;
-      string? cartAnswer;
-      double finalPrice = 0;
-      double discount = 0;
-      do
-      {
-        Console.Clear();
+              // Check if the book is already in the cart and get its quantity
+              var targetBook = cart.GroupBy(book => book.Title).Where(group => group.Key == searched_book.Title).Select(group => new { Title = group.Key, Count = group.Count() }).FirstOrDefault();
 
-        System.Console.WriteLine("");
+              if (targetBook != null)
+              {
+                cart_book_stock = targetBook.Count + 1;
+              }
 
-        if (cart.Count > 0)
-        {
-          int count = 0;
-          foreach (Book book in sortedList)
-          {
-            count = cart.Count(b => b.Title == book.Title);
-            Console.WriteLine($" - {book.Title} / {count}");
-          }
+              // Calculate the available stock of the book in the cart
+              searched_book.PossibleStock = searched_book.Stock - cart_book_stock;
 
-
-          discount = (price > 50) ? 10 : 0;
-          finalPrice = (price > 50) ? price - (price * 0.10) : price;
-
-          System.Console.WriteLine($"\nCart Price: {price:F2}€\nDiscount: {discount}%\nFinal Price: {finalPrice:F2}.\n");
-
-
-          System.Console.Write("Do you want to proceed?(y/n): ");
-          cartAnswer = Console.ReadLine();
-
-          if (!string.IsNullOrEmpty(cartAnswer))
-          {
-            switch (cartAnswer.ToLower())
-            {
-              case "y":
-                endCartOperation = true;
-
-                foreach (Book book in cart)
-                {
-                  Book? thisBook = bookList.Find(b => b.Title == book.Title);
-
-                  if (thisBook != null)
-                  {
-                    thisBook.Stock = book.Stock;
-                  }
-                }
-                cart.Clear();
-
-                Console.Clear();
-                System.Console.WriteLine("\nPurchase Complete!\n");
-                break;
-              case "n":
-                endCartOperation = true;
-                cart.Clear();
-                Console.Clear();
-                System.Console.WriteLine("\nPurchase Cancelled!\n");
-                break;
-              default:
-                endCartOperation = false;
-                break;
+              // Add the book to the cart if there is available stock
+              if (searched_book.PossibleStock >= 0)
+              {
+                cart.Add(searched_book);
+              }
             }
           }
           else
           {
-            endCartOperation = false;
-          }
+            // Check if the cart is not empty
+            if (cart.Count != 0)
+            {
+              Console.Clear();
+              System.Console.WriteLine("\nThis is your final cart:\n");
 
+              // Display the contents of the cart with quantities, prices, and total price for each book
+              var titleCounts = cart.GroupBy(book => book.Title).Select(group => new { Title = group.Key, Count = group.Count(), Price = group.First().Price, Iva = group.First().Iva }).ToList();
+
+              foreach (var titleCount in titleCounts)
+              {
+                double book_price_count = Math.Round(((titleCount.Price + (titleCount.Price * (titleCount.Iva / 100))) * titleCount.Count), 2);
+                Console.WriteLine($"Book: '{titleCount.Title}' | Quantity: {titleCount.Count} | Price: {book_price_count}€ | IVA: {titleCount.Iva}%");
+              }
+
+              System.Console.WriteLine("\nInformation:");
+
+              // Calculate and display the discount based on the total cart value
+              double Discount = (total_cart >= 50) ? 0.10 : 0;
+              System.Console.WriteLine($"- Discount: {Discount * 100}%");
+
+              // Apply the discount to the total cart value
+              total_cart = Math.Round((total_cart - (total_cart * Discount)), 2);
+              System.Console.WriteLine($"- Total Cart: {total_cart}€\n");
+
+              // Get user validation to proceed or cancel the operation
+              string? val = GetContinueValidation();
+
+              Console.Clear();
+
+              // Process the user's choice
+              switch (val)
+              {
+                case "y":
+                  // Apply the discount and update the stock and sales information for each book in the cart
+                  foreach (var titleCount in titleCounts)
+                  {
+                    double book_price_with_iva = titleCount.Price + (titleCount.Price * (titleCount.Iva / 100));
+                    double book_price_with_discount = book_price_with_iva - (book_price_with_iva * Discount);
+                    double book_price_count = Math.Round((book_price_with_discount * titleCount.Count), 2);
+                    Book? book_in_list = bookList.Find(book => book.Title == titleCount.Title);
+                    if (book_in_list != null)
+                    {
+                      book_in_list.Sold += titleCount.Count;
+                      book_in_list.Stock -= titleCount.Count;
+                      book_in_list.Earned = book_price_count;
+                    }
+                  }
+
+                  System.Console.WriteLine("\nYou successfully completed the operation.\n\nCart Cleared.\n");
+                  break;
+
+                case "n":
+                  System.Console.WriteLine("\nYou canceled the operation.\n\nCart Cleared.\n");
+                  break;
+              }
+
+              // Clear the cart after completing the operation
+              cart.Clear();
+              operationBuy = true;
+            }
+            else
+            {
+              Console.Clear();
+              System.Console.WriteLine("\nYou canceled the operation.\n");
+            }
+          }
         }
-        else
+        catch (FormatException)
         {
-          System.Console.WriteLine("Operation Canceled.\n");
-          endCartOperation = true;
+          // Handle the case where the user enters invalid input
+          operationBuy = false;
         }
-      } while (!endCartOperation);
+      } while (!operationBuy); // Repeat the loop until the user decides to stop the operation
     }
+
     protected int GetNumber(string? text)
     {
       int number = 0;
@@ -393,7 +400,7 @@
     }
   }
 
-  public class Manager : Employee, AbsManager
+  public class Manager : Employee, IntManager
   {
     private new string? position { get; set; }
 
@@ -868,7 +875,7 @@
     }
   }
 
-  public class Stocker : Employee, AbsStocker
+  public class Stocker : Employee, IntStocker
   {
     public Stocker(int id, string? name, string? password, string? position) : base(id, name, password, position) { }
 
@@ -1310,7 +1317,7 @@
     }
   }
 
-  public class Cashier : Employee, AbsCashier
+  public class Cashier : Employee, IntCashier
   {
     private int booksSold { get; set; }
     private int booksBought { get; set; }
@@ -1321,13 +1328,6 @@
       booksBought = 0;
       booksSold = 0;
       moneyEarned = 0;
-    }
-    public void sellBook(List<Book> listBook)
-    {
-      System.Console.WriteLine($"Cashier ID: {id}");
-      System.Console.WriteLine($"Cashier Name: {name}");
-      System.Console.WriteLine($"Cashier Password: {password}");
-      System.Console.WriteLine($"Cashier Position: {position}");
     }
     public void BuyBook(List<Book> listBook, List<Employee> listEmployees, Employee employee)
     {
@@ -1342,53 +1342,59 @@
 
         System.Console.Write("\nPlease insert the Book Title: ");
 
-        new_book_title = Console.ReadLine().Trim();
+        new_book_title = Console.ReadLine();
 
-        if (string.IsNullOrWhiteSpace(new_book_title))
+        if (new_book_title != null)
         {
-          buyBook = false;
-          errorMessage = "Please insert a title.";
-          continue;
-        }
+          new_book_title = new_book_title.Trim();
 
-        Book? exist_book = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
-
-        Console.Clear();
-
-        if (exist_book != null)
-        {
-          System.Console.WriteLine($"\nDo you want to buy the Book '{exist_book.Title}'.\n");
-
-          string? val = GetContinueValidation();
-          Console.Clear();
-          switch (val)
+          if (string.IsNullOrWhiteSpace(new_book_title))
           {
-            case "y":
-              exist_book.Stock++;
-              System.Console.WriteLine($"\nYou purchased the book '{exist_book.Title}'.\nYour new stock is {exist_book.Stock}.\n");
-              break;
-            case "n":
-              System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{exist_book.Title}'.\n");
-              break;
+            buyBook = false;
+            errorMessage = "Please insert a title.";
+            continue;
           }
-        }
-        else
-        {
-          System.Console.WriteLine($"\nThis library doesn't contain the book '{new_book_title}'.");
-          System.Console.WriteLine("\nIf you wish to continue you will need a Stocker validation.\n");
 
-          string? create_book_validation = GetContinueValidation();
+
+          Book? exist_book = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
 
           Console.Clear();
 
-          switch (create_book_validation)
+          if (exist_book != null)
           {
-            case "y":
-              LoginStockerAddBook(listBook, listEmployees, new_book_title);
-              break;
-            case "n":
-              System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{new_book_title}'.\n");
-              break;
+            System.Console.WriteLine($"\nDo you want to buy the Book '{exist_book.Title}'.\n");
+
+            string? val = GetContinueValidation();
+            Console.Clear();
+            switch (val)
+            {
+              case "y":
+                exist_book.Stock++;
+                System.Console.WriteLine($"\nYou purchased the book '{exist_book.Title}'.\nYour new stock is {exist_book.Stock}.\n");
+                break;
+              case "n":
+                System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{exist_book.Title}'.\n");
+                break;
+            }
+          }
+          else
+          {
+            System.Console.WriteLine($"\nThis library doesn't contain the book '{new_book_title}'.");
+            System.Console.WriteLine("\nIf you wish to continue you will need a Stocker validation.\n");
+
+            string? create_book_validation = GetContinueValidation();
+
+            Console.Clear();
+
+            switch (create_book_validation)
+            {
+              case "y":
+                LoginStockerAddBook(listBook, listEmployees, new_book_title);
+                break;
+              case "n":
+                System.Console.WriteLine($"\nYou have canceled the operation to purchase the book '{new_book_title}'.\n");
+                break;
+            }
           }
         }
         buyBook = true;
@@ -1402,47 +1408,50 @@
 
     private void LoginStockerAddBook(List<Book> listBook, List<Employee> listEmployees, string? new_book_title)
     {
-      bool validateStocker = true;
-      string? stockerLoginError = " ";
-      string? stockerName = " ";
-      Employee? stocker;
-      Book? confirm_book_added;
-
-      do
+      if (new_book_title != null)
       {
-        Console.Clear();
-        System.Console.WriteLine("\nValidate Stocker User.");
+        bool validateStocker = true;
+        string? stockerLoginError = " ";
+        string? stockerName = " ";
+        Employee? stocker;
+        Book? confirm_book_added;
 
-        System.Console.Write((!validateStocker) ? $"\n{stockerLoginError}\n" : " ");
-
-        System.Console.Write("\nStocker Name: ");
-        stockerName = Console.ReadLine();
-
-        stocker = listEmployees.Find(user => user.name == stockerName);
-
-        if (stocker != null && stocker is Stocker stocker_confirm)
+        do
         {
-          System.Console.WriteLine($"Stocker ID: {stocker_confirm.id}");
-          stocker_confirm.AddBook(listBook);
-
-          confirm_book_added = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
-
           Console.Clear();
+          System.Console.WriteLine("\nValidate Stocker User.");
 
-          System.Console.WriteLine((confirm_book_added?.Title != null)
-              ? $"\nYou have purchased the new book '{new_book_title}'.\n"
-              : $"\nFail to add the Book '{new_book_title}'.\n");
+          System.Console.Write((!validateStocker) ? $"\n{stockerLoginError}\n" : " ");
+
+          System.Console.Write("\nStocker Name: ");
+          stockerName = Console.ReadLine();
+
+          stocker = listEmployees.Find(user => user.name == stockerName);
+
+          if (stocker != null && stocker is Stocker stocker_confirm)
+          {
+            System.Console.WriteLine($"Stocker ID: {stocker_confirm.id}");
+            stocker_confirm.AddBook(listBook);
+
+            confirm_book_added = listBook.Find(book => book.Title.ToLower() == new_book_title.ToLower());
+
+            Console.Clear();
+
+            System.Console.WriteLine((confirm_book_added?.Title != null)
+                ? $"\nYou have purchased the new book '{new_book_title}'.\n"
+                : $"\nFail to add the Book '{new_book_title}'.\n");
 
 
-        }
-        else
-        {
-          validateStocker = false;
-          stockerLoginError = $"The user {stockerName} isn't a Stocker.";
-          continue;
-        }
-        validateStocker = true;
-      } while (!validateStocker);
+          }
+          else
+          {
+            validateStocker = false;
+            stockerLoginError = $"The user {stockerName} isn't a Stocker.";
+            continue;
+          }
+          validateStocker = true;
+        } while (!validateStocker);
+      }
     }
   }
 }

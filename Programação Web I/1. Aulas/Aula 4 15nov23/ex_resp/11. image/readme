@@ -1,6 +1,0 @@
-* Coloque a imagem no meio do ecrã para tamanhos de ecrã superiores
-À largura da imagem (999px);
-* Nesse caso, os cantos da imagem também deverão ser arredondados (15px);
-* Para tamanhos de ecrã inferiores ao tamanho da imagem,
-a mesma deverá fazer scale autimaticamente e os cantos não
-deverão ser arredondados;

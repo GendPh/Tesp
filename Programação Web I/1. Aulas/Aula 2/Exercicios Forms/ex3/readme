@@ -1,9 +1,0 @@
-Notes:
-
-ok 1. The email must validated with the following regular expression: \w+@[a-z]+\.[a-z]{2,}
-ok 2. The 'Country' dropdown must have the following options: Portugal, Spain, France, Italy, United Kingdom, Germany, Sweden 
-ok 3. All the profile inputs are mandatory;
-ok 4. The suggestions section cannot have more than 200 characters;
-ok 5. The fullname field must be disabled;
-ok 6. The avatar field must only accept image files;
-ok 7. The postal code field must have a regular expression to validate its content;

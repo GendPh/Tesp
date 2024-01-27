@@ -11,7 +11,7 @@ namespace bookstoreManagement
       List<Book> books = new List<Book>
       {
         // Initialize the list with 20 Book objects
-        new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 6, 50),
+        new Book(1,"One Hundred Years of Solitude", "Gabriel Garcia Marquez", "978-0-06-112008-4", "Magical Realism", 19.79, 6, 5),
         new Book(2, "To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-5", "Fiction", 12.99, 6, 50),
         new Book(3, "1984", "George Orwell", "978-0-45-152493-5", "Dystopian", 10.75, 6, 50),
         new Book(4, "The Catcher in the Rye", "J.D. Salinger", "978-0-316-76948-0", "Fiction", 14.25, 6, 50),
@@ -54,8 +54,8 @@ namespace bookstoreManagement
 
     static void StartProgram(List<Employee> employees, List<Book> books, List<Book> cart)
     {
-      int employeeId = 2;
-      // int employeeId = Login(employees);
+      //int employeeId = 2;
+      int employeeId = Login(employees);
 
       // if (employees[employeeId] is Manager manager)
       // {
@@ -67,7 +67,7 @@ namespace bookstoreManagement
       // }
       // if (employees[employeeId] is Cashier cashier)
       // {
-      //   cashier.BuyBook(books, employees, employees[employeeId]);
+      //   cashier.SellBook(books, cart, employees[employeeId]);
       // }
 
       EmployeeMenu(employees, employees[employeeId], books, cart);

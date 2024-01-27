@@ -10,7 +10,9 @@
     public double Price { get; set; }
     public double Iva { get; set; }
     public int Stock { get; set; }
+    public int PossibleStock { get; set; }
     public int Sold { get; set; }
+    public double Earned { get; set; }
 
     public Book(int code, string title, string author, string ISBN, string genre, double price, double iva, int stock)
     {

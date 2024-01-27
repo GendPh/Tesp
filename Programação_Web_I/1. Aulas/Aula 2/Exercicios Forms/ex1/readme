@@ -1,0 +1,6 @@
+Notes:
+
+1. The dropdown should have the following options: twitter, facebook, instagram, internet, newspaper, elsewhere;
+2. All inputs are mandatory, except the comments section;
+3. The username must have between 6 and 20 characters;
+4. The comments section cannot have more than 100 characters;
