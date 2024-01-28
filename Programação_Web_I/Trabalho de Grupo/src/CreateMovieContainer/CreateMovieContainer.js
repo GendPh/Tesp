@@ -114,7 +114,7 @@ export function movieBox(info) {
 
   return `
     <div class="card">
-      <img src="${poster}" class="card-img-top h-100" alt="...">
+      <img src="${poster}" class="card-img-top h-100" alt="movie poster">
       <div class="card-body ">
         <p class="card-text fw-bold mb-0 truncate"><a href="../movie/movie.html?movie=${info.id}">${info.title}</a></p>
         <p class="card-text mb-0 opacity-50">${releaseDate}</p>
