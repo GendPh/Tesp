@@ -1,3 +1,4 @@
+import { LoadYear } from "../src/load_year.js";
 // // Redirect to search.html with the search key as a query parameter
 
 document.getElementById("searchForm").addEventListener("submit", function (event) {
@@ -26,3 +27,5 @@ document.getElementById("searchForm").addEventListener("submit", function (event
   }
 });
 
+
+LoadYear();

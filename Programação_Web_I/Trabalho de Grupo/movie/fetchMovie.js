@@ -1,6 +1,6 @@
 import { fetchData, getQueryParam } from "../src/API/fetch.js";
 import { createMovieBox } from "../src/CreateMovieContainer/CreateMovieContainer.js";
-
+import { LoadYear } from "../src/load_year.js";
 async function fetchMovie() {
   const getMovieId = getQueryParam("movie");
 
@@ -78,7 +78,8 @@ async function fetchMoviesForGenres(genreIDs) {
 document.addEventListener('DOMContentLoaded', async function () {
   const getMovieId = getQueryParam("movie");
   const data = await fetchData(`movie/${getMovieId}?language=en-US`);
-  document.title = `Movie Application - Movie ${(data.title) ? data.title : "Undefined"}`;
+  document.title = `Movie Application - ${(data.title) ? data.title : "Undefined"}`;
 });
 
 fetchMovie();
+LoadYear();

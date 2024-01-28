@@ -4,10 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <meta name="description"
+    content="Oops! We couldn't find the movie you're looking for. Our apologies for the inconvenience. Please check the movie title and try again.">
+  <meta name="keywords" content="movie, search, fail, error, description, keywords">
+  <meta name="author" content="Gabriel e Telmo">
+
+  <title>Fail Searching For Movie</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="../src/styles.css">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../src/assets/Svg/favicon.svg">
   <link rel="icon" type="image/png" href="../src/assets/Svg/favicon.png">
 </head>
@@ -75,7 +86,7 @@
     </nav>
   </header>
 
-  <main>
+  <main class="min-vh-100">
     <section id="fail" class="text-center p-5 text-white">
       <h1>Nothing to show here :/</h1>
       <figure>
@@ -87,10 +98,28 @@
     </section>
   </main>
 
+  <footer class="py-3 bg-dark" data-bs-theme="dark">
+    <ul class="nav text-wh justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="../index.html#popular">Popular</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="../index.html#top-rated">Top Rated</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="../index.html#playing">Now Playing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="../index.html#upcoming">Upcoming</a>
+      </li>
+    </ul>
+    <p class="text-center text-muted">© <span id="year"></span> Gabriel Telmo</p>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
-  <script src="./searchMovie.js"></script>
+  <script src="./searchMovie.js" type="module"></script>
 </body>
 
 </html>

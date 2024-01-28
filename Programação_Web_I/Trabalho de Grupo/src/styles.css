@@ -20,14 +20,13 @@ main {
   gap: 2rem;
 }
 
-
 @media screen and (min-width: 760px) {
-  #movie-container {
+  #movie-container:not(.fail) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media screen and (min-width: 1000px) {
-  #movie-container {
+  #movie-container:not(.fail) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -37,6 +36,23 @@ main {
   overflow-x: scroll;
   gap: 0.5rem;
   margin: 1rem;
+  padding-bottom: 1rem;
+}
+
+#btn-container::-webkit-scrollbar {
+  height: 10px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+#btn-container::-webkit-scrollbar-thumb {
+  background-color: #fff; /* Set the color of the thumb (the draggable part of the scrollbar) */
+  border-radius: 2rem; /* Round the corners of the thumb */
+}
+
+#btn-container::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the color of the track (the area behind the thumb) */
+  border-radius: 2rem; /* Round the corners of the track */
 }
 
 #fail-search {
@@ -44,48 +60,30 @@ main {
 }
 
 .loader {
-  width: 48px;
-  height: 48px;
-  border: 3px dotted #fff;
-  border-style: solid solid dotted dotted;
+  display: flex;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  display: inline-block;
+  margin: 15px auto;
   position: relative;
+  background: #fff;
+  box-shadow: -24px 0 #fff, 24px 0 #fff;
   box-sizing: border-box;
-  animation: rotation 2s linear infinite;
-}
-.loader::after {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  border: 3px dotted #ff3d00;
-  border-style: solid solid dotted;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  animation: rotationBack 1s linear infinite;
-  transform-origin: center center;
+  animation: shadowPulse 2s linear infinite;
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+@keyframes shadowPulse {
+  33% {
+    background: #fff;
+    box-shadow: -24px 0 #333, 24px 0 #fff;
+  }
+  66% {
+    background: #333;
+    box-shadow: -24px 0 #fff, 24px 0 #fff;
   }
   100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes rotationBack {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
+    background: #fff;
+    box-shadow: -24px 0 #fff, 24px 0 #333;
   }
 }
 

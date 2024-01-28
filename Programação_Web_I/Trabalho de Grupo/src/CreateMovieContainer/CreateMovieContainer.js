@@ -1,26 +1,74 @@
-const standLoader = `<div class="card opacity-50 h-25">
-<span class="loader mx-auto"></span>
-<div class="card-body">
-  <p class="card-text text-center">Loading</p>
+const standLoader = `
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
-<div class="card opacity-50 h-25">
-<span class="loader mx-auto"></span>
-<div class="card-body">
-  <p class="card-text text-center">Loading</p>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
-<div class="card opacity-50 h-25">
-<span class="loader mx-auto"></span>
-<div class="card-body">
-  <p class="card-text text-center">Loading</p>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
-<div class="card opacity-50 h-25">
-<span class="loader mx-auto"></span>
-<div class="card-body">
-  <p class="card-text text-center">Loading</p>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
+
+<div class="card opacity-75 h-100">
+  <div class="h-100 d-grid align-content-center">
+    <span class="loader"></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-center">Loading</p>
+  </div>
 </div>
 `;
 
