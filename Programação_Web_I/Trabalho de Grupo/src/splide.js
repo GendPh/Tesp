@@ -21,8 +21,8 @@ export function loadSlide(slide) {
 
 export function slideBox(data) {
   return `
-  <div class="splide__slide">
-    <img data-splide-lazy src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="img" class="w-100 rounded-4" data-movie-id="${data.id}">
-  </div>
+  <a href="./movie/movie.html?movie=${data.id}" class="splide__slide">
+    <img data-splide-lazy src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="img" class="w-100 rounded-4">
+  </a>
   `;
 }

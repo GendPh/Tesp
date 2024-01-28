@@ -7,11 +7,16 @@ async function loadData() {
   const search = getQueryParam("search");
 
   const data = await fetchData(`movie/${search}?language=en-US&page=${page}`);
-  console.log(data);
-  createMovieBox(data.results, "#movie-container");
+  console.log(data)
 
-  createBtn(data);
-  btnEvents(page, `${search}.html?search=${encodeURIComponent(search)}`);
+  if (data.length != 0) {
+    createMovieBox(data.results, "#movie-container");
+    createBtn(data);
+    btnEvents(page, `${search}.html?search=${encodeURIComponent(search)}`);
+  } else {
+    createMovieBox([], "#movie-container");
+  }
+
 }
 
 loadData();

@@ -15,9 +15,9 @@ export async function fetchData(param) {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    return data;
+    return (data.success == false) ? [] : data;
   } catch (err) {
-    console.error(err);
+    return "fail";
   }
 }
 
