@@ -1,6 +1,7 @@
 import { fetchData, getQueryParam } from "../src/API/fetch.js";
 import { createMovieBox } from "../src/CreateMovieContainer/CreateMovieContainer.js";
 import { LoadYear } from "../src/load_year.js";
+
 async function fetchMovie() {
   const getMovieId = getQueryParam("movie");
 

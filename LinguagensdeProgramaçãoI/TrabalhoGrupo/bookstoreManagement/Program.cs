@@ -31,6 +31,7 @@ namespace bookstoreManagement
         new Book(18, "The Three Musketeers", "Alexandre Dumas", "978-0-19-283543-9", "Adventure", 12.90, 6, 50),
         new Book(19, "Dracula", "Bram Stoker", "978-0-48-645401-1", "Gothic", 15.75, 6, 50),
         new Book(20, "War and Peace", "Leo Tolstoy", "978-1-86-050940-6", "Historical Fiction", 24.99, 0, 50),
+        new Book(21, "Teste", "Joao", "778-0-48-645401-1", "Gothic", 20.75, 23, 10),
       };
       #endregion
 

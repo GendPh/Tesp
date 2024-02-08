@@ -1315,7 +1315,11 @@
 
 
     }
+    public void ChangeIva(List<Book> listBook){
+      
+    }
   }
+
 
   public class Cashier : Employee, IntCashier
   {
