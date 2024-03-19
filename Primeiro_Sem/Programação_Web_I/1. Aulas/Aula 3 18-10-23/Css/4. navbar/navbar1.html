@@ -1,0 +1,47 @@
+<html>
+<header>
+  <style>
+    div {
+      overflow: hidden;
+    }
+
+    a {
+      display: block;
+      float: left;
+      font-family: "Verdana", sans-serif;
+      font-size: 15px;
+      padding: 14px 16px;
+      color: #666;
+      background-color: #f3f3f3;
+      transition: all 0.3s linear;
+
+      &:first-child {
+        background-color: #ddd;
+      }
+
+      &:hover {
+        background-color: #008CBA;
+        color: #fff;
+
+        &+a {
+          background-color: red;
+        }
+      }
+    }
+
+    #about {
+      float: right;
+    }
+  </style>
+</header>
+
+<body>
+  <div>
+    <a href="https://www.google.com">Home</a>
+    <a href="https://www.google.com">News</a>
+    <a href="https://www.google.com">Contact</a>
+    <a id="about" href="https://www.google.com">About</a>
+  </div>
+</body>
+
+</html>

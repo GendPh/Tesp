@@ -1,0 +1,7 @@
+Crie uma página html semelhante às imagens "pagina_{tamanho}":
+
+1. Deverá usar a grelha de bootstrap:
+a) Para tamanhos muito pequenos (xs), a grelha deverá ter apenas uma imagem por linha;
+b) para tamanhos pequenos (sm), cada imagem deverá ocupar metade da grelha;
+c) Para tamanhos médios (md), a cada linha deverá apresentar 3 imagens;
+d) Para tamanhos grandes (lg), a cada linha deverá apresentar 4 imagens;

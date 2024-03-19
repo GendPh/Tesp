@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+.container {
+  background-color: white;
+  max-width: 564px;
+  padding: 12px;
+  margin-inline: auto;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    .hamburguer {
+      display: flex;
+      gap: 1px;
+      .dot {
+        width: 5px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #8e8e8e;
+      }
+      &:hover {
+        .dot {
+          background-color: #efefef;
+        }
+      }
+    }
+    .btn-social {
+      & button {
+        border: none;
+        padding: 10px 14px;
+        border-radius: 5px;
+        font-weight: bold;
+        &:first-of-type {
+          background-color: #efefef;
+          color: #333;
+          &:hover {
+            background-color: rgb(226, 226, 226);
+          }
+        }
+        &:last-of-type {
+          background-color: #bd081c;
+          color: white;
+          &:hover {
+            background-color: #ad081b;
+          }
+        }
+      }
+    }
+  }
+  .main {
+    .main-img {
+      position: relative;
+      margin-bottom: 12px;
+      & img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      & figcaption {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background-color: rgba(85, 85, 85, 0.3);
+        width: 40px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8e8e8e;
+
+        &:hover {
+          background-color: rgba(85, 85, 85, 0.4);
+        }
+      }
+    }
+    .title {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      & figure {
+        display: flex;
+        gap: 8px;
+        & img {
+          width: 40px;
+          aspect-ratio: 1/1;
+          border-radius: 50%;
+          border: 1px solid #ccc;
+        }
+        & figcaption {
+          font-size: 15px;
+          font-weight: bold;
+          & span {
+            font-weight: 400;
+          }
+        }
+      }
+      & button {
+        border: none;
+        background-color: transparent;
+      }
+    }
+  }
+}

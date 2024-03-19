@@ -1,0 +1,13 @@
+* Os icones encontram-se disponiveis na biblioteca Font-Awesome:
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  * o icone Ad corresponde às classes fas fa-ad;
+  * No caso do tamanho de ecrã inferior a 544px,
+  o icone do lado direito corresponde às classes (fas fa-bars)
+
+* O tipo de letra deverá ser: fa5-proxima-nova ,"Helvetica Neue",Helvetica,Arial,sans-serif
+* A distância vertical do texto às margens do cabeçalho deverá ser sempre 20px;
+* A distância horizontal do texto às margens do cabeçalho deverá ser sempre 10px;
+
+* A linha de fundo do cabeçalho deverá ter 1px de espessura e a cor gainsboro;
+* A cor de fundo do cabeçalho para tamanhos de ecrã inferiores a 544px deverá ser whitesmoke;
+* O conteudo do cabeçalho deverá estar sempre centrado verticalmente;

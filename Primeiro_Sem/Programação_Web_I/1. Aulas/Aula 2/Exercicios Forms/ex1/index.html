@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ex.1</title>
+</head>
+
+<body>
+
+  <h1>Register Form</h1>
+  <form action="#" method="post">
+    <label for="userName">User name:</label>
+    <input required minlength="6" maxlength="20" type="text" name="userName" id="userName"><br>
+    <label for="userPassword">Password:</label>
+    <input required type="password" name="userPassword" id="userPassword"><br>
+    <label for="earAboutUs">Were did you hear about us?</label>
+    <select name="earAboutUs" id="earAboutUs" required>
+      <option value="" disabled selected>--Please Choose--</option>
+      <option value="twitter">twitter</option>
+      <option value="facebook">facebook</option>
+      <option value="instagram">instagram</option>
+      <option value="internet">internet</option>
+      <option value="newspaper">newspaper</option>
+      <option value="elsewhere">elsewhere</option>
+    </select><br>
+    <span>Gender:</span>
+    <input type="radio" required id="genderMale" name="gender" value="genderMale" />
+    <label for="genderMale">Male</label>
+    <input type="radio" required id="genderFemale" name="gender" value="genderFemale" />
+    <label for="genderFemale">Female</label><br>
+
+    <label for="userComment">Comments:</label><br>
+    <textarea name="userComment" id="userComment" maxlength="100" cols="30" rows="10"></textarea><br>
+    <label for="terms">Click to accept our terms:</label>
+    <input required type="checkbox" name="terms" id="terms" value="terms"><br>
+    <input type="submit" value="Register">
+    <input type="reset" value="Reset">
+  </form>
+
+</body>
+
+</html>

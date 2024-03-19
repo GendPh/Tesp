@@ -1,0 +1,14 @@
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/bin/Debug/net7.0/Gabriel_10nov23
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/bin/Debug/net7.0/Gabriel_10nov23.deps.json
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/bin/Debug/net7.0/Gabriel_10nov23.runtimeconfig.json
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/bin/Debug/net7.0/Gabriel_10nov23.dll
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/bin/Debug/net7.0/Gabriel_10nov23.pdb
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.AssemblyInfoInputs.cache
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.AssemblyInfo.cs
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.csproj.CoreCompileInputs.cache
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.dll
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/refint/Gabriel_10nov23.dll
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.pdb
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/Gabriel_10nov23.genruntimeconfig.cache
+/Users/gabrielferreira/Desktop/Tesp/LinguagensdeProgramaçãoI/C_Projetos/Gabriel_10nov23/obj/Debug/net7.0/ref/Gabriel_10nov23.dll

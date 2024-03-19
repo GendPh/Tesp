@@ -1,0 +1,29 @@
+* A cor de fundo deverá ser #333;
+* O tipo de letra deverá ser: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+* O simbolo "Dribbble" deverá:
+   * ter 200px de largura;
+   * estar a 60px do topo da página;
+* O texto "Sign in" no topo deverá:
+   * ter a cor #999;
+   * estar a 20px do icone "Dribble";
+   * estar a 40px da caixa dos botões das redes sociais;
+* A caixa das redes sociais deverá:
+   * uma moldura de 2px de largura com a cor preta com 15% de transparência;
+   * a distância dos botões à caixa deverá ser de 20px;
+   * estar distanciada do formulário de login em 40px;
+* Relativamente aos botões das redes sociais:
+   * deverão estar distanciados entre si em 15px;
+   * deverão ter um tamanho de letra igual a 16px;
+   * deverão ter as cores (de cima para baixo): #1da1f2 #3b5998 #4285f4;
+   * deverão ter as cores (de cima para baixo) quando passados com o rato por cima: #0c85d0 #344e86 #2a75f3;
+   * a distância do texto dos botões às margens do mesmo, verticalmente, deverá ser de 10px;
+   * para desenhar os respetivos icones das redes sociais, deverá importar a biblioteca CSS da font-awesome
+      * Mais informações no link: https://fontawesome.com
+      * O endereço da respetiva folha CSS é o seguinte: https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz
+* Relativamente ao formulário de login:
+   * As caixas de texto deverão ter 400px de largura;
+   * As labels deverão ter 14px de tamanho de letra e cor preta com 80% de transparência;
+   * As caixas de texto deverão estar distancias das respetivas labels em 6px e deverão estar distanciadas entre si em 15px;
+   * O botão de signin deverá ter a cor #ea4c88 e tamanho de letra 16px;
+* O texto de sign up deverá estar distanciado em 13px do botão de sign in e deverá ter 13px de tamanho de letra e cor #999;
+* As hiperligações "Forgot?" e "Sign up now" deverão ter como cor de texto original o valor #999 e, quando com o rato por cima, deverão passar para #aaa;

@@ -1,0 +1,12 @@
+Tentar reproduzir em HTML e CSS o pdf esquema.
+
+* O icone da bandeira conseguem usando esta biblioteca css explicada neste link: https://emoji-css.afeld.me
+
+* Os restantes icons são do font-awesome que podem importar usando esta linha:
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+para encontrarem o item, procurar aqui: https://fontawesome.com/icons?d=gallery
+
+
+

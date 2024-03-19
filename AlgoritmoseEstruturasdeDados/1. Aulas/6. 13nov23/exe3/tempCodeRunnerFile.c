@@ -1,1 +1,0 @@
-// Initialize lowerA to zero
