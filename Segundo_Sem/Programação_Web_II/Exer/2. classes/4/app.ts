@@ -30,9 +30,7 @@ class Stack {
   }
 }
 
-
 const stack: Stack = new Stack();
-
 
 for (let i = 0; i < 10; i++) {
   const randomNumber = Math.floor(Math.random() * 91) + 10;
