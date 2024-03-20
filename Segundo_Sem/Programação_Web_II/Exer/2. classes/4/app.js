@@ -35,6 +35,7 @@ stack.ShowStack();
 console.log("You have removed ".concat(stack.PopStack(), " from stack."));
 stack.ShowStack();
 console.log("Last number of stack is ".concat(stack.TopStack(), "."));
+console.log(stack.toString());
 console.log("Size of stacked numbers is ".concat(stack.LengthStack(), "."));
 stack.ResetStack();
 stack.ShowStack();

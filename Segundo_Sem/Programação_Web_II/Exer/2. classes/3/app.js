@@ -11,6 +11,7 @@ var ImageService = /** @class */ (function () {
         this.images = [];
     }
     ImageService.prototype.GetImages = function () {
+        this.images.sort(function (a, b) { return a.id - b.id; });
         if (this.images.length != 0) {
             this.images.forEach(function (img, index) {
                 console.log("- ".concat(index + 1, " ").concat(img.id, " -> ").concat(img.description, " / ").concat(img.url));
@@ -83,22 +84,23 @@ var ImageService = /** @class */ (function () {
 }());
 var imgService = new ImageService();
 var newImg = new ImageClass(1, "Lorem ipsum dolor.", "./aqui/ali");
-var updImg = new ImageClass(3, "Lorem ipsum dolor.", "./aqui/ali");
-imgService.PostNewImage(new ImageClass(1, "Lorem ipsum dolor.", "./aqui/ali"));
+var updImg = new ImageClass(4, "Lorem ipsum dolor.", "./aqui/ali");
+imgService.PostNewImage(newImg);
+imgService.PostNewImage(new ImageClass(2, "Lorem ipsum dolor lorem.", "./aqui/ali/algures"));
+imgService.PostNewImage(new ImageClass(3, "Lorem ipsum dolor lorem.", "./aqui/ali/algures"));
 console.log("");
 imgService.GetImages();
 console.log("");
 imgService.GetImage(1);
 console.log("");
+imgService.GetImage(4);
+console.log("");
 imgService.DeleteImage(1);
 console.log("");
 imgService.DeleteImage(1);
 console.log("");
 imgService.GetImages();
 console.log("");
-imgService.PostNewImage(newImg);
-console.log("");
 imgService.UpdateImage(2, updImg);
-console.log("");
 imgService.GetImages();
 console.log("");

@@ -23,6 +23,7 @@ class ImageService implements ImageInt {
 
 
   GetImages(): void {
+    this.images.sort((a, b) => a.id - b.id);
     if (this.images.length != 0) {
       this.images.forEach((img, index) => {
         console.log(`- ${index + 1} ${img.id} -> ${img.description} / ${img.url}`);
@@ -91,9 +92,11 @@ class ImageService implements ImageInt {
 
 const imgService: ImageService = new ImageService();
 const newImg: ImageClass = new ImageClass(1, "Lorem ipsum dolor.", "./aqui/ali");
-const updImg: ImageClass = new ImageClass(3, "Lorem ipsum dolor.", "./aqui/ali");
+const updImg: ImageClass = new ImageClass(4, "Lorem ipsum dolor.", "./aqui/ali");
 
-imgService.PostNewImage(new ImageClass(1, "Lorem ipsum dolor.", "./aqui/ali"));
+imgService.PostNewImage(newImg);
+imgService.PostNewImage(new ImageClass(2, "Lorem ipsum dolor lorem.", "./aqui/ali/algures"));
+imgService.PostNewImage(new ImageClass(3, "Lorem ipsum dolor lorem.", "./aqui/ali/algures"));
 console.log("");
 
 imgService.GetImages();
@@ -102,6 +105,9 @@ console.log("");
 imgService.GetImage(1);
 console.log("");
 
+imgService.GetImage(4);
+console.log("");
+
 imgService.DeleteImage(1);
 console.log("");
 
@@ -111,11 +117,7 @@ console.log("");
 imgService.GetImages();
 console.log("");
 
-imgService.PostNewImage(newImg);
-console.log("");
-
 imgService.UpdateImage(2, updImg);
-console.log("");
 
 imgService.GetImages();
 console.log("");

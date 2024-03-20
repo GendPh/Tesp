@@ -45,6 +45,8 @@ stack.ShowStack();
 
 console.log(`Last number of stack is ${stack.TopStack()}.`);
 
+console.log(stack.toString());
+
 console.log(`Size of stacked numbers is ${stack.LengthStack()}.`);
 
 stack.ResetStack();
