@@ -1,0 +1,14 @@
+Crie uma classe denominada Elevador para armazenar as informações de um elevador dentro de um prédio.
+A classe deve armazenar:
+  * o andar atual (térreo = 0);
+  * total de andares no prédio (desconsiderando o térreo);
+  * capacidade do elevador;
+  * quantas pessoas estão presentes no elevador.
+
+A classe deve também disponibilizar os seguintes métodos:
+  * construtor : deve receber como parâmetros a capacidade do elevador e o total de andares no prédio (os elevadores sempre começam no térreo e vazios);
+  * entra : para acrescentar uma pessoa no elevador (só deve acrescentar se ainda houver espaço);
+  * sai : para remover uma pessoa do elevador (só deve remover se houver alguém dentro dele);
+  * sobe : para subir um andar (não deve subir se já estiver no último andar) - ESTE METODO DEVERÁ SER PRIVADO;
+  * desce : para descer um andar (não deve descer se já estiver no térreo) - ESTE METODO DEVERÁ SER PRIVADO;
+  * chamar : para chamar o elevador ao piso pedido - - ESTE METODO DEVERÁ USAR OS MÉTODOS sobe e desce;

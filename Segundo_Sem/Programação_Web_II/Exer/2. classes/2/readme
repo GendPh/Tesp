@@ -1,0 +1,11 @@
+Crie uma classe para representar uma pessoa, com os atributos privados:
+  * nome;
+  * data de nascimento;
+  * género;
+  * nacionalidade;
+  * altura.
+
+A classe deverá ter ainda:
+  * os métodos públicos necessários para sets e gets dos vários campos;
+  * um método para imprimir todos dados de uma pessoa (incluindo a idade);
+  * um método para calcular a idade da pessoa.

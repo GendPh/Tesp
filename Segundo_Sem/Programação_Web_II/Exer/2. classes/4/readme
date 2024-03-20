@@ -1,0 +1,8 @@
+Implemente uma classe que represente uma "stack" de números.
+A stack deverá ter os seguintes métodos:
+* push - adiciona um elemento ao topo da lista;
+* pop - remove o elemento no topo da lista, retornando esse valor;
+* top - devolve o elemento no topo da lista, mas não o remove;
+* toString - devolve uma string representativa da lista;
+* length - devolve o número de elementos na lista;
+* reset - limpa a lista;
