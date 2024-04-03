@@ -1,0 +1,20 @@
+<p>App Component</p>
+<!-- <app-receitas></app-receitas> -->
+<!-- <app-turma></app-turma> -->
+
+
+<h1>{{title}}</h1>
+
+<div>
+  <button [disabled]="n<=-10" (click)="Reduce(3)">-3</button>
+  <button [disabled]="n<=-10" (click)="Reduce(2)">-2</button>
+  <button [disabled]="n<=-10" (click)="Reduce(1)">-1</button>
+  <button [disabled]="n==0" (click)="Reset()">Reset</button>
+  <button [disabled]="n>=20" (click)="Add(1)">+1</button>
+  <button [disabled]="n>=20" (click)="Add(2)">+2</button>
+  <button [disabled]="n>=20" (click)="Add(3)">+3</button>
+</div>
+
+<p>{{n}}</p>
+
+<input type="text" name="change-title" id="change-title" (input)="ChangeTitle($event)">

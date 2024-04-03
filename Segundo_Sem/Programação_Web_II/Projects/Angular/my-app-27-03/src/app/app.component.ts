@@ -1,30 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ReceitasComponent } from './receitas/receitas.component';
-import { TurmaComponent } from './turma/turma.component';
-
+import { Aula03Component } from './aula-03/aula-030424.component';
+import { Aula030424Component } from './aula-030424/aula-030424.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReceitasComponent, TurmaComponent],
+  imports: [RouterOutlet, Aula03Component, Aula030424Component],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title: string = 'Aula 27/03/2024';
-  n: number = 0;
 
-  Add(n: number): void {
-    this.n += n;
-  }
-  Reduce(n: number): void {
-    this.n -= n;
-  }
-  Reset(): void {
-    this.n = 0;
-  }
-  ChangeTitle(e: Event): void {
-    this.title = (e.target as HTMLInputElement).value.length == 0 ? "Aula 27/03/2024" : (e.target as HTMLInputElement).value;
-  }
 }

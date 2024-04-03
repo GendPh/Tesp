@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlunoComponent } from '../aluno/aluno.component';
+import { AlunoComponent } from '../../aluno/aluno.component';
 
 @Component({
   selector: 'app-turma',
