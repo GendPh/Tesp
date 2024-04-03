@@ -1,1 +1,37 @@
-<p>aula-030424 works!</p>
+<p>{{title}}</p>
+
+<button [disabled]="title=='Aula 03/04/24'">Click</button>
+<button :disabled="{{title!='Aula 03/04/24'}}">Click</button>
+
+<br>
+<input type="text" name="change-title" id="change-title" (input)="ChangeTitle($event)">
+<br>
+<input type="text" [(ngModel)]="title">
+
+
+<br><br>
+
+<input type="number" placeholder="0" [(ngModel)]="number1">
++
+<input type="number" placeholder="0" [(ngModel)]="number2">
+=
+<input type="number" placeholder="0" [(ngModel)]="result1" readonly>
+<br>
+<button (click)="Sum()">Result</button>
+
+<br><br>
+
+<input type="number" placeholder="0" [(ngModel)]="number3" (input)="AutoSum()">
++
+<input type="number" placeholder="0" [(ngModel)]="number4" (input)="AutoSum()">
+=
+<input type="number" placeholder="0" [(ngModel)]="result2" readonly>
+<br>
+<br>
+
+<span>Click to toggle P </span>
+
+<button (click)="ShowP()">Toggle P</button>
+
+<p *ngIf="showP">Appear!</p>
+<p [hidden]="!showP">Appear!</p>
