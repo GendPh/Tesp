@@ -35,3 +35,9 @@
 
 <p *ngIf="showP">Appear!</p>
 <p [hidden]="!showP">Appear!</p>
+
+<p [ngStyle]="SetColor('green')" *ngIf="!showP; else otherP"> P 1</p>
+
+<ng-template #otherP>
+  <p [ngStyle]="SetColor('red')">P 2</p>
+</ng-template>

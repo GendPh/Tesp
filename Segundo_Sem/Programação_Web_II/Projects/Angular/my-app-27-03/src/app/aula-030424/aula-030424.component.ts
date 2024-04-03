@@ -22,6 +22,13 @@ export class Aula030424Component {
     this.showP = !this.showP;
   }
 
+  SetColor(color: string) {
+    return {
+      backgroundColor: color,
+      color: 'white'
+    };
+  }
+
   Sum(): void {
     this.result1 = this.number1 + this.number2;
   }
