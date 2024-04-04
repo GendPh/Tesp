@@ -1,4 +1,4 @@
-<p>{{title}}</p>
+<!-- <p>{{title}}</p>
 
 <button [disabled]="title=='Aula 03/04/24'">Click</button>
 <button :disabled="{{title!='Aula 03/04/24'}}">Click</button>
@@ -39,5 +39,8 @@
 <p [ngStyle]="SetColor('green')" *ngIf="!showP; else otherP"> P 1</p>
 
 <ng-template #otherP>
-  <p [ngStyle]="SetColor('red')">P 2</p>
-</ng-template>
+  <p [ngStyle]="SetColor('red')" [ngClass]="{'border':showP}">P 2</p>
+</ng-template> -->
+
+
+<app-exe></app-exe>

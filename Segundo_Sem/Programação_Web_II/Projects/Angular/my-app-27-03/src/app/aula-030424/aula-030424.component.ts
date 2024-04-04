@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ExeComponent } from './exe/exe.component';
 @Component({
   selector: 'app-aula-030424',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ExeComponent],
   templateUrl: './aula-030424.component.html',
   styleUrl: './aula-030424.component.css'
 })

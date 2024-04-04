@@ -1,0 +1,139 @@
+.light-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 50px 0;
+}
+
+.light {
+  width: 100px;
+  aspect-ratio: 1/1;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &.on {
+    background-color: yellow;
+    scale: 1.1;
+    transition: all 0.5s linear;
+  }
+  &::after {
+    content: "";
+    width: 30%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 98%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid black;
+    border-top: none;
+    background-color: black;
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+/* input[type="checkbox"] {
+  width: 100px;
+  aspect-ratio: 1/1;
+  position: relative;
+  display: block;
+  margin-inline: auto;
+  &::after {
+    content: "OFF";
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    width: 100%;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &::before {
+    content: "ON";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    bottom: 50%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &:checked {
+    &::before {
+      content: "ON";
+      background-color: green;
+    }
+    &::after {
+      content: "OFF";
+      background-color: black;
+    }
+  }
+}
+ */
+
+/* Hide the default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  height: 70px;
+  width: 70px;
+  border-radius: 10em;
+  background-color: #212121;
+  transition: 0.3s;
+  box-shadow: 6px 6px 10px #000000, -6px -6px 10px #3c3c3c;
+}
+
+.checkmark svg {
+  width: 45px;
+  height: 45px;
+  margin-top: 11px;
+  margin-left: 12.5px;
+  fill: #264d39;
+  transition: 0.2s;
+}
+
+.checkmark:active {
+  box-shadow: 2px 2px 3px #000000, -2px -2px 3px #3c3c3c;
+}
+
+/* When the checkbox is checked */
+.container input:checked ~ .checkmark {
+  box-shadow: 4px 4px 6px #000000, -4px -4px 6px #3c3c3c;
+}
+
+.container input:checked ~ .checkmark svg {
+  fill: #00ff7b;
+}
+
+.container input:checked ~ .checkmark:active {
+  box-shadow: 2px 2px 3px #000000, -2px -2px 3px #3c3c3c;
+}
