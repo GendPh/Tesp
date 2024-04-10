@@ -1,0 +1,13 @@
+<input type="text" placeholder="Add Palavras" [(ngModel)]="word">
+<button type="button" (click)="AddWord()">Add</button>
+<button type="button" (click)="RemoveWord()">Pop</button>
+
+
+<p *ngIf="words.length==0">Sem Palavras</p>
+
+<app-paragraph *ngFor="let word of words.reverse(), let i=index" [insertPalavra]="word"></app-paragraph>
+
+
+<app-emitnumber (EmitNumberToParent)="handleRandomNumber($event)"></app-emitnumber>
+
+<p>{{numberReceived}}</p>
