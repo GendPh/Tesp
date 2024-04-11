@@ -1,0 +1,22 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+  & input {
+    padding: 0.5rem;
+    background-color: transparent;
+    border-radius: calc(20px + 0.5rem);
+    outline: none;
+    border: 1px solid #bbb;
+    caret-color: #fff;
+
+    &:focus {
+      border-color: #fff;
+    }
+
+    &::placeholder {
+      color: #bbb;
+    }
+  }
+}
