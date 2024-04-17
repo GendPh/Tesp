@@ -25,7 +25,7 @@ export class AppComponent {
     };
     this.todoOnGoing.push(newTodo);
   }
-  
+
   ReceiveTodoCompletedEmitted(todoId: number) {
     const todoIndex = this.todoOnGoing.findIndex((todo) => todo.id === todoId);
     if (todoIndex === -1) return;

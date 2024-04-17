@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-todo-on-going',
@@ -7,9 +7,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './todo-on-going.component.html',
   styleUrl: './todo-on-going.component.css'
 })
-export class TodoOnGoingComponent {
+export class TodoOnGoingComponent implements OnInit, OnDestroy {
+
   @Input("TodoOnGoing") todoOnGoing: Todo | undefined = undefined;
   @Input("TodoFinished") isTodoFinished: boolean = false;
+
+  ngOnInit(): void {
+    console.log(`${this.todoOnGoing?.title} foi criada em ${this.todoOnGoing?.date_started}.`);
+  }
+
+  ngOnDestroy(): void {
+    console.log(`${this.todoOnGoing?.title} foi completado em ${this.todoOnGoing?.date_ended}.`);
+
+  }
 }
 
 interface Todo {

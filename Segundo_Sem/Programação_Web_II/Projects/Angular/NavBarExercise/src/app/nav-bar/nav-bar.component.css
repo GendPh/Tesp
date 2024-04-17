@@ -7,6 +7,10 @@ ul {
   & li {
     flex-grow: 1;
     list-style: none;
-    background-color: blue;
+    text-align: center;
+    &.active {
+      background-color: blue;
+      color: white;
+    }
   }
 }
