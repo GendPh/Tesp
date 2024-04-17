@@ -10,7 +10,7 @@ form {
     outline: none;
     border: 1px solid #bbb;
     caret-color: #fff;
-
+    color: #fff;
     &:focus {
       border-color: #fff;
     }

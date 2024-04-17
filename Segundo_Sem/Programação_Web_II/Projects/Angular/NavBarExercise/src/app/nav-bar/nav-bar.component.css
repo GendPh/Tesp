@@ -1,0 +1,12 @@
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100%, 800px);
+  margin-inline: auto;
+  & li {
+    flex-grow: 1;
+    list-style: none;
+    background-color: blue;
+  }
+}
