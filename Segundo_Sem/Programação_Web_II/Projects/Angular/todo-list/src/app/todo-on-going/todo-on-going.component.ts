@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './todo-on-going.component.html',
   styleUrl: './todo-on-going.component.css'
 })
+
 export class TodoOnGoingComponent implements OnInit, OnDestroy {
 
   @Input("TodoOnGoing") todoOnGoing: Todo | undefined = undefined;
