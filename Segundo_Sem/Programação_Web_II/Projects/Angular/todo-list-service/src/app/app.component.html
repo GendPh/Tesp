@@ -1,0 +1,31 @@
+<main>
+  <section>
+    <app-insert-todo></app-insert-todo>
+
+    <div>
+      <div class="change-todo-list">
+        <button (click)="ChangeTodoContainer()" [disabled]="containerOnGoing">On Going</button>
+        <button (click)="ChangeTodoContainer()" [disabled]="!containerOnGoing">Completed</button>
+      </div>
+
+      <div [hidden]="!containerOnGoing" class="todo-container">
+        <h2>On Going</h2>
+        <p [hidden]="todoOngoing.length!=0">No Todo Added</p>
+        <div class="todo-item" *ngFor="let todoOG of todoOngoing">
+          <app-todo-on-going [ReceiveTodoInf]="todoOG"></app-todo-on-going>
+          <app-todo-complete-button [ReceiveTodoId]="todoOG.id"></app-todo-complete-button>
+        </div>
+      </div>
+
+      <div [hidden]="containerOnGoing" class="todo-container">
+        <h2>Completed</h2>
+        <p [hidden]="todoCompleted.length!=0">No Todo Completed</p>
+        <div class="todo-item" *ngFor="let todoComp of todoCompleted">
+          <app-todo-on-going [ReceiveTodoInf]="todoComp"></app-todo-on-going>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+<router-outlet />

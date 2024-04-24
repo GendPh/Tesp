@@ -1,5 +1,5 @@
 {
-  "name": "nav-bar-exercise",
+  "name": "todo-list",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:NavBarExercise": "node dist/nav-bar-exercise/server/server.mjs"
+    "serve:ssr:todo-list": "node dist/todo-list/server/server.mjs"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,36 @@
+main {
+  width: min(100%, 800px);
+  margin-inline: auto;
+  padding: 1rem;
+  background-color: #444;
+  border-radius: 20px;
+}
+
+.change-todo-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  & button {
+    width: 100%;
+    &.open {
+      background-color: #0f0;
+    }
+    &.close {
+      background-color: #f00;
+    }
+  }
+}
+
+.todo-container {
+  padding: 1rem 0;
+  & h2 {
+    text-align: center;
+  }
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
