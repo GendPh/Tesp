@@ -1,8 +1,0 @@
-<div>
-  <h4>{{todoOnGoing?.title}}</h4>
-  <p *ngIf="!isTodoFinished">Started: {{todoOnGoing?.date_started}}</p>
-  <div *ngIf="isTodoFinished">
-    <p>Started: {{todoOnGoing?.date_started}}</p>
-    <p>Finished: {{todoOnGoing?.date_ended}}</p>
-  </div>
-</div>
