@@ -1,2 +1,2 @@
 <h1>Aula 24/04/24</h1>
-<app-student *ngFor="let s of students" [ReceiveStudentInf]="s"></app-student>
+<app-student *ngFor="let s of students, let i=index" [ReceiveStudentInf]="s"></app-student>
