@@ -4,6 +4,11 @@ export class TodoService {
   todoOnGoing: Todo[] = [];
   todoCompleted: Todo[] = [];
 
+  LoadTodo() { 
+    const http:
+  }
+
+
   TodoCreate(todoTitle: string) {
     this.todoOnGoing.push(new Todo(this.todoOnGoing.length + 1, todoTitle));
     console.log(this.todoOnGoing);

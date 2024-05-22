@@ -1,0 +1,9 @@
+<form (submit)="PostTask()">
+  <input type="text" name="task-input" id="task-input" [(ngModel)]="newTaskDesc">
+  <button type="submit">Add</button>
+</form>
+
+<div style="display: flex; justify-content: space-between;" *ngFor="let task of tasks">
+  <p>{{task.desc}}</p>
+  <button (click)="DeleteTask(task.id)">Remove</button>
+</div>
