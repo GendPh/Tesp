@@ -11,6 +11,15 @@
   body {
     @apply bg-background;
   }
+  h1 {
+    @apply text-[30px] font-bold uppercase;
+  }
+  h2 {
+    @apply text-[25px] font-bold uppercase;
+  }
+  h3 {
+    @apply text-[15px] font-bold uppercase;
+  }
 }
 
 @layer components {
@@ -20,19 +29,19 @@
   }
 
   .button {
-    @apply text-[20px] text-center px-4 py-2 block rounded-xl transition-colors duration-300 text-text;
+    @apply text-[20px] text-center px-4 py-2 block rounded-md transition-colors duration-300 text-text uppercase;
     &.primary {
-      @apply bg-primary hover:bg-accent;
+      @apply bg-primary hover:bg-secondary;
     }
     &.secondary {
-      @apply bg-secondary hover:bg-accent;
+      @apply bg-secondary hover:bg-primary;
     }
   }
 
   header {
     @apply sticky top-0 z-50 bg-background;
     #main-header {
-      @apply bg-background p-5 flex justify-between items-center gap-5 relative z-50 text-text max-w-screen-xl mx-auto;
+      @apply bg-background flex justify-between items-center gap-5 relative z-50 text-text max-w-screen-xl mx-auto p-5;
       #toggle-nav {
         background-position: center;
         background-size: cover;
@@ -55,7 +64,7 @@
       }
     }
     #mobile-nav {
-      @apply relative z-50  p-5 text-[25px] tracking-[5px] font-bold uppercase transition-all duration-300 scale-y-0 origin-top bg-background text-text;
+      @apply fixed w-full z-50  p-5 text-[25px] tracking-[5px] font-bold uppercase transition-all duration-300 scale-y-0 origin-top bg-background text-text;
       &.open {
         @apply scale-y-100;
         & + #mobile-header-bg {
@@ -93,6 +102,49 @@
     }
   }
   main {
-    @apply p-5 max-w-screen-xl mx-auto;
+    @apply max-w-screen-xl mx-auto;
+    section {
+      &.hero {
+        @apply grid gap-5 lg:grid-cols-2 bg-accent text-text md:rounded-lg md:mx-5;
+        .hero-content {
+          @apply p-5 flex flex-col justify-center items-center gap-5 text-balance text-center;
+          & p {
+            @apply text-[15px] tracking-[3px];
+          }
+        }
+        & figure {
+          @apply flex justify-center items-center md:p-5 md:pt-0 lg:pt-5;
+          img {
+            @apply w-full md:rounded-lg;
+          }
+        }
+      }
+      &#breeds {
+        @apply text-center my-12 px-5 ;
+        .breeds-container {
+          @apply grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
+          .breed {
+            & img {
+              @apply mb-2 w-full aspect-video object-cover rounded-lg;
+            }
+          }
+        }
+      }
+      &#breeds-commentaries {
+        @apply text-center bg-accent md:rounded-lg p-5 md:mx-5;
+        .commentaries-container {
+          @apply text-text mt-5 rounded-lg grid md:grid-cols-3 gap-5 text-justify;
+          & img {
+            @apply w-full aspect-video object-cover rounded-lg;
+          }
+          & p {
+            @apply text-[15px] tracking-[3px] my-2;
+          }
+          & h3 {
+            @apply text-end;
+          }
+        }
+      }
+    }
   }
 }
