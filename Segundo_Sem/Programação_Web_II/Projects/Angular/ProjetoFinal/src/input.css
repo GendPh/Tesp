@@ -1,4 +1,98 @@
 /* npx tailwindcss -i ./src/input.css -o ./src/styles.css --watch */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    font-family: "Manrope", sans-serif;
+  }
+  body {
+    @apply bg-background;
+  }
+}
+
+@layer components {
+  .logo {
+    font-size: 1.7rem;
+    @apply uppercase tracking-widest font-bold;
+  }
+
+  .button {
+    @apply text-[20px] text-center px-4 py-2 block rounded-xl transition-colors duration-300 text-text;
+    &.primary {
+      @apply bg-primary hover:bg-accent;
+    }
+    &.secondary {
+      @apply bg-secondary hover:bg-accent;
+    }
+  }
+
+  header {
+    @apply sticky top-0 z-50 bg-background;
+    #main-header {
+      @apply bg-background p-5 flex justify-between items-center gap-5 relative z-50 text-text max-w-screen-xl mx-auto;
+      #toggle-nav {
+        background-position: center;
+        background-size: cover;
+        @apply w-8 aspect-square transition-all duration-300 md:hidden;
+        &.close {
+          background-image: url("./assets/shared/burger-menu-right-svgrepo-com.svg");
+        }
+        &.open {
+          background-image: url("./assets/shared/close-svgrepo-com.svg");
+        }
+      }
+      #main-nav {
+        @apply hidden md:block;
+        & ul {
+          @apply flex gap-5;
+          & li {
+            @apply cursor-pointer text-[20px] tracking-[5px] uppercase transition-all duration-300;
+          }
+        }
+      }
+    }
+    #mobile-nav {
+      @apply relative z-50  p-5 text-[25px] tracking-[5px] font-bold uppercase transition-all duration-300 scale-y-0 origin-top bg-background text-text;
+      &.open {
+        @apply scale-y-100;
+        & + #mobile-header-bg {
+          @apply opacity-75 pointer-events-auto;
+        }
+      }
+      & ul {
+        @apply grid gap-5;
+        & li {
+          @apply cursor-pointer w-fit;
+        }
+      }
+    }
+    #mobile-header-bg {
+      @apply z-40 fixed bg-black top-0 left-0 w-full h-full opacity-0 transition-all duration-300 pointer-events-none;
+    }
+  }
+
+  footer {
+    @apply bg-background text-text p-5 uppercase;
+    #main-footer {
+      @apply max-w-screen-xl mx-auto;
+      & ul {
+        @apply flex flex-col justify-center items-center gap-5 my-5;
+        & li {
+          @apply cursor-pointer;
+          & img {
+            @apply w-10 aspect-square;
+          }
+        }
+        &.social {
+          @apply flex-row;
+        }
+      }
+    }
+  }
+  main {
+    @apply p-5 max-w-screen-xl mx-auto;
+  }
+}

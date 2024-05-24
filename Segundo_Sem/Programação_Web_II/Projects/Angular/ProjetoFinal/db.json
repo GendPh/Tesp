@@ -3,12 +3,30 @@
     {
       "username": "user1",
       "password": "password",
-      "likes": [41, 212, 121, 115]
+      "likes": [
+        41,
+        212,
+        121,
+        115
+      ],
+      "id": "c783"
     },
     {
       "username": "user2",
       "password": "password",
-      "likes": []
+      "likes": [],
+      "id": "ac0a"
+    },
+    {
+      "id": "3c27",
+      "username": "user2",
+      "password": "password2",
+      "likes": [
+        41
+      ]
+    },
+    {
+      "id": "a2e5"
     }
   ],
   "dogs": [
@@ -21,7 +39,7 @@
         "imperial": "9 - 11.5",
         "metric": "23 - 29"
       },
-      "id": 1,
+      "id": "1",
       "name": "Affenpinscher",
       "bred_for": "Small rodent hunting, lapdog",
       "breed_group": "Toy",
@@ -35,7 +53,9 @@
         "height": 1199,
         "url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
       },
-      "relatedIds": [2]
+      "relatedIds": [
+        2
+      ]
     },
     {
       "weight": {
@@ -46,7 +66,7 @@
         "imperial": "25 - 27",
         "metric": "64 - 69"
       },
-      "id": 2,
+      "id": "2",
       "name": "Afghan Hound",
       "country_code": "AG",
       "bred_for": "Coursing and hunting",
@@ -61,7 +81,9 @@
         "height": 380,
         "url": "https://cdn2.thedogapi.com/images/hMyT4CDXR.jpg"
       },
-      "relatedIds": [1]
+      "relatedIds": [
+        1
+      ]
     },
     {
       "weight": {
@@ -72,7 +94,7 @@
         "imperial": "30",
         "metric": "76"
       },
-      "id": 3,
+      "id": "3",
       "name": "African Hunting Dog",
       "bred_for": "A wild pack animal",
       "life_span": "11 years",
@@ -95,7 +117,7 @@
         "imperial": "21 - 23",
         "metric": "53 - 58"
       },
-      "id": 4,
+      "id": "4",
       "name": "Airedale Terrier",
       "bred_for": "Badger, otter hunting",
       "breed_group": "Terrier",
@@ -119,7 +141,7 @@
         "imperial": "28 - 34",
         "metric": "71 - 86"
       },
-      "id": 5,
+      "id": "5",
       "name": "Akbash Dog",
       "bred_for": "Sheep guarding",
       "breed_group": "Working",
@@ -143,7 +165,7 @@
         "imperial": "24 - 28",
         "metric": "61 - 71"
       },
-      "id": 6,
+      "id": "6",
       "name": "Akita",
       "bred_for": "Hunting bears",
       "breed_group": "Working",
@@ -166,7 +188,7 @@
         "imperial": "18 - 24",
         "metric": "46 - 61"
       },
-      "id": 7,
+      "id": "7",
       "name": "Alapaha Blue Blood Bulldog",
       "description": "The Alapaha Blue Blood Bulldog is a well-developed, exaggerated bulldog with a broad head and natural drop ears. The prominent muzzle is covered by loose upper lips. The prominent eyes are set well apart. The Alapaha's coat is relatively short and fairly stiff. Preferred colors are blue merle, brown merle, or red merle all trimmed in white or chocolate and white. Also preferred are the glass eyes (blue) or marble eyes (brown and blue mixed in a single eye). The ears and tail are never trimmed or docked. The body is sturdy and very muscular. The well-muscled hips are narrower than the chest. The straight back is as long as the dog is high at the shoulders. The dewclaws are never removed and the feet are cat-like.",
       "bred_for": "Guarding",
@@ -191,7 +213,7 @@
         "imperial": "23 - 26",
         "metric": "58 - 66"
       },
-      "id": 8,
+      "id": "8",
       "name": "Alaskan Husky",
       "bred_for": "Sled pulling",
       "breed_group": "Mixed",
@@ -214,7 +236,7 @@
         "imperial": "23 - 25",
         "metric": "58 - 64"
       },
-      "id": 9,
+      "id": "9",
       "name": "Alaskan Malamute",
       "bred_for": "Hauling heavy freight, Sled pulling",
       "breed_group": "Working",
@@ -237,7 +259,7 @@
         "imperial": "22 - 27",
         "metric": "56 - 69"
       },
-      "id": 10,
+      "id": "10",
       "name": "American Bulldog",
       "breed_group": "Working",
       "life_span": "10 - 12 years",
@@ -259,7 +281,7 @@
         "imperial": "14 - 17",
         "metric": "36 - 43"
       },
-      "id": 11,
+      "id": "11",
       "name": "American Bully",
       "country_code": "US",
       "bred_for": "Family companion dog",
@@ -283,7 +305,7 @@
         "imperial": "15 - 19",
         "metric": "38 - 48"
       },
-      "id": 12,
+      "id": "12",
       "name": "American Eskimo Dog",
       "country_code": "US",
       "bred_for": "Circus performer",
@@ -307,7 +329,7 @@
         "imperial": "9 - 12",
         "metric": "23 - 30"
       },
-      "id": 13,
+      "id": "13",
       "name": "American Eskimo Dog (Miniature)",
       "country_code": "US",
       "bred_for": "Companionship",
@@ -330,7 +352,7 @@
         "imperial": "21 - 28",
         "metric": "53 - 71"
       },
-      "id": 14,
+      "id": "14",
       "name": "American Foxhound",
       "country_code": "US",
       "bred_for": "Fox hunting, scent hound",
@@ -354,7 +376,7 @@
         "imperial": "17 - 21",
         "metric": "43 - 53"
       },
-      "id": 15,
+      "id": "15",
       "name": "American Pit Bull Terrier",
       "country_code": "US",
       "bred_for": "Fighting",
@@ -378,7 +400,7 @@
         "imperial": "17 - 19",
         "metric": "43 - 48"
       },
-      "id": 16,
+      "id": "16",
       "name": "American Staffordshire Terrier",
       "country_code": "US",
       "bred_for": "",
@@ -402,7 +424,7 @@
         "imperial": "15 - 18",
         "metric": "38 - 46"
       },
-      "id": 17,
+      "id": "17",
       "name": "American Water Spaniel",
       "country_code": "US",
       "bred_for": "Bird flushing and retrieving",
@@ -426,7 +448,7 @@
         "imperial": "27 - 29",
         "metric": "69 - 74"
       },
-      "id": 18,
+      "id": "18",
       "name": "Anatolian Shepherd Dog",
       "bred_for": "Livestock herding",
       "breed_group": "Working",
@@ -449,7 +471,7 @@
         "imperial": "20 - 22",
         "metric": "51 - 56"
       },
-      "id": 19,
+      "id": "19",
       "name": "Appenzeller Sennenhund",
       "bred_for": "Herding livestock, pulling carts, and guarding the farm",
       "life_span": "12 – 14 years",
@@ -471,7 +493,7 @@
         "imperial": "17 - 20",
         "metric": "43 - 51"
       },
-      "id": 21,
+      "id": "21",
       "name": "Australian Cattle Dog",
       "country_code": "AU",
       "bred_for": "Cattle herding, herding trials",
@@ -495,7 +517,7 @@
         "imperial": "17 - 20",
         "metric": "43 - 51"
       },
-      "id": 22,
+      "id": "22",
       "name": "Australian Kelpie",
       "country_code": "AU",
       "bred_for": "Farm dog, Cattle herding",
@@ -519,7 +541,7 @@
         "imperial": "18 - 23",
         "metric": "46 - 58"
       },
-      "id": 23,
+      "id": "23",
       "name": "Australian Shepherd",
       "country_code": "AU",
       "bred_for": "Sheep herding",
@@ -543,7 +565,7 @@
         "imperial": "10 - 11",
         "metric": "25 - 28"
       },
-      "id": 24,
+      "id": "24",
       "name": "Australian Terrier",
       "country_code": "AU",
       "bred_for": "Cattle herdering, hunting snakes and rodents",
@@ -567,7 +589,7 @@
         "imperial": "23 - 29",
         "metric": "58 - 74"
       },
-      "id": 25,
+      "id": "25",
       "name": "Azawakh",
       "bred_for": "Livestock guardian, hunting",
       "breed_group": "Hound",
@@ -590,7 +612,7 @@
         "imperial": "20 - 26",
         "metric": "51 - 66"
       },
-      "id": 26,
+      "id": "26",
       "name": "Barbet",
       "bred_for": "Hunting water game",
       "life_span": "13 – 15 years",
@@ -612,7 +634,7 @@
         "imperial": "16 - 17",
         "metric": "41 - 43"
       },
-      "id": 28,
+      "id": "28",
       "name": "Basenji",
       "bred_for": "Hunting",
       "breed_group": "Hound",
@@ -635,7 +657,7 @@
         "imperial": "13 - 15",
         "metric": "33 - 38"
       },
-      "id": 29,
+      "id": "29",
       "name": "Basset Bleu de Gascogne",
       "bred_for": "Hunting on foot.",
       "breed_group": "Hound",
@@ -658,7 +680,7 @@
         "imperial": "14",
         "metric": "36"
       },
-      "id": 30,
+      "id": "30",
       "name": "Basset Hound",
       "bred_for": "Hunting by scent",
       "breed_group": "Hound",
@@ -681,7 +703,7 @@
         "imperial": "13 - 15",
         "metric": "33 - 38"
       },
-      "id": 31,
+      "id": "31",
       "name": "Beagle",
       "bred_for": "Rabbit, hare hunting",
       "breed_group": "Hound",
@@ -704,7 +726,7 @@
         "imperial": "20 - 22",
         "metric": "51 - 56"
       },
-      "id": 32,
+      "id": "32",
       "name": "Bearded Collie",
       "bred_for": "Sheep herding",
       "breed_group": "Herding",
@@ -727,7 +749,7 @@
         "imperial": "24 - 27.5",
         "metric": "61 - 70"
       },
-      "id": 33,
+      "id": "33",
       "name": "Beauceron",
       "bred_for": "Boar herding, hunting, guarding",
       "breed_group": "Herding",
@@ -750,7 +772,7 @@
         "imperial": "15 - 16",
         "metric": "38 - 41"
       },
-      "id": 34,
+      "id": "34",
       "name": "Bedlington Terrier",
       "bred_for": "Killing rat, badger, other vermin",
       "breed_group": "Terrier",
@@ -773,7 +795,7 @@
         "imperial": "22 - 26",
         "metric": "56 - 66"
       },
-      "id": 36,
+      "id": "36",
       "name": "Belgian Malinois",
       "bred_for": "Stock herding",
       "breed_group": "Herding",
@@ -796,7 +818,7 @@
         "imperial": "22 - 26",
         "metric": "56 - 66"
       },
-      "id": 38,
+      "id": "38",
       "name": "Belgian Tervuren",
       "bred_for": "Guarding, Drafting, Police work.",
       "breed_group": "Herding",
@@ -819,7 +841,7 @@
         "imperial": "23 - 27.5",
         "metric": "58 - 70"
       },
-      "id": 41,
+      "id": "41",
       "name": "Bernese Mountain Dog",
       "bred_for": "Draft work",
       "breed_group": "Working",
@@ -832,7 +854,9 @@
         "height": 427,
         "url": "https://cdn2.thedogapi.com/images/S1fFlx5Em.jpg"
       },
-      "relatedIds": [212]
+      "relatedIds": [
+        212
+      ]
     },
     {
       "weight": {
@@ -843,7 +867,7 @@
         "imperial": "9.5 - 11.5",
         "metric": "24 - 29"
       },
-      "id": 42,
+      "id": "42",
       "name": "Bichon Frise",
       "bred_for": "Companion",
       "breed_group": "Non-Sporting",
@@ -866,7 +890,7 @@
         "imperial": "23 - 27",
         "metric": "58 - 69"
       },
-      "id": 43,
+      "id": "43",
       "name": "Black and Tan Coonhound",
       "bred_for": "Hunting raccoons, night hunting",
       "breed_group": "Hound",
@@ -889,7 +913,7 @@
         "imperial": "23 - 27",
         "metric": "58 - 69"
       },
-      "id": 45,
+      "id": "45",
       "name": "Bloodhound",
       "bred_for": "Trailing",
       "breed_group": "Hound",
@@ -912,7 +936,7 @@
         "imperial": "21 - 27",
         "metric": "53 - 69"
       },
-      "id": 47,
+      "id": "47",
       "name": "Bluetick Coonhound",
       "bred_for": "Hunting with a superior sense of smell.",
       "breed_group": "Hound",
@@ -935,7 +959,7 @@
         "imperial": "22 - 27",
         "metric": "56 - 69"
       },
-      "id": 48,
+      "id": "48",
       "name": "Boerboel",
       "bred_for": "Guarding the homestead, farm work.",
       "breed_group": "Working",
@@ -958,7 +982,7 @@
         "imperial": "18 - 22",
         "metric": "46 - 56"
       },
-      "id": 50,
+      "id": "50",
       "name": "Border Collie",
       "bred_for": "Sheep herder",
       "breed_group": "Herding",
@@ -981,7 +1005,7 @@
         "imperial": "11 - 16",
         "metric": "28 - 41"
       },
-      "id": 51,
+      "id": "51",
       "name": "Border Terrier",
       "bred_for": "Fox bolting, ratting",
       "breed_group": "Terrier",
@@ -1004,7 +1028,7 @@
         "imperial": "16 - 17",
         "metric": "41 - 43"
       },
-      "id": 53,
+      "id": "53",
       "name": "Boston Terrier",
       "bred_for": "Ratting, Companionship",
       "breed_group": "Non-Sporting",
@@ -1027,7 +1051,7 @@
         "imperial": "23.5 - 27.5",
         "metric": "60 - 70"
       },
-      "id": 54,
+      "id": "54",
       "name": "Bouvier des Flandres",
       "bred_for": "Cattle herding",
       "breed_group": "Herding",
@@ -1050,7 +1074,7 @@
         "imperial": "21.5 - 25",
         "metric": "55 - 64"
       },
-      "id": 55,
+      "id": "55",
       "name": "Boxer",
       "bred_for": "Bull-baiting, guardian",
       "breed_group": "Working",
@@ -1073,7 +1097,7 @@
         "imperial": "14 - 18",
         "metric": "36 - 46"
       },
-      "id": 56,
+      "id": "56",
       "name": "Boykin Spaniel",
       "bred_for": "Turkey retrieving",
       "breed_group": "Sporting",
@@ -1096,7 +1120,7 @@
         "imperial": "21.5 - 26.5",
         "metric": "55 - 67"
       },
-      "id": 57,
+      "id": "57",
       "name": "Bracco Italiano",
       "bred_for": "Versatile gun dog",
       "breed_group": "Sporting",
@@ -1119,7 +1143,7 @@
         "imperial": "22 - 27",
         "metric": "56 - 69"
       },
-      "id": 58,
+      "id": "58",
       "name": "Briard",
       "bred_for": "Herding, guarding sheep",
       "breed_group": "Herding",
@@ -1142,7 +1166,7 @@
         "imperial": "17.5 - 20.5",
         "metric": "44 - 52"
       },
-      "id": 59,
+      "id": "59",
       "name": "Brittany",
       "bred_for": "Pointing, retrieving",
       "breed_group": "Sporting",
@@ -1165,7 +1189,7 @@
         "imperial": "21 - 22",
         "metric": "53 - 56"
       },
-      "id": 61,
+      "id": "61",
       "name": "Bull Terrier",
       "bred_for": "Bull baiting, Fighting",
       "breed_group": "Terrier",
@@ -1188,7 +1212,7 @@
         "imperial": "10 - 14",
         "metric": "25 - 36"
       },
-      "id": 62,
+      "id": "62",
       "name": "Bull Terrier (Miniature)",
       "bred_for": "An elegant man's fashion statement",
       "life_span": "11 – 14 years",
@@ -1210,7 +1234,7 @@
         "imperial": "24 - 27",
         "metric": "61 - 69"
       },
-      "id": 64,
+      "id": "64",
       "name": "Bullmastiff",
       "bred_for": "Estate guardian",
       "breed_group": "Working",
@@ -1233,7 +1257,7 @@
         "imperial": "9 - 10",
         "metric": "23 - 25"
       },
-      "id": 65,
+      "id": "65",
       "name": "Cairn Terrier",
       "bred_for": "Bolting of otter, foxes, other vermin",
       "breed_group": "Terrier",
@@ -1256,7 +1280,7 @@
         "imperial": "23.5 - 27.5",
         "metric": "60 - 70"
       },
-      "id": 67,
+      "id": "67",
       "name": "Cane Corso",
       "bred_for": "Companion, guard dog, and hunter",
       "breed_group": "Working",
@@ -1279,7 +1303,7 @@
         "imperial": "10.5 - 12.5",
         "metric": "27 - 32"
       },
-      "id": 68,
+      "id": "68",
       "name": "Cardigan Welsh Corgi",
       "bred_for": "Cattle droving",
       "breed_group": "Herding",
@@ -1302,7 +1326,7 @@
         "imperial": "20 - 26",
         "metric": "51 - 66"
       },
-      "id": 69,
+      "id": "69",
       "name": "Catahoula Leopard Dog",
       "bred_for": "Driving livestock",
       "breed_group": "Herding",
@@ -1325,7 +1349,7 @@
         "imperial": "24 - 33.5",
         "metric": "61 - 85"
       },
-      "id": 70,
+      "id": "70",
       "name": "Caucasian Shepherd (Ovcharka)",
       "bred_for": "Guard dogs, defending sheep from predators, mainly wolves, jackals and bears",
       "breed_group": "Working",
@@ -1348,7 +1372,7 @@
         "imperial": "12 - 13",
         "metric": "30 - 33"
       },
-      "id": 71,
+      "id": "71",
       "name": "Cavalier King Charles Spaniel",
       "bred_for": "Flushing small birds, companion",
       "breed_group": "Toy",
@@ -1371,7 +1395,7 @@
         "imperial": "21 - 26",
         "metric": "53 - 66"
       },
-      "id": 76,
+      "id": "76",
       "name": "Chesapeake Bay Retriever",
       "bred_for": "Water Retriever",
       "breed_group": "Sporting",
@@ -1394,7 +1418,7 @@
         "imperial": "11 - 13",
         "metric": "28 - 33"
       },
-      "id": 78,
+      "id": "78",
       "name": "Chinese Crested",
       "bred_for": "Ratting, lapdog, curio",
       "breed_group": "Toy",
@@ -1417,7 +1441,7 @@
         "imperial": "18 - 20",
         "metric": "46 - 51"
       },
-      "id": 79,
+      "id": "79",
       "name": "Chinese Shar-Pei",
       "bred_for": "Fighting",
       "breed_group": "Non-Sporting",
@@ -1440,7 +1464,7 @@
         "imperial": "22 - 26",
         "metric": "56 - 66"
       },
-      "id": 80,
+      "id": "80",
       "name": "Chinook",
       "bred_for": "Sled pulling",
       "breed_group": "Working",
@@ -1463,7 +1487,7 @@
         "imperial": "17 - 20",
         "metric": "43 - 51"
       },
-      "id": 81,
+      "id": "81",
       "name": "Chow Chow",
       "bred_for": "Guardian, cart pulling, hunting",
       "breed_group": "Non-Sporting",
@@ -1486,7 +1510,7 @@
         "imperial": "17 - 20",
         "metric": "43 - 51"
       },
-      "id": 84,
+      "id": "84",
       "name": "Clumber Spaniel",
       "bred_for": "Bird flushing, retrieving",
       "breed_group": "Sporting",
@@ -1509,7 +1533,7 @@
         "imperial": "14 - 15",
         "metric": "36 - 38"
       },
-      "id": 86,
+      "id": "86",
       "name": "Cocker Spaniel",
       "bred_for": "Bird flushing, retrieving",
       "breed_group": "Sporting",
@@ -1532,7 +1556,7 @@
         "imperial": "14 - 15",
         "metric": "36 - 38"
       },
-      "id": 87,
+      "id": "87",
       "name": "Cocker Spaniel (American)",
       "bred_for": "Hunting the American woodcock",
       "breed_group": "Sporting",
@@ -1555,7 +1579,7 @@
         "imperial": "9 - 11",
         "metric": "23 - 28"
       },
-      "id": 89,
+      "id": "89",
       "name": "Coton de Tulear",
       "bred_for": "Accompanying ladies on long sea voyages, ratters onboard ship.",
       "breed_group": "Non-Sporting",
@@ -1578,7 +1602,7 @@
         "imperial": "19 - 23",
         "metric": "48 - 58"
       },
-      "id": 92,
+      "id": "92",
       "name": "Dalmatian",
       "bred_for": "Carriage dog - trot alongside carriages to protect the occupants from banditry or other interference",
       "breed_group": "Non-Sporting",
@@ -1601,7 +1625,7 @@
         "imperial": "24 - 28",
         "metric": "61 - 71"
       },
-      "id": 94,
+      "id": "94",
       "name": "Doberman Pinscher",
       "bred_for": "Guardian",
       "breed_group": "Working",
@@ -1624,7 +1648,7 @@
         "imperial": "23.5 - 27",
         "metric": "60 - 69"
       },
-      "id": 95,
+      "id": "95",
       "name": "Dogo Argentino",
       "bred_for": "Big-game hunting",
       "breed_group": "Working",
@@ -1647,7 +1671,7 @@
         "imperial": "22 - 24.5",
         "metric": "56 - 62"
       },
-      "id": 98,
+      "id": "98",
       "name": "Dutch Shepherd",
       "bred_for": "Farms, watchdog, guard duty",
       "life_span": "15 years",
@@ -1669,7 +1693,7 @@
         "imperial": "24 - 25",
         "metric": "61 - 64"
       },
-      "id": 101,
+      "id": "101",
       "name": "English Setter",
       "bred_for": "Bird setting, retrieving",
       "breed_group": "Sporting",
@@ -1682,7 +1706,11 @@
         "height": 683,
         "url": "https://cdn2.thedogapi.com/images/By4A-eqVX.jpg"
       },
-      "relatedIds": [121, 123, 134]
+      "relatedIds": [
+        121,
+        123,
+        134
+      ]
     },
     {
       "weight": {
@@ -1693,7 +1721,7 @@
         "imperial": "18 - 23",
         "metric": "46 - 58"
       },
-      "id": 102,
+      "id": "102",
       "name": "English Shepherd",
       "bred_for": "Herding & guarding livestock, farm watch dog",
       "breed_group": "Working",
@@ -1716,7 +1744,7 @@
         "imperial": "19 - 20",
         "metric": "48 - 51"
       },
-      "id": 103,
+      "id": "103",
       "name": "English Springer Spaniel",
       "bred_for": "Bird flushing, retrieving",
       "breed_group": "Sporting",
@@ -1739,7 +1767,7 @@
         "imperial": "10",
         "metric": "25"
       },
-      "id": 104,
+      "id": "104",
       "name": "English Toy Spaniel",
       "bred_for": "Companion of kings",
       "breed_group": "Toy",
@@ -1762,7 +1790,7 @@
         "imperial": "10 - 12",
         "metric": "25 - 30"
       },
-      "id": 105,
+      "id": "105",
       "name": "English Toy Terrier",
       "bred_for": "Rat-baiting",
       "life_span": "12 - 13 years",
@@ -1784,7 +1812,7 @@
         "imperial": "20.5 - 23.5",
         "metric": "52 - 60"
       },
-      "id": 107,
+      "id": "107",
       "name": "Eurasier",
       "bred_for": "Companionship",
       "breed_group": "Non-Sporting",
@@ -1807,7 +1835,7 @@
         "imperial": "17 - 18",
         "metric": "43 - 46"
       },
-      "id": 108,
+      "id": "108",
       "name": "Field Spaniel",
       "bred_for": "Bird flushing, retrieving",
       "breed_group": "Sporting",
@@ -1830,7 +1858,7 @@
         "imperial": "16 - 21",
         "metric": "41 - 53"
       },
-      "id": 110,
+      "id": "110",
       "name": "Finnish Lapphund",
       "bred_for": "Herding reindeer",
       "breed_group": "Herding",
@@ -1853,7 +1881,7 @@
         "imperial": "15.5 - 20",
         "metric": "39 - 51"
       },
-      "id": 111,
+      "id": "111",
       "name": "Finnish Spitz",
       "bred_for": "Hunting birds, small mammals",
       "breed_group": "Non-Sporting",
@@ -1876,7 +1904,7 @@
         "imperial": "11 - 12",
         "metric": "28 - 30"
       },
-      "id": 113,
+      "id": "113",
       "name": "French Bulldog",
       "bred_for": "Lapdog",
       "breed_group": "Non-Sporting",
@@ -1899,7 +1927,7 @@
         "imperial": "17 - 20",
         "metric": "43 - 51"
       },
-      "id": 114,
+      "id": "114",
       "name": "German Pinscher",
       "bred_for": "Watchdog, Hunting vermin on the farm.",
       "breed_group": "Working",
@@ -1922,7 +1950,7 @@
         "imperial": "22 - 26",
         "metric": "56 - 66"
       },
-      "id": 115,
+      "id": "115",
       "name": "German Shepherd Dog",
       "bred_for": "Herding, Guard dog",
       "breed_group": "Herding",
@@ -1945,7 +1973,7 @@
         "imperial": "21 - 25",
         "metric": "53 - 64"
       },
-      "id": 116,
+      "id": "116",
       "name": "German Shorthaired Pointer",
       "bred_for": "General hunting",
       "breed_group": "Sporting",
@@ -1968,7 +1996,7 @@
         "imperial": "23.5 - 27.5",
         "metric": "60 - 70"
       },
-      "id": 119,
+      "id": "119",
       "name": "Giant Schnauzer",
       "bred_for": "Herding, guarding",
       "breed_group": "Working",
@@ -1991,7 +2019,7 @@
         "imperial": "12.5 - 14",
         "metric": "32 - 36"
       },
-      "id": 120,
+      "id": "120",
       "name": "Glen of Imaal Terrier",
       "bred_for": "Rid the home and farm of vermin, and hunt badger and fox",
       "breed_group": "Terrier",
@@ -2014,7 +2042,7 @@
         "imperial": "21.5 - 24",
         "metric": "55 - 61"
       },
-      "id": 121,
+      "id": "121",
       "name": "Golden Retriever",
       "bred_for": "Retrieving",
       "breed_group": "Sporting",
@@ -2037,7 +2065,7 @@
         "imperial": "23 - 27",
         "metric": "58 - 69"
       },
-      "id": 123,
+      "id": "123",
       "name": "Gordon Setter",
       "bred_for": "Find and point gamebirds",
       "breed_group": "Sporting",
@@ -2050,7 +2078,11 @@
         "height": 467,
         "url": "https://cdn2.thedogapi.com/images/SJ5vzx5NX.jpg"
       },
-      "relatedIds": [121, 101, 134]
+      "relatedIds": [
+        121,
+        101,
+        134
+      ]
     },
     {
       "weight": {
@@ -2061,7 +2093,7 @@
         "imperial": "28 - 32",
         "metric": "71 - 81"
       },
-      "id": 124,
+      "id": "124",
       "name": "Great Dane",
       "bred_for": "Hunting & holding boars, Guardian",
       "breed_group": "Working",
@@ -2084,7 +2116,7 @@
         "imperial": "25 - 32",
         "metric": "64 - 81"
       },
-      "id": 125,
+      "id": "125",
       "name": "Great Pyrenees",
       "bred_for": "Sheep guardian",
       "breed_group": "Working",
@@ -2107,7 +2139,7 @@
         "imperial": "27 - 30",
         "metric": "69 - 76"
       },
-      "id": 127,
+      "id": "127",
       "name": "Greyhound",
       "bred_for": "Coursing hares",
       "breed_group": "Hound",
@@ -2130,7 +2162,7 @@
         "imperial": "9 - 11",
         "metric": "23 - 28"
       },
-      "id": 128,
+      "id": "128",
       "name": "Griffon Bruxellois",
       "bred_for": "Hunt and kill vermin in stables",
       "life_span": "10 – 15 years",
@@ -2152,7 +2184,7 @@
         "imperial": "18 - 22",
         "metric": "46 - 56"
       },
-      "id": 129,
+      "id": "129",
       "name": "Harrier",
       "bred_for": "Hunting hares by trailing them",
       "breed_group": "Hound",
@@ -2175,7 +2207,7 @@
         "imperial": "8.5 - 11.5",
         "metric": "22 - 29"
       },
-      "id": 130,
+      "id": "130",
       "name": "Havanese",
       "bred_for": "Companionship",
       "breed_group": "Toy",
@@ -2198,7 +2230,7 @@
         "imperial": "24 - 27",
         "metric": "61 - 69"
       },
-      "id": 134,
+      "id": "134",
       "name": "Irish Setter",
       "bred_for": "Bird setting, retrieving",
       "breed_group": "Sporting",
@@ -2211,7 +2243,11 @@
         "height": 522,
         "url": "https://cdn2.thedogapi.com/images/S1osGeqVm.jpg"
       },
-      "relatedIds": [121, 123, 101]
+      "relatedIds": [
+        121,
+        123,
+        101
+      ]
     },
     {
       "weight": {
@@ -2222,7 +2258,7 @@
         "imperial": "18",
         "metric": "46"
       },
-      "id": 135,
+      "id": "135",
       "name": "Irish Terrier",
       "breed_group": "Terrier",
       "life_span": "12 - 16 years",
@@ -2244,7 +2280,7 @@
         "imperial": "30 - 35",
         "metric": "76 - 89"
       },
-      "id": 137,
+      "id": "137",
       "name": "Irish Wolfhound",
       "bred_for": "Coursing wolves, elk",
       "breed_group": "Hound",
@@ -2267,7 +2303,7 @@
         "imperial": "13 - 15",
         "metric": "33 - 38"
       },
-      "id": 138,
+      "id": "138",
       "name": "Italian Greyhound",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2290,7 +2326,7 @@
         "imperial": "8 - 11",
         "metric": "20 - 28"
       },
-      "id": 140,
+      "id": "140",
       "name": "Japanese Chin",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2313,7 +2349,7 @@
         "imperial": "12 - 15",
         "metric": "30 - 38"
       },
-      "id": 141,
+      "id": "141",
       "name": "Japanese Spitz",
       "bred_for": "Companion",
       "life_span": "10 – 16 years",
@@ -2335,7 +2371,7 @@
         "imperial": "17 - 18",
         "metric": "43 - 46"
       },
-      "id": 142,
+      "id": "142",
       "name": "Keeshond",
       "bred_for": "Barge watchdog",
       "breed_group": "Non-Sporting",
@@ -2358,7 +2394,7 @@
         "imperial": "25.5 - 27.5",
         "metric": "65 - 70"
       },
-      "id": 144,
+      "id": "144",
       "name": "Komondor",
       "bred_for": "Sheep guardian",
       "breed_group": "Working",
@@ -2381,7 +2417,7 @@
         "imperial": "14 - 16",
         "metric": "36 - 41"
       },
-      "id": 145,
+      "id": "145",
       "name": "Kooikerhondje",
       "bred_for": "Luring ducks into traps - \"tolling\"",
       "breed_group": "Sporting",
@@ -2404,7 +2440,7 @@
         "imperial": "26 - 30",
         "metric": "66 - 76"
       },
-      "id": 147,
+      "id": "147",
       "name": "Kuvasz",
       "bred_for": "Guardian, hunting large game",
       "breed_group": "Working",
@@ -2427,7 +2463,7 @@
         "imperial": "21.5 - 24.5",
         "metric": "55 - 62"
       },
-      "id": 149,
+      "id": "149",
       "name": "Labrador Retriever",
       "bred_for": "Water retrieving",
       "breed_group": "Sporting",
@@ -2450,7 +2486,7 @@
         "imperial": "16 - 19",
         "metric": "41 - 48"
       },
-      "id": 151,
+      "id": "151",
       "name": "Lagotto Romagnolo",
       "bred_for": "Water retrieval dog in the marshes of Romagna",
       "breed_group": "Sporting",
@@ -2473,7 +2509,7 @@
         "imperial": "10 - 12",
         "metric": "25 - 30"
       },
-      "id": 153,
+      "id": "153",
       "name": "Lancashire Heeler",
       "bred_for": "Cattle herding, Ratting, Driving cattle to market.",
       "life_span": "12 – 15 years",
@@ -2495,7 +2531,7 @@
         "imperial": "25.5 - 31.5",
         "metric": "65 - 80"
       },
-      "id": 155,
+      "id": "155",
       "name": "Leonberger",
       "bred_for": "Guardian, appearance.",
       "breed_group": "Working",
@@ -2518,7 +2554,7 @@
         "imperial": "10 - 11",
         "metric": "25 - 28"
       },
-      "id": 156,
+      "id": "156",
       "name": "Lhasa Apso",
       "bred_for": "Guarding inside the home, companion",
       "breed_group": "Non-Sporting",
@@ -2541,7 +2577,7 @@
         "imperial": "8 - 10",
         "metric": "20 - 25"
       },
-      "id": 161,
+      "id": "161",
       "name": "Maltese",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2564,7 +2600,7 @@
         "imperial": "13 - 18",
         "metric": "33 - 46"
       },
-      "id": 165,
+      "id": "165",
       "name": "Miniature American Shepherd",
       "breed_group": "Herding",
       "life_span": "12 - 15 years",
@@ -2586,7 +2622,7 @@
         "imperial": "10 - 12.5",
         "metric": "25 - 32"
       },
-      "id": 167,
+      "id": "167",
       "name": "Miniature Pinscher",
       "bred_for": "Small vermin hunting",
       "breed_group": "Toy",
@@ -2609,7 +2645,7 @@
         "imperial": "12 - 14",
         "metric": "30 - 36"
       },
-      "id": 168,
+      "id": "168",
       "name": "Miniature Schnauzer",
       "bred_for": "Ratting",
       "breed_group": "Terrier",
@@ -2632,7 +2668,7 @@
         "imperial": "26 - 28",
         "metric": "66 - 71"
       },
-      "id": 171,
+      "id": "171",
       "name": "Newfoundland",
       "bred_for": "All purpose water dog, fishing aid",
       "breed_group": "Working",
@@ -2655,7 +2691,7 @@
         "imperial": "9 - 10",
         "metric": "23 - 25"
       },
-      "id": 172,
+      "id": "172",
       "name": "Norfolk Terrier",
       "bred_for": "Ratting, fox bolting",
       "breed_group": "Terrier",
@@ -2678,7 +2714,7 @@
         "imperial": "10",
         "metric": "25"
       },
-      "id": 176,
+      "id": "176",
       "name": "Norwich Terrier",
       "bred_for": "Ratting, fox bolting",
       "breed_group": "Terrier",
@@ -2701,7 +2737,7 @@
         "imperial": "17 - 21",
         "metric": "43 - 53"
       },
-      "id": 177,
+      "id": "177",
       "name": "Nova Scotia Duck Tolling Retriever",
       "breed_group": "Sporting",
       "life_span": "12 - 14 years",
@@ -2723,7 +2759,7 @@
         "imperial": "21",
         "metric": "53"
       },
-      "id": 178,
+      "id": "178",
       "name": "Old English Sheepdog",
       "bred_for": "Driving sheep, cattle",
       "breed_group": "Herding",
@@ -2746,7 +2782,7 @@
         "imperial": "15 - 19",
         "metric": "38 - 48"
       },
-      "id": 179,
+      "id": "179",
       "name": "Olde English Bulldogge",
       "life_span": "9 – 14 years",
       "temperament": "Friendly, Alert, Confident, Loving, Courageous, Strong",
@@ -2767,7 +2803,7 @@
         "imperial": "8 - 11",
         "metric": "20 - 28"
       },
-      "id": 181,
+      "id": "181",
       "name": "Papillon",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2790,7 +2826,7 @@
         "imperial": "6 - 9",
         "metric": "15 - 23"
       },
-      "id": 183,
+      "id": "183",
       "name": "Pekingese",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2813,7 +2849,7 @@
         "imperial": "10 - 12",
         "metric": "25 - 30"
       },
-      "id": 184,
+      "id": "184",
       "name": "Pembroke Welsh Corgi",
       "bred_for": "Driving stock to market in northern Wales",
       "breed_group": "Herding",
@@ -2836,7 +2872,7 @@
         "imperial": "22 - 25.5",
         "metric": "56 - 65"
       },
-      "id": 185,
+      "id": "185",
       "name": "Perro de Presa Canario",
       "breed_group": "Working",
       "life_span": "10 - 12 years",
@@ -2858,7 +2894,7 @@
         "imperial": "21 - 25",
         "metric": "53 - 64"
       },
-      "id": 188,
+      "id": "188",
       "name": "Pharaoh Hound",
       "bred_for": "Hunting rabbits",
       "breed_group": "Hound",
@@ -2881,7 +2917,7 @@
         "imperial": "20 - 25",
         "metric": "51 - 64"
       },
-      "id": 189,
+      "id": "189",
       "name": "Plott",
       "bred_for": "Hunting big-game like Boar.",
       "breed_group": "Hound",
@@ -2904,7 +2940,7 @@
         "imperial": "8 - 12",
         "metric": "20 - 30"
       },
-      "id": 193,
+      "id": "193",
       "name": "Pomeranian",
       "bred_for": "Companion",
       "breed_group": "Toy",
@@ -2927,7 +2963,7 @@
         "imperial": "11 - 15",
         "metric": "28 - 38"
       },
-      "id": 196,
+      "id": "196",
       "name": "Poodle (Miniature)",
       "life_span": "12 – 15 years",
       "reference_image_id": "Hkxk4ecVX",
@@ -2947,7 +2983,7 @@
         "imperial": "9 - 11",
         "metric": "23 - 28"
       },
-      "id": 197,
+      "id": "197",
       "name": "Poodle (Toy)",
       "life_span": "18 years",
       "reference_image_id": "rJFJVxc4m",
@@ -2967,7 +3003,7 @@
         "imperial": "10 - 12",
         "metric": "25 - 30"
       },
-      "id": 201,
+      "id": "201",
       "name": "Pug",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -2990,7 +3026,7 @@
         "imperial": "16 - 17",
         "metric": "41 - 43"
       },
-      "id": 204,
+      "id": "204",
       "name": "Puli",
       "bred_for": "Herding",
       "breed_group": "Herding",
@@ -3013,7 +3049,7 @@
         "imperial": "15 - 18.5",
         "metric": "38 - 47"
       },
-      "id": 205,
+      "id": "205",
       "name": "Pumi",
       "breed_group": "Herding",
       "life_span": "13 - 15 years",
@@ -3035,7 +3071,7 @@
         "imperial": "10 - 13",
         "metric": "25 - 33"
       },
-      "id": 207,
+      "id": "207",
       "name": "Rat Terrier",
       "breed_group": "Terrier",
       "life_span": "12 - 18 years",
@@ -3057,7 +3093,7 @@
         "imperial": "21 - 27",
         "metric": "53 - 69"
       },
-      "id": 208,
+      "id": "208",
       "name": "Redbone Coonhound",
       "bred_for": "Hunting raccoon, deer, bear, and cougar.",
       "breed_group": "Hound",
@@ -3080,7 +3116,7 @@
         "imperial": "24 - 27",
         "metric": "61 - 69"
       },
-      "id": 209,
+      "id": "209",
       "name": "Rhodesian Ridgeback",
       "bred_for": "Big game hunting, guarding",
       "breed_group": "Hound",
@@ -3103,7 +3139,7 @@
         "imperial": "22 - 27",
         "metric": "56 - 69"
       },
-      "id": 210,
+      "id": "210",
       "name": "Rottweiler",
       "bred_for": "Cattle drover, guardian, draft",
       "breed_group": "Working",
@@ -3126,7 +3162,7 @@
         "imperial": "7.5 - 10.5",
         "metric": "19 - 27"
       },
-      "id": 211,
+      "id": "211",
       "name": "Russian Toy",
       "breed_group": "Toy",
       "life_span": "10 - 12 years",
@@ -3147,7 +3183,7 @@
         "imperial": "25.5 - 27.5",
         "metric": "65 - 70"
       },
-      "id": 212,
+      "id": "212",
       "name": "Saint Bernard",
       "bred_for": "Draft, search, rescue",
       "breed_group": "Working",
@@ -3160,7 +3196,9 @@
         "height": 1084,
         "url": "https://cdn2.thedogapi.com/images/_Qf9nfRzL.png"
       },
-      "relatedIds": [41]
+      "relatedIds": [
+        41
+      ]
     },
     {
       "weight": {
@@ -3171,7 +3209,7 @@
         "imperial": "23 - 28",
         "metric": "58 - 71"
       },
-      "id": 213,
+      "id": "213",
       "name": "Saluki",
       "bred_for": "Coursing gazelle and hare",
       "breed_group": "Hound",
@@ -3194,7 +3232,7 @@
         "imperial": "19 - 23.5",
         "metric": "48 - 60"
       },
-      "id": 214,
+      "id": "214",
       "name": "Samoyed",
       "bred_for": "Herding reindeer, guardian, draft",
       "breed_group": "Working",
@@ -3217,7 +3255,7 @@
         "imperial": "10 - 13",
         "metric": "25 - 33"
       },
-      "id": 216,
+      "id": "216",
       "name": "Schipperke",
       "bred_for": "Barge watchdog",
       "breed_group": "Non-Sporting",
@@ -3240,7 +3278,7 @@
         "imperial": "28 - 32",
         "metric": "71 - 81"
       },
-      "id": 218,
+      "id": "218",
       "name": "Scottish Deerhound",
       "bred_for": "Coursing deer",
       "breed_group": "Hound",
@@ -3263,7 +3301,7 @@
         "imperial": "10",
         "metric": "25"
       },
-      "id": 219,
+      "id": "219",
       "name": "Scottish Terrier",
       "bred_for": "Vermin hunting",
       "breed_group": "Terrier",
@@ -3286,7 +3324,7 @@
         "imperial": "13 - 16",
         "metric": "33 - 41"
       },
-      "id": 221,
+      "id": "221",
       "name": "Shetland Sheepdog",
       "bred_for": "Sheep herding",
       "breed_group": "Herding",
@@ -3309,7 +3347,7 @@
         "imperial": "13.5 - 16.5",
         "metric": "34 - 42"
       },
-      "id": 222,
+      "id": "222",
       "name": "Shiba Inu",
       "bred_for": "Hunting in the mountains of Japan, Alert Watchdog",
       "breed_group": "Non-Sporting",
@@ -3332,7 +3370,7 @@
         "imperial": "8 - 11",
         "metric": "20 - 28"
       },
-      "id": 223,
+      "id": "223",
       "name": "Shih Tzu",
       "bred_for": "Lapdog",
       "breed_group": "Toy",
@@ -3355,7 +3393,7 @@
         "imperial": "26 - 30",
         "metric": "66 - 76"
       },
-      "id": 225,
+      "id": "225",
       "name": "Shiloh Shepherd",
       "bred_for": "Swimming, Carrying backpacks, Pulling carts or sleds",
       "life_span": "9 – 14 years",
@@ -3377,7 +3415,7 @@
         "imperial": "20 - 23.5",
         "metric": "51 - 60"
       },
-      "id": 226,
+      "id": "226",
       "name": "Siberian Husky",
       "bred_for": "Sled pulling",
       "breed_group": "Working",
@@ -3400,7 +3438,7 @@
         "imperial": "9 - 10",
         "metric": "23 - 25"
       },
-      "id": 228,
+      "id": "228",
       "name": "Silky Terrier",
       "bred_for": "Small vermin hunting, companionship",
       "breed_group": "Toy",
@@ -3423,7 +3461,7 @@
         "imperial": "15.5",
         "metric": "39"
       },
-      "id": 232,
+      "id": "232",
       "name": "Smooth Fox Terrier",
       "bred_for": "Fox bolting",
       "breed_group": "Terrier",
@@ -3446,7 +3484,7 @@
         "imperial": "16 - 18",
         "metric": "41 - 46"
       },
-      "id": 233,
+      "id": "233",
       "name": "Soft Coated Wheaten Terrier",
       "bred_for": "Vermin hunting, guarding, all-around farm helper",
       "breed_group": "Terrier",
@@ -3469,7 +3507,7 @@
         "imperial": "16 - 20",
         "metric": "41 - 51"
       },
-      "id": 235,
+      "id": "235",
       "name": "Spanish Water Dog",
       "bred_for": "Herding flocks of sheep and goats from one pasture to another",
       "breed_group": "Sporting",
@@ -3492,7 +3530,7 @@
         "imperial": "22.5 - 27.5",
         "metric": "57 - 70"
       },
-      "id": 236,
+      "id": "236",
       "name": "Spinone Italiano",
       "breed_group": "Sporting",
       "life_span": "10 - 12 years",
@@ -3514,7 +3552,7 @@
         "imperial": "14 - 16",
         "metric": "36 - 41"
       },
-      "id": 238,
+      "id": "238",
       "name": "Staffordshire Bull Terrier",
       "bred_for": "",
       "breed_group": "Terrier",
@@ -3537,7 +3575,7 @@
         "imperial": "17.5 - 19.5",
         "metric": "44 - 50"
       },
-      "id": 239,
+      "id": "239",
       "name": "Standard Schnauzer",
       "bred_for": "Ratting, guarding",
       "breed_group": "Working",
@@ -3560,7 +3598,7 @@
         "imperial": "11.5 - 13.5",
         "metric": "29 - 34"
       },
-      "id": 242,
+      "id": "242",
       "name": "Swedish Vallhund",
       "breed_group": "Herding",
       "life_span": "12 - 14 years",
@@ -3582,7 +3620,7 @@
         "imperial": "20 - 24",
         "metric": "51 - 61"
       },
-      "id": 243,
+      "id": "243",
       "name": "Thai Ridgeback",
       "breed_group": "Hound",
       "life_span": "10 - 12 years",
@@ -3604,7 +3642,7 @@
         "imperial": "24 - 26",
         "metric": "61 - 66"
       },
-      "id": 244,
+      "id": "244",
       "name": "Tibetan Mastiff",
       "breed_group": "Working",
       "life_span": "10 - 14 years",
@@ -3626,7 +3664,7 @@
         "imperial": "10",
         "metric": "25"
       },
-      "id": 245,
+      "id": "245",
       "name": "Tibetan Spaniel",
       "breed_group": "Non-Sporting",
       "life_span": "12 - 15 years",
@@ -3648,7 +3686,7 @@
         "imperial": "14 - 17",
         "metric": "36 - 43"
       },
-      "id": 246,
+      "id": "246",
       "name": "Tibetan Terrier",
       "bred_for": "Good luck charms, mascots, watchdogs, herding dogs, and companions",
       "breed_group": "Non-Sporting",
@@ -3671,7 +3709,7 @@
         "imperial": "8 - 11",
         "metric": "20 - 28"
       },
-      "id": 248,
+      "id": "248",
       "name": "Toy Fox Terrier",
       "breed_group": "Toy",
       "life_span": "12 - 15 years",
@@ -3693,7 +3731,7 @@
         "imperial": "20 - 27",
         "metric": "51 - 69"
       },
-      "id": 250,
+      "id": "250",
       "name": "Treeing Walker Coonhound",
       "breed_group": "Hound",
       "life_span": "10 - 13 years",
@@ -3715,7 +3753,7 @@
         "imperial": "21 - 24",
         "metric": "53 - 61"
       },
-      "id": 251,
+      "id": "251",
       "name": "Vizsla",
       "bred_for": "Pointing and trailing",
       "breed_group": "Sporting",
@@ -3738,7 +3776,7 @@
         "imperial": "23 - 27",
         "metric": "58 - 69"
       },
-      "id": 253,
+      "id": "253",
       "name": "Weimaraner",
       "bred_for": "Large game trailing and versatile gundog",
       "breed_group": "Sporting",
@@ -3761,7 +3799,7 @@
         "imperial": "17 - 19",
         "metric": "43 - 48"
       },
-      "id": 254,
+      "id": "254",
       "name": "Welsh Springer Spaniel",
       "bred_for": "Flushing and retrieving birds",
       "breed_group": "Sporting",
@@ -3784,7 +3822,7 @@
         "imperial": "10 - 11",
         "metric": "25 - 28"
       },
-      "id": 256,
+      "id": "256",
       "name": "West Highland White Terrier",
       "bred_for": "Fox, badger, vermin hunting",
       "breed_group": "Terrier",
@@ -3807,7 +3845,7 @@
         "imperial": "18 - 22",
         "metric": "46 - 56"
       },
-      "id": 257,
+      "id": "257",
       "name": "Whippet",
       "bred_for": "Coursing, racing",
       "breed_group": "Hound",
@@ -3830,7 +3868,7 @@
         "imperial": "22 - 25",
         "metric": "56 - 64"
       },
-      "id": 258,
+      "id": "258",
       "name": "White Shepherd",
       "life_span": "12 – 14 years",
       "temperament": "Self-confidence, Aloof, Fearless, Alert, Companionable, Eager",
@@ -3851,7 +3889,7 @@
         "imperial": "13 - 16",
         "metric": "33 - 41"
       },
-      "id": 259,
+      "id": "259",
       "name": "Wire Fox Terrier",
       "bred_for": "Vermin hunting, fox bolting",
       "life_span": "13 – 14 years",
@@ -3874,7 +3912,7 @@
         "imperial": "20 - 24",
         "metric": "51 - 61"
       },
-      "id": 260,
+      "id": "260",
       "name": "Wirehaired Pointing Griffon",
       "bred_for": "Gundog, \"swamp-tromping\", Flushing, pointing, and retrieving water fowl & game birds",
       "breed_group": "Sporting",
@@ -3897,7 +3935,7 @@
         "imperial": "21.5 - 25",
         "metric": "55 - 64"
       },
-      "id": 261,
+      "id": "261",
       "name": "Wirehaired Vizsla",
       "breed_group": "Sporting",
       "life_span": "12 - 14 years",
@@ -3918,7 +3956,7 @@
         "imperial": "10 - 23",
         "metric": "25 - 58"
       },
-      "id": 262,
+      "id": "262",
       "name": "Xoloitzcuintli",
       "breed_group": "Non-Sporting",
       "life_span": "12 - 14 years",
@@ -3940,7 +3978,7 @@
         "imperial": "8 - 9",
         "metric": "20 - 23"
       },
-      "id": 264,
+      "id": "264",
       "name": "Yorkshire Terrier",
       "bred_for": "Small vermin hunting",
       "breed_group": "Toy",
