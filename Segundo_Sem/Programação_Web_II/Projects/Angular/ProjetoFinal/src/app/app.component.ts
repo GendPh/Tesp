@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -12,4 +12,13 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class AppComponent {
   title = 'ProjetoFinal';
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (typeof window !== 'undefined') {
+          window.scrollTo(0, 0);
+        }
+      }
+    });
+  }
 }

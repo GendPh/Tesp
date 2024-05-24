@@ -585,6 +585,7 @@ h3{
 
 .logo {
   font-size: 1.7rem;
+  cursor: pointer;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;

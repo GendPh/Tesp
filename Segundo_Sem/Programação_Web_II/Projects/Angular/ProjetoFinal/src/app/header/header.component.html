@@ -1,6 +1,6 @@
 <header>
   <div id="main-header">
-    <p class="logo" (click)="CloseMobileNavBar()">sniffsnack</p>
+    <p class="logo" routerLink="/" (click)="CloseMobileNavBar()">sniffsnack</p>
     <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
     <nav id="main-nav">
       <ul *ngIf="user != null">
@@ -18,7 +18,7 @@
     </nav>
   </div>
 
-  <div id="mobile-nav" >
+  <div id="mobile-nav">
     <nav>
       <ul *ngIf="user != null">
         <li (click)="CloseMobileNavBar()">dog breeds</li>

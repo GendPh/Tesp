@@ -25,7 +25,7 @@
 @layer components {
   .logo {
     font-size: 1.7rem;
-    @apply uppercase tracking-widest font-bold;
+    @apply uppercase tracking-widest font-bold cursor-pointer;
   }
 
   .button {
@@ -120,7 +120,7 @@
         }
       }
       &#breeds {
-        @apply text-center my-12 px-5 ;
+        @apply text-center my-12 px-5;
         .breeds-container {
           @apply grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
           .breed {
