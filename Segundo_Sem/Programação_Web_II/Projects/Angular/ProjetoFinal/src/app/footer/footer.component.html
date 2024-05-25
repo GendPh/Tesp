@@ -1,18 +1,16 @@
 <footer>
   <div id="main-footer">
-    <p routerLink="/" class="logo text-center">sniffsnack</p>
+    <p routerLink="/" class="logo text-center md:text-start">sniffsnack</p>
     <nav id="footer-nav">
-
-      <ul *ngIf="user != null">
-        <li>dog breeds</li>
-        <li>search</li>
-        <li>Account</li>
-      </ul>
-
-      <ul *ngIf="user == null">
-        <li class="mx-auto grid grid-cols-2 gap-5">
-          <span class="button primary">sign in</span>
-          <span class="button secondary">sign up</span>
+      <ul>
+        <li><span>dog breeds</span></li>
+        <li><span>search</span></li>
+        <li *ngIf="user != null"><span>Account</span></li>
+        <li *ngIf="user == null">
+          <span>sign in</span>
+        </li>
+        <li *ngIf="user == null">
+          <span>sign up</span>
         </li>
       </ul>
     </nav>
@@ -21,5 +19,6 @@
       <li><img src="../../assets/shared/instagram-svgrepo-com.svg" alt="instagram svg"></li>
       <li><img src="../../assets/shared/social-youtube-svgrepo-com.svg" alt="youtube svg"></li>
     </ul>
+
   </div>
 </footer>

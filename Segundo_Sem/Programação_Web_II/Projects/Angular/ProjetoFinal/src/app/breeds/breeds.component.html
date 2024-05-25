@@ -1,0 +1,35 @@
+<main>
+
+  <section id="breeds">
+    <h2>Breeds</h2>
+
+    <div class="breeds-paginification">
+      <button (click)="GoToPreviousPage()" class="button secondary"
+        [ngClass]="{'pointer-events-none opacity-40':breedPage == 1}"> - </button>
+
+      <div class="pagination-buttons" #paginationButtons>
+        <button class="button" [ngClass]="{'primary pointer-events-none':pageNumber==breedPage}"
+          *ngFor="let pageNumber of getPageNumbers()" routerLink="/breeds/page/{{pageNumber}}">
+          {{ pageNumber }}
+        </button>
+      </div>
+
+      <button (click)="GoToNextPage()" class="button secondary"
+        [ngClass]="{'pointer-events-none opacity-40':breedPage == breedTotalPages}"> +
+      </button>
+    </div>
+
+    <div class="breeds-container">
+      <div class="breed" *ngFor="let dog of breedDogs; let i = index;" [@fadeInItem]="i" routerLink="/breed/{{dog.id}}">
+        <figure>
+          <img [src]="dog.image.url" alt="img of a {{dog.name}}">
+        </figure>
+        <div class="breed-content">
+          <h3>{{dog.name}}</h3>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>

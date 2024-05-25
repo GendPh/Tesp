@@ -15,7 +15,7 @@
     @apply text-[30px] font-bold uppercase;
   }
   h2 {
-    @apply text-[25px] font-bold uppercase;
+    @apply text-[25px] tracking-[4px] md:text-[36px] font-bold uppercase text-balance;
   }
   h3 {
     @apply text-[15px] font-bold uppercase;
@@ -29,7 +29,7 @@
   }
 
   .button {
-    @apply text-[20px] text-center px-4 py-2 block rounded-md transition-colors duration-300 text-text uppercase;
+    @apply text-[20px] text-center px-4 py-2 block rounded-md transition-colors duration-300 text-text uppercase cursor-pointer;
     &.primary {
       @apply bg-primary hover:bg-secondary;
     }
@@ -56,15 +56,18 @@
       #main-nav {
         @apply hidden md:block;
         & ul {
-          @apply flex gap-5;
-          & li {
-            @apply cursor-pointer text-[20px] tracking-[5px] uppercase transition-all duration-300;
+          @apply flex items-center gap-5;
+          & li span {
+            @apply cursor-pointer text-[20px] tracking-[5px] md:text-[20px] md:tracking-[2px] uppercase transition-all duration-300  hover:underline underline-offset-4;
+            &.active {
+              @apply text-primary underline;
+            }
           }
         }
       }
     }
     #mobile-nav {
-      @apply fixed w-full z-50  p-5 text-[25px] tracking-[5px] font-bold uppercase transition-all duration-300 scale-y-0 origin-top bg-background text-text;
+      @apply fixed w-full z-50  p-5 text-[25px] tracking-[5px] font-bold uppercase transition-all duration-300 scale-y-0 origin-top bg-accent text-text;
       &.open {
         @apply scale-y-100;
         & + #mobile-header-bg {
@@ -73,8 +76,11 @@
       }
       & ul {
         @apply grid gap-5;
-        & li {
-          @apply cursor-pointer w-fit;
+        & li span {
+          @apply cursor-pointer text-[20px] tracking-[5px] uppercase transition-all duration-300  hover:underline underline-offset-4 w-fit;
+          &.active {
+            @apply underline;
+          }
         }
       }
     }
@@ -84,32 +90,34 @@
   }
 
   footer {
-    @apply bg-background text-text p-5 uppercase;
+    @apply bg-accent mt-5 text-text uppercase;
     #main-footer {
-      @apply max-w-screen-xl mx-auto;
+      @apply max-w-screen-xl mx-auto grid gap-5 md:grid-cols-3 p-5;
       & ul {
-        @apply flex flex-col justify-center items-center gap-5 my-5;
+        @apply flex flex-col justify-center items-center gap-5;
         & li {
-          @apply cursor-pointer;
+          & span {
+            @apply cursor-pointer text-[20px] tracking-[5px] uppercase transition-all duration-300  hover:underline underline-offset-4 w-fit;
+          }
           & img {
             @apply w-10 aspect-square;
           }
         }
         &.social {
-          @apply flex-row;
+          @apply flex-row md:items-start md:justify-end;
         }
       }
     }
   }
   main {
-    @apply max-w-screen-xl mx-auto;
+    @apply max-w-screen-xl mx-auto grid gap-32 overflow-hidden;
     section {
       &.hero {
         @apply grid gap-5 lg:grid-cols-2 bg-accent text-text md:rounded-lg md:mx-5;
         .hero-content {
-          @apply p-5 flex flex-col justify-center items-center gap-5 text-balance text-center;
+          @apply p-5 lg:px-10 flex flex-col justify-center items-center lg:items-start gap-5 text-balance text-center lg:text-start;
           & p {
-            @apply text-[15px] tracking-[3px];
+            @apply text-[15px] md:text-[18px] tracking-[3px];
           }
         }
         & figure {
@@ -120,12 +128,28 @@
         }
       }
       &#breeds {
-        @apply text-center my-12 px-5;
+        @apply text-center px-5;
+
+        .breeds-paginification {
+          display: grid;
+          grid-template-columns: 1fr 3fr 1fr;
+          @apply gap-5;
+          .pagination-buttons {
+            @apply flex gap-2 justify-start items-center overflow-x-scroll;
+          }
+        }
         .breeds-container {
-          @apply grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
+          @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
           .breed {
+            @apply bg-accent rounded-lg relative;
+            &:hover .breed-content {
+              @apply bg-opacity-80;
+            }
             & img {
-              @apply mb-2 w-full aspect-video object-cover rounded-lg;
+              @apply w-full aspect-video object-fill rounded-lg;
+            }
+            .breed-content {
+              @apply absolute inset-0 p-3 flex justify-center items-center rounded-lg bg-black text-white bg-opacity-60 transition-all duration-300 cursor-pointer tracking-[4px];
             }
           }
         }
@@ -133,15 +157,24 @@
       &#breeds-commentaries {
         @apply text-center bg-accent md:rounded-lg p-5 md:mx-5;
         .commentaries-container {
-          @apply text-text mt-5 rounded-lg grid md:grid-cols-3 gap-5 text-justify;
-          & img {
-            @apply w-full aspect-video object-cover rounded-lg;
-          }
-          & p {
-            @apply text-[15px] tracking-[3px] my-2;
-          }
-          & h3 {
-            @apply text-end;
+          @apply text-text mt-5 rounded-lg grid md:grid-cols-2 lg:grid-cols-3 gap-5 text-justify;
+          .commentary {
+            @apply relative;
+            &:hover .commentay-content {
+              @apply bg-opacity-80;
+            }
+            & img {
+              @apply w-full aspect-video object-cover rounded-lg;
+            }
+            .commentay-content {
+              @apply absolute inset-0 p-3 bg-black text-white rounded-lg bg-opacity-60 flex justify-center items-stretch flex-col gap-5 transition-all duration-300 cursor-pointer;
+              & p {
+                @apply text-[15px] tracking-[2px] md:text-[18px] my-2;
+              }
+              & h3 {
+                @apply text-end;
+              }
+            }
           }
         }
       }
