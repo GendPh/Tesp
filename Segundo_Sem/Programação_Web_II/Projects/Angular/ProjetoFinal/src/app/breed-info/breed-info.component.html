@@ -1,5 +1,64 @@
 <main>
-  <section>
-    <h1>Breed</h1>
+  <!--   <section id="breed-info" class="grid lg:grid-cols-2 gap-5">
+    <img class="rounded-lg w-full" [src]="breed?.image?.url" [alt]="breed?.name">
+    <div>
+      <h1 class="text-center mb-5">{{breed?.name}}</h1>
+
+      <ul>
+        <li>History: {{breed?.history == null ? 'No info' : breed.history}}</li>
+        <li>Description: {{breed?.description == null ? 'No info' : breed.description}}</li>
+        <li>Breed for: {{breed?.bred_for == null ? 'No info' : breed.bred_for}}</li>
+        <li>Temperament: {{breed?.temperament == null ? 'No info' : breed.temperament}}</li>
+        <li>Origin: {{breed?.origin == '' ? 'No info' : breed.origin}}</li>
+        <li>Group: {{breed?.breed_group == null ? 'No info' : breed.breed_group}}</li>
+        <li>Life span: {{breed.life_span}}</li>
+        <li>Weight(Metric): {{breed?.weight?.metric == null ? 'No info' : breed.weight.metric}}</li>
+        <li>Weight(Imp): {{breed?.weight?.imperial == null ? 'No info' : breed.weight.imperial}}</li>
+        <li>Height(Metric): {{breed?.height?.metric}}</li>
+        <li>Height(Imp): {{breed?.height?.imperial}}</li>
+        <li>Related: {{breed?.relatedIds}}</li>
+        <li>Commentaries: {{breed?.commentaries}}</li>
+        <li>Country Code: {{breed?.country_code}}</li>
+      </ul>
+    </div>
+  </section> -->
+
+  <section id="breed-commentary" class="bg-accent p-5 md:mx-5 md:rounded-lg">
+
+    <h2 class="text-center">What people are saying about {{breed?.name}}</h2>
+
+    <div class="commentaries-container mt-5 grid gap-5">
+      <article class="bg-secondary p-5 rounded-lg" *ngIf="breed?.commentaries.length == 0">
+        <p class="text-[15px] tracking-[5px]">No Comments!</p>
+      </article>
+
+      <article class="bg-secondary p-5 rounded-lg" *ngFor="let commentary of slicedCommentaries.reverse()">
+        <p class="mb-2 text-[15px] tracking-[2px]">{{commentary.comment}}</p>
+        <h3 class="text-end">- {{commentary.userName}}</h3>
+      </article>
+    </div>
+
+    <div>
+      <label for="comment" class="block text-[20px] tracking-[3px] uppercase font-bold mt-5 mb-2">Leave a
+        comment</label>
+      <textarea name="comment" id="comment" rows="4" class="w-full rounded-lg p-5 outline-none"
+        placeholder="Leave a comment ..."></textarea>
+      <button class="button primary w-full mt-5" (click)="AddCommentary()">Add</button>
+    </div>
+  </section>
+
+
+  <section id="breeds" *ngIf="relatedBreeds.length!=0">
+    <h2>Related Breeds</h2>
+    <div class="breeds-container">
+      <div class="breed" *ngFor="let dog of relatedBreeds" routerLink="/breed/{{dog.id}}">
+        <figure>
+          <img [src]="dog.image.url" [alt]="dog.name">
+        </figure>
+        <div class="breed-content">
+          <h3>{{dog.name}}</h3>
+        </div>
+      </div>
+    </div>
   </section>
 </main>

@@ -3,7 +3,12 @@
     {
       "username": "user1",
       "password": "password",
-      "likes": ["41", "212", "121", "115"],
+      "likes": [
+        "41",
+        "212",
+        "121",
+        "115"
+      ],
       "id": "c783",
       "commentaries": [
         {
@@ -76,7 +81,9 @@
         "height": 1199,
         "url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
       },
-      "relatedIds": [2]
+      "relatedIds": [
+        2
+      ]
     },
     {
       "weight": {
@@ -108,7 +115,9 @@
         "height": 380,
         "url": "https://cdn2.thedogapi.com/images/hMyT4CDXR.jpg"
       },
-      "relatedIds": [1]
+      "relatedIds": [
+        1
+      ]
     },
     {
       "weight": {
@@ -932,7 +941,9 @@
         "height": 427,
         "url": "https://cdn2.thedogapi.com/images/S1fFlx5Em.jpg"
       },
-      "relatedIds": [212]
+      "relatedIds": [
+        212
+      ]
     },
     {
       "weight": {
@@ -1819,7 +1830,11 @@
         "height": 683,
         "url": "https://cdn2.thedogapi.com/images/By4A-eqVX.jpg"
       },
-      "relatedIds": [121, 123, 134]
+      "relatedIds": [
+        121,
+        123,
+        134
+      ]
     },
     {
       "weight": {
@@ -2203,7 +2218,11 @@
         "height": 467,
         "url": "https://cdn2.thedogapi.com/images/SJ5vzx5NX.jpg"
       },
-      "relatedIds": [121, 101, 134]
+      "relatedIds": [
+        121,
+        101,
+        134
+      ]
     },
     {
       "weight": {
@@ -2371,7 +2390,11 @@
         "height": 522,
         "url": "https://cdn2.thedogapi.com/images/S1osGeqVm.jpg"
       },
-      "relatedIds": [121, 123, 101]
+      "relatedIds": [
+        121,
+        123,
+        101
+      ]
     },
     {
       "weight": {
@@ -3362,7 +3385,9 @@
         "height": 1084,
         "url": "https://cdn2.thedogapi.com/images/_Qf9nfRzL.png"
       },
-      "relatedIds": [41]
+      "relatedIds": [
+        41
+      ]
     },
     {
       "weight": {

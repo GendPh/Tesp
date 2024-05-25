@@ -35,6 +35,7 @@ export class TaskComponent implements OnInit {
       error: (err) => console.log(err),
     })
   }
+  
   LoadTask(): void {
     this.taskService.GetTask().subscribe({
       next: (response) => { this.tasks = response; console.log(response) },

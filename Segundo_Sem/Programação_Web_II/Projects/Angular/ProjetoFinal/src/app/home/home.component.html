@@ -28,7 +28,7 @@
   <section id="breeds-commentaries">
     <h2>What people are saying about their dogs</h2>
     <div class="commentaries-container">
-      <div class="commentary" *ngFor="let dog of dogsCommentaries">
+      <div class="commentary" *ngFor="let dog of dogsCommentaries" routerLink="/breed/{{dog.id}}">
         <figure>
           <img [src]="dog.image.url" alt="img of a {{dog.name}}">
         </figure>
