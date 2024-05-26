@@ -1,27 +1,49 @@
 <main>
-  <!--   <section id="breed-info" class="grid lg:grid-cols-2 gap-5">
+  <section id="breed-info" class="grid lg:grid-cols-2 gap-5">
     <img class="rounded-lg w-full" [src]="breed?.image?.url" [alt]="breed?.name">
     <div>
       <h1 class="text-center mb-5">{{breed?.name}}</h1>
 
       <ul>
-        <li>History: {{breed?.history == null ? 'No info' : breed.history}}</li>
-        <li>Description: {{breed?.description == null ? 'No info' : breed.description}}</li>
-        <li>Breed for: {{breed?.bred_for == null ? 'No info' : breed.bred_for}}</li>
-        <li>Temperament: {{breed?.temperament == null ? 'No info' : breed.temperament}}</li>
-        <li>Origin: {{breed?.origin == '' ? 'No info' : breed.origin}}</li>
-        <li>Group: {{breed?.breed_group == null ? 'No info' : breed.breed_group}}</li>
-        <li>Life span: {{breed.life_span}}</li>
-        <li>Weight(Metric): {{breed?.weight?.metric == null ? 'No info' : breed.weight.metric}}</li>
-        <li>Weight(Imp): {{breed?.weight?.imperial == null ? 'No info' : breed.weight.imperial}}</li>
+        <li>History: {{breed?.history}}</li>
+        <li>Breed for: {{breed?.bred_for}}</li>
+        <li>Origin: {{breed?.origin}}</li>
+        <li>Group: {{breed?.breed_group}}</li>
+        <li>Weight(Metric): {{breed?.weight?.metric}}</li>
+        <li>Weight(Imp): {{breed?.weight?.imperial}}</li>
         <li>Height(Metric): {{breed?.height?.metric}}</li>
         <li>Height(Imp): {{breed?.height?.imperial}}</li>
-        <li>Related: {{breed?.relatedIds}}</li>
-        <li>Commentaries: {{breed?.commentaries}}</li>
         <li>Country Code: {{breed?.country_code}}</li>
       </ul>
+
+
+      <div class="radio-input">
+        <label>
+          <input type="radio" id="metric" name="unit" value="metric" checked (change)="ChangeUnit($event)">
+          <span>Metric</span>
+        </label>
+        <label>
+          <input type="radio" id="imperial" name="unit" value="imperial" (change)="ChangeUnit($event)">
+          <span>Imperial</span>
+        </label>
+        <span class="selection"></span>
+      </div>
+      
+      <div *ngIf="unit=='metric'">
+        <h3>Weight</h3>
+        <p>{{breed?.weight?.metric}}</p>
+        <h3>Height</h3>
+        <p>{{breed?.height?.metric}}</p>
+      </div>
+
+      <div *ngIf="unit=='imperial'">
+        <h3>Weight</h3>
+        <p>{{breed?.weight?.imperial}}</p>
+        <h3>Height</h3>
+        <p>{{breed?.height?.imperial}}</p>
+      </div>
     </div>
-  </section> -->
+  </section>
 
   <section id="breed-commentary" class="bg-accent p-5 md:mx-5 md:rounded-lg">
 
@@ -43,7 +65,9 @@
         comment</label>
       <textarea name="comment" id="comment" rows="4" class="w-full rounded-lg p-5 outline-none"
         placeholder="Leave a comment ..."></textarea>
-      <button class="button primary w-full mt-5" (click)="AddCommentary()">Add</button>
+      <p id="commentError" class="font-bold text-[20px] my-5">{{commentMessageStatus}}</p>
+      <button class="button primary w-full" [ngClass]="{'opacity-50 pointer-events-none': sendingComment}"
+        (click)="AddCommentary()">Add</button>
     </div>
   </section>
 

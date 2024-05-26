@@ -183,4 +183,35 @@
       }
     }
   }
+
+  .radio-input input {
+    display: none;
+  }
+
+  .radio-input {
+    --container_width: 100%;
+    width: var(--container_width);
+    @apply relative flex items-center bg-background text-text overflow-hidden rounded-lg border-text border;
+    & label {
+      z-index: 1;
+      @apply w-full cursor-pointer flex justify-center items-center font-bold tracking-[3px] p-3;
+      &:has(input:checked) {
+        @apply text-white;
+        & ~ .selection {
+          @apply bg-accent inline-block;
+        }
+      }
+      &:nth-child(1):has(input:checked) ~ .selection {
+        transform: translateX(calc(var(--container_width) * 0 / 2));
+      }
+      &:nth-child(2):has(input:checked) ~ .selection {
+        transform: translateX(calc(var(--container_width) * 2 / 2));
+      }
+    }
+    .selection {
+      width: calc(var(--container_width) / 2);
+      z-index: 0;
+      @apply hidden absolute h-full left-0 top-0 transition-all duration-300;
+    }
+  }
 }
