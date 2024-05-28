@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 export class BreedsComponent implements OnInit, OnDestroy {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
+  user: null = null;
+
   breedPage: number = 1;
   breedTotalPages: number = 1;
   breedDogs: DogModel[] = [];
@@ -26,6 +28,10 @@ export class BreedsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    if (this.user == null) {
+      this.router.navigate(['/']);
+    }
 
     this.dogService.DivideDogsBreedsByPage().subscribe({
       next: (dogs) => {

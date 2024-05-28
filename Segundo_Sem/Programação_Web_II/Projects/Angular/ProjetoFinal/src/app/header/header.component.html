@@ -4,9 +4,10 @@
     <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
     <nav id="main-nav">
       <ul>
-        <li routerLink="/breeds/page/1"><span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog
+        <li routerLink="/breeds/page/1" *ngIf="user != null"><span routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">dog
             breeds</span></li>
-        <li routerLinkActive="active"><span>search</span></li>
+        <li routerLinkActive="active" *ngIf="user != null"><span>search</span></li>
         <li routerLinkActive="active" *ngIf="user != null"><span>Account</span></li>
         <li *ngIf="user == null">
           <span>sign in</span>

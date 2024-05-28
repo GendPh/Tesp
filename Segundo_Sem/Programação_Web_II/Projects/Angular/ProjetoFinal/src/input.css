@@ -198,7 +198,8 @@
       &:has(input:checked) {
         @apply text-white;
         & ~ .selection {
-          @apply bg-accent inline-block;
+          @apply bg-
+           inline-block;
         }
       }
       &:nth-child(1):has(input:checked) ~ .selection {

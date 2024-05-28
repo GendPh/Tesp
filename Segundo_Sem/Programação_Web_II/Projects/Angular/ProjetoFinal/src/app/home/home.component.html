@@ -13,7 +13,7 @@
   <section id="breeds">
     <h2>Popular Breeds</h2>
     <div class="breeds-container">
-      <div class="breed" *ngFor="let dog of dogsBreeds">
+      <div class="breed" *ngFor="let dog of dogsBreeds" routerLink="/breed/{{dog.id}}">
         <figure>
           <img [src]="dog.image.url" alt="img of a {{dog.name}}">
         </figure>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <a class="button primary w-fit mx-auto">See all breeds +</a>
+    <a class="button primary w-fit mx-auto" routerLink="/breeds/1">See all breeds +</a>
   </section>
 
   <section id="breeds-commentaries">

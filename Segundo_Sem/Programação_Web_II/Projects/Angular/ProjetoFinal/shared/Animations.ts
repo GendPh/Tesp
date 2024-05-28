@@ -7,6 +7,9 @@ export const routeAnimationTrigger = trigger('routeAnimationTrigger', [
   ]),
 ]);
 
+/**
+ * Animation trigger for fading in an item.
+ */
 export const fadeInTrigger = trigger('fadeInItem', [
   transition(':enter', [
     query(':self', [

@@ -17,9 +17,12 @@ import { FormsModule } from '@angular/forms';
 export class BreedInfoComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
+  user: null = null;
+
   // Inject the ActivatedRoute and DogService
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private dogService: DogService,
   ) { }
 
@@ -33,6 +36,11 @@ export class BreedInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    if (this.user == null) {
+      this.router.navigate(['/']);
+    }
+
     this.route.params.subscribe((params) => {
       // Reset relatedBreeds array
       this.relatedBreeds = [];
