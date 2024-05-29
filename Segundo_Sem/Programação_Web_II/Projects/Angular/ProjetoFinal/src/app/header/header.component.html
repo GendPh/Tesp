@@ -9,10 +9,10 @@
             breeds</span></li>
         <li routerLinkActive="active" *ngIf="user != null"><span>search</span></li>
         <li routerLinkActive="active" *ngIf="user != null"><span>Account</span></li>
-        <li *ngIf="user == null">
+        <li *ngIf="user == null" routerLink="/access">
           <span>sign in</span>
         </li>
-        <li *ngIf="user == null">
+        <li *ngIf="user == null" routerLink="/access">
           <span>sign up</span>
         </li>
       </ul>

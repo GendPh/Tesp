@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 /* npx tailwindcss -i ./src/input.css -o ./src/styles.css --watch */
 
@@ -449,7 +449,7 @@ video {
 }
 
 * {
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 body{
@@ -591,6 +591,40 @@ h3{
   --tw-contain-style:  ;
 }
 
+.container{
+  width: 100%;
+}
+
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+
 .logo {
   font-size: 1.7rem;
   cursor: pointer;
@@ -701,10 +735,10 @@ header{
     }
     #toggle-nav {
       &.close {
-        background-image: url("./assets/shared/burger-menu-right-svgrepo-com.svg");
+        background-image: url('./assets/shared/burger-menu-right-svgrepo-com.svg');
       }
       &.open {
-        background-image: url("./assets/shared/close-svgrepo-com.svg");
+        background-image: url('./assets/shared/close-svgrepo-com.svg');
       }
     }
     #main-nav{
@@ -1419,6 +1453,65 @@ main{
     &#breed-info{
       padding: 1.25rem;
     }
+    &#access{
+      display: grid;
+    }
+    &#access{
+      overflow: hidden;
+    }
+    &#access{
+      --tw-bg-opacity: 1;
+      background-color: rgb(198 155 133 / var(--tw-bg-opacity));
+    }
+    &#access{
+      padding: 1.25rem;
+    }
+    @media (min-width: 768px){
+      &#access{
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+      }
+    }
+    @media (min-width: 768px){
+      &#access{
+        border-radius: 0.5rem;
+      }
+    }
+    &#access {
+      & article{
+        grid-column-start: 1;
+      }
+      & article{
+        grid-row-start: 1;
+      }
+      & article{
+        --tw-translate-x: -100%;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+      }
+      & article{
+        opacity: 0;
+      }
+      & article{
+        transition-property: transform;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      & article{
+        transition-duration: 300ms;
+      }
+      & article {
+        &.active{
+          --tw-translate-x: 0px;
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        }
+        &.active{
+          opacity: 1;
+        }
+        & h2{
+          text-align: center;
+        }
+      }
+    }
   }
 }
 
@@ -1527,6 +1620,16 @@ main{
   margin-right: auto;
 }
 
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.my-40{
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
 .my-5{
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -1538,6 +1641,10 @@ main{
 
 .mb-5{
   margin-bottom: 1.25rem;
+}
+
+.mt-2{
+  margin-top: 0.5rem;
 }
 
 .mt-5{
@@ -1617,6 +1724,15 @@ main{
 
 .tracking-\[5px\]{
   letter-spacing: 5px;
+}
+
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .opacity-40{

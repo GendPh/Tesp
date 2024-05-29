@@ -1,12 +1,12 @@
 /* npx tailwindcss -i ./src/input.css -o ./src/styles.css --watch */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   * {
-    font-family: "Manrope", sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
   body {
     @apply bg-background;
@@ -47,10 +47,10 @@
         background-size: cover;
         @apply w-8 aspect-square transition-all duration-300 md:hidden;
         &.close {
-          background-image: url("./assets/shared/burger-menu-right-svgrepo-com.svg");
+          background-image: url('./assets/shared/burger-menu-right-svgrepo-com.svg');
         }
         &.open {
-          background-image: url("./assets/shared/close-svgrepo-com.svg");
+          background-image: url('./assets/shared/close-svgrepo-com.svg');
         }
       }
       #main-nav {
@@ -181,6 +181,18 @@
       &#breed-info {
         @apply p-5;
       }
+      &#access {
+        @apply bg-accent grid md:mx-5 overflow-hidden md:rounded-lg p-5;
+        & article {
+          @apply -translate-x-full col-start-1 row-start-1 transition-transform duration-300 opacity-0;
+          &.active {
+            @apply translate-x-0 opacity-100;
+          }
+          & h2 {
+            @apply text-center;
+          }
+        }
+      }
     }
   }
 
@@ -198,7 +210,7 @@
       &:has(input:checked) {
         @apply text-white;
         & ~ .selection {
-          @apply bg- inline-block;
+          @apply bg-accent inline-block;
         }
       }
       &:nth-child(1):has(input:checked) ~ .selection {

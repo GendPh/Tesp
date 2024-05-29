@@ -4,6 +4,8 @@ import { DogService } from '../../../Service/dog.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DogModel } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
+import { User } from '../../../Model/user.model';
+import { UserService } from '../../../Service/user.service';
 
 @Component({
   selector: 'app-breeds',
@@ -15,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class BreedsComponent implements OnInit, OnDestroy {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
-  user: null = null;
+  user: User | null = null;
 
   breedPage: number = 1;
   breedTotalPages: number = 1;
@@ -25,12 +27,17 @@ export class BreedsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private dogService: DogService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
-
+    //Verify if the user is already logged
+    this.user = this.userService.VerifyAlreadyLoggedUser();
+    //If the user is not logged, redirect to the access page
     if (this.user == null) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/access']);
+      //return to avoid the rest of the code to run
+      return;
     }
 
     this.dogService.DivideDogsBreedsByPage().subscribe({

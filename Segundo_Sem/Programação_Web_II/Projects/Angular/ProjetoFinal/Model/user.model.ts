@@ -3,7 +3,7 @@ export interface User {
   password: string;
   likes: string[];
   id: string;
-  commentaries?: UserCommentary[];
+  commentaries: UserCommentary[];
 }
 
 export interface UserCommentary {
