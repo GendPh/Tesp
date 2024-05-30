@@ -1,36 +1,43 @@
-<main class="my-40">
+<main class="">
 
   <section id="access">
     <article id="login" [ngClass]="{'active':accessContainer=='login'}">
       <h2>Login</h2>
-      <h3>Provide your email address and password.</h3>
+      <h3>Provide your name address and password.</h3>
 
-      <form class="my-2">
+      <form class="my-2" (submit)="LoginUser($event)">
         <div class="form-group">
-          <label for="userName">User Name</label>
-          <input type="text" id="userName" name="userName" required>
+          <input type="text" id="userName" name="userName" required placeholder="Name">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <input type="password" id="password" name="password" required placeholder="Password">
         </div>
-        <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input type="password" id="confirm-password" name="confirm-password" required>
-        </div>
+        <p class="font-bold text-background" id="login-error-message"></p>
         <button class="mt-2 button primary">Sign Up</button>
       </form>
 
       <p>Don't have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('register')">Create an
           account!</span></p>
-
     </article>
 
     <article id="register" [ngClass]="{'active':accessContainer=='register'}">
       <h2>Register</h2>
-      <h3>Provide your email address and password.</h3>
-      <p>Don't have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('login')">Create an
-          account!</span></p>
+      <h3>Provide your name address and password.</h3>
+      <form class="my-2">
+        <div class="form-group">
+          <input type="text" id="userNameRegister" name="userNameRegister" required placeholder="Name">
+        </div>
+        <div class="form-group">
+          <input type="password" id="passwordRegister" name="passwordRegister" required placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input type="password" id="passwordRegisterConfirm" name="passwordRegisterConfirm" required
+            placeholder="PasswordConfirm">
+        </div>
+        <button class="mt-2 button primary">Sign In</button>
+      </form>
+      <p>Already have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('login')">Log
+          In!</span></p>
     </article>
 
   </section>

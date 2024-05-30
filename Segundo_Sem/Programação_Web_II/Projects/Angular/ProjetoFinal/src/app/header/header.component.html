@@ -4,15 +4,22 @@
     <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
     <nav id="main-nav">
       <ul>
-        <li routerLink="/breeds/page/1" *ngIf="user != null"><span routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}">dog
-            breeds</span></li>
-        <li routerLinkActive="active" *ngIf="user != null"><span>search</span></li>
-        <li routerLinkActive="active" *ngIf="user != null"><span>Account</span></li>
-        <li *ngIf="user == null" routerLink="/access">
+        <li routerLink="/breeds/page/1" *ngIf="userApplication.length != 0">
+          <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
+        </li>
+        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+          <span>search</span>
+        </li>
+        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+          <span>Account</span>
+        </li>
+        <li *ngIf="userApplication.length != 0">
+          <span>Logout</span>
+        </li>
+        <li *ngIf="userApplication.length == 0" routerLink="/access">
           <span>sign in</span>
         </li>
-        <li *ngIf="user == null" routerLink="/access">
+        <li *ngIf="userApplication.length == 0" routerLink="/access">
           <span>sign up</span>
         </li>
       </ul>
@@ -22,14 +29,19 @@
   <div id="mobile-nav">
     <nav>
       <ul>
-        <li routerLink="/breeds/page/1"><span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog
-            breeds</span></li>
-        <li routerLinkActive="active"><span>search</span></li>
-        <li routerLinkActive="active" *ngIf="user != null"><span>Account</span></li>
-        <li *ngIf="user == null">
+        <li routerLink="/breeds/page/1" *ngIf="userApplication.length != 0">
+          <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
+        </li>
+        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+          <span>search</span>
+        </li>
+        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+          <span>Account</span>
+        </li>
+        <li *ngIf="userApplication.length == 0" routerLink="/access">
           <span>sign in</span>
         </li>
-        <li *ngIf="user == null">
+        <li *ngIf="userApplication.length == 0" routerLink="/access">
           <span>sign up</span>
         </li>
       </ul>

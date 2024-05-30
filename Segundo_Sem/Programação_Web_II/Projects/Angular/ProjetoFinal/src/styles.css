@@ -1485,6 +1485,14 @@ main{
         grid-row-start: 1;
       }
       & article{
+        margin-left: auto;
+        margin-right: auto;
+      }
+      & article{
+        width: -moz-fit-content;
+        width: fit-content;
+      }
+      & article{
         --tw-translate-x: -100%;
         transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
       }
@@ -1507,8 +1515,48 @@ main{
         &.active{
           opacity: 1;
         }
-        & h2{
+        & h2,
+          h3{
           text-align: center;
+        }
+        & form{
+          margin-top: 1.25rem;
+        }
+        & form{
+          display: grid;
+        }
+        & form{
+          gap: 1.25rem;
+        }
+        & form {
+          & input{
+            width: 100%;
+          }
+          & input{
+            border-radius: 0.5rem;
+          }
+          & input{
+            border-width: 1px;
+          }
+          & input{
+            --tw-border-opacity: 1;
+            border-color: rgb(10 4 1 / var(--tw-border-opacity));
+          }
+          & input{
+            --tw-bg-opacity: 1;
+            background-color: rgb(254 249 245 / var(--tw-bg-opacity));
+          }
+          & input{
+            padding: 0.75rem;
+          }
+          & input{
+            --tw-text-opacity: 1;
+            color: rgb(10 4 1 / var(--tw-text-opacity));
+          }
+          & input{
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+          }
         }
       }
     }
@@ -1625,11 +1673,6 @@ main{
   margin-bottom: 0.5rem;
 }
 
-.my-40{
-  margin-top: 10rem;
-  margin-bottom: 10rem;
-}
-
 .my-5{
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -1729,6 +1772,16 @@ main{
 .text-blue-600{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+.text-red-500{
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-background{
+  --tw-text-opacity: 1;
+  color: rgb(254 249 245 / var(--tw-text-opacity));
 }
 
 .underline{

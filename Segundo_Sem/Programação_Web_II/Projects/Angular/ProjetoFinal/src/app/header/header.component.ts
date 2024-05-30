@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { UserService } from '../../../Service/user.service';
+import { User } from '../../../Model/user.model';
 
 @Component({
   selector: 'header-component',
@@ -10,8 +12,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  userApplication: User[] | null = null;
 
-  user: null = null;
+  constructor(private userService: UserService,) { this.userApplication = this.userService.applicationUserArray; }
+
 
   ButtonToggleMobileNavBar() {
     const buttonToggleMobileNavBarEl = document.getElementById('toggle-nav');

@@ -184,12 +184,19 @@
       &#access {
         @apply bg-accent grid md:mx-5 overflow-hidden md:rounded-lg p-5;
         & article {
-          @apply -translate-x-full col-start-1 row-start-1 transition-transform duration-300 opacity-0;
+          @apply -translate-x-full col-start-1 row-start-1 transition-transform duration-300 opacity-0 w-fit mx-auto;
           &.active {
             @apply translate-x-0 opacity-100;
           }
-          & h2 {
+          & h2,
+          h3 {
             @apply text-center;
+          }
+          & form {
+            @apply grid gap-5 mt-5;
+            & input {
+              @apply w-full p-3 bg-background text-text rounded-lg border border-text outline-none;
+            }
           }
         }
       }

@@ -12,7 +12,7 @@ export class UserService {
   ) { }
 
   applicationUser: User | null = null;
-
+  applicationUserArray: User[] = [];
 
   //This method gets an array of users from the server
   GetUsers(): Observable<User[]> {
@@ -39,6 +39,8 @@ export class UserService {
         //4th set the applicationUser property to the user found and return it without the password
         this.applicationUser = { ...user, password: '' };
 
+        this.applicationUserArray.push(this.applicationUser);
+
         return this.applicationUser;
       })
     );
@@ -46,5 +48,16 @@ export class UserService {
 
   VerifyAlreadyLoggedUser(): User | null {
     return this.applicationUser;
+  }
+
+  //This method logs out the user
+  LogoutUser(): void {
+    //Set the applicationUser property to null 
+    //and the applicationUserArray to an empty array
+    this.applicationUser = null;
+    this.applicationUserArray.slice(0, 0);
+    
+    console.log('user:' + this.applicationUser);
+    console.log('user application:' + this.applicationUserArray);
   }
 }
