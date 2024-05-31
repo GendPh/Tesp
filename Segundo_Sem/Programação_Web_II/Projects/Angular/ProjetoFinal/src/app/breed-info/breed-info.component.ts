@@ -1,30 +1,35 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { routeAnimationTrigger } from '../../../shared/Animations';
+import { fadeInTrigger, routeAnimationTrigger } from '../../../shared/Animations';
 import { DogService } from '../../../Service/dog.service';
 import { DogModel, DogCommentary } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User, UserCommentary } from '../../../Model/user.model';
+import { UserService } from '../../../Service/user.service';
 
 @Component({
   selector: 'app-breed-info',
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './breed-info.component.html',
-  animations: [routeAnimationTrigger],
+  animations: [routeAnimationTrigger, fadeInTrigger],
 })
 
 export class BreedInfoComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
-  user: null = null;
+  user: User[] = [];
 
   // Inject the ActivatedRoute and DogService
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dogService: DogService,
-  ) { }
+    private userService: UserService,
+  ) {
+    this.user = this.userService.applicationUserArray;
+  }
 
   breed: DogModel | null = null; // Variable to hold the current breed information
   relatedBreeds: DogModel[] = []; // Array to hold the related breeds
@@ -37,8 +42,9 @@ export class BreedInfoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.user == null) {
-      this.router.navigate(['/']);
+    if (this.user.length == 0) {
+      this.router.navigate(['/access']);
+      return;
     }
 
     this.route.params.subscribe((params) => {
@@ -120,15 +126,22 @@ export class BreedInfoComponent implements OnInit {
 
     // Create a DogCommentary object
     const commentary: DogCommentary = {
-      "userName": "user1",
+      "userName": this.user[0].username,
       "comment": commentElement.value
     };
+
+    const userCommentary: UserCommentary = {
+      "dogId": this.breed.id,
+      "dogName": this.breed.name,
+      "comment": commentElement.value
+    }
 
     // Clear the comment input element
     commentElement.value = '';
 
     // Add the new commentary to the commentaries array
     const commentaries: DogCommentary[] = [...this.commentaries, commentary];
+    const userCommentaries: UserCommentary[] = [...this.user[0].commentaries, userCommentary];
 
     // Send the updated commentaries to the server
     this.dogService.patchCommentaries(this.breed.id, commentaries).subscribe({
@@ -136,14 +149,18 @@ export class BreedInfoComponent implements OnInit {
         this.commentMessageStatus = 'Comment added successfully.';
         // Reload the commentaries
         this.LoadCommentary();
+        // Send the commentary to the user 
+        this.userService.PatchCommentaries(this.user[0].id, userCommentaries).subscribe();
+
       },
-      error: error => {
+      error: () => {
         // Set the commentMessageStatus to an error message
         this.commentMessageStatus = 'Error as happen adding this comment. Please try again.';
       }
     });
   }
 
+  // Method to change the unit of measurement
   ChangeUnit(e: Event) {
     this.unit = (e.target as HTMLInputElement).value;
   }

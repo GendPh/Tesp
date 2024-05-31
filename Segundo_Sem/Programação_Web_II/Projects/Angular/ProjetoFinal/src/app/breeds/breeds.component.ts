@@ -14,10 +14,10 @@ import { UserService } from '../../../Service/user.service';
   templateUrl: './breeds.component.html',
   animations: [routeAnimationTrigger, fadeInTrigger],
 })
-export class BreedsComponent implements OnInit, OnDestroy {
+export class BreedsComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
-  user: User | null = null;
+  user: User[] = [];
 
   breedPage: number = 1;
   breedTotalPages: number = 1;
@@ -28,13 +28,13 @@ export class BreedsComponent implements OnInit, OnDestroy {
     private router: Router,
     private dogService: DogService,
     private userService: UserService,
-  ) { }
+  ) { 
+    this.user = this.userService.applicationUserArray;
+  }
 
   ngOnInit(): void {
-    //Verify if the user is already logged
-    this.user = this.userService.VerifyAlreadyLoggedUser();
     //If the user is not logged, redirect to the access page
-    if (this.user == null) {
+    if (this.user.length == 0) {
       this.router.navigate(['/access']);
       //return to avoid the rest of the code to run
       return;
@@ -70,10 +70,5 @@ export class BreedsComponent implements OnInit, OnDestroy {
   }
   GoToNextPage(): void {
     this.router.navigate(['/breeds', 'page', Number(this.breedPage) + 1]);
-  }
-
-
-  ngOnDestroy(): void {
-    /*  this.subs?.unsubscribe(); */
   }
 }

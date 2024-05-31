@@ -12,7 +12,7 @@ import { User } from '../../../Model/user.model';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  userApplication: User[] | null = null;
+  userApplication: User[] = [];
 
   constructor(private userService: UserService,) { this.userApplication = this.userService.applicationUserArray; }
 

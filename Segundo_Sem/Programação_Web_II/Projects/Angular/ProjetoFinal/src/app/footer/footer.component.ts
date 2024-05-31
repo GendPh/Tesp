@@ -19,4 +19,9 @@ export class FooterComponent {
   ) {
     this.userApplication = this.userService.applicationUserArray;
   }
+  
+  //Call the LogoutUser method from the UserService
+  LogoutUser() {
+    this.userService.LogoutUser();
+  }
 }

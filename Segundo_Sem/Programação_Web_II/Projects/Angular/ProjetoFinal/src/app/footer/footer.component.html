@@ -12,6 +12,9 @@
         <li routerLinkActive="active" *ngIf="userApplication.length != 0">
           <span>Account</span>
         </li>
+        <li (click)="LogoutUser()" routerLink="/logout" *ngIf="userApplication.length != 0">
+          <span>Logout</span>
+        </li>
         <li *ngIf="userApplication.length == 0" routerLink="/access">
           <span>sign in</span>
         </li>

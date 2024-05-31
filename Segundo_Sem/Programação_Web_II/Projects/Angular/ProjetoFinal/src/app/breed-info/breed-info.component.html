@@ -1,8 +1,8 @@
 <main>
-  <section id="breed-info" class="grid lg:grid-cols-2 gap-5">
+  <section id="breed-info" class="gap-5 grid lg:grid-cols-2">
     <img class="rounded-lg w-full" [src]="breed?.image?.url" [alt]="breed?.name">
     <div>
-      <h1 class="text-center mb-5">{{breed?.name}}</h1>
+      <h1 class="mb-5 text-center">{{breed?.name}}</h1>
 
       <ul>
         <li>History: {{breed?.history}}</li>
@@ -28,7 +28,7 @@
         </label>
         <span class="selection"></span>
       </div>
-      
+
       <div *ngIf="unit=='metric'">
         <h3>Weight</h3>
         <p>{{breed?.weight?.metric}}</p>
@@ -45,12 +45,12 @@
     </div>
   </section>
 
-  <section id="breed-commentary" class="bg-accent p-5 md:mx-5 md:rounded-lg">
+  <section id="breed-commentary" class="bg-accent md:mx-5 p-5 md:rounded-lg">
 
     <h2 class="text-center">What people are saying about {{breed?.name}}</h2>
 
-    <div class="commentaries-container mt-5 grid gap-5">
-      <article class="bg-secondary p-5 rounded-lg" *ngIf="breed?.commentaries.length == 0">
+    <div class="gap-5 grid mt-5 commentaries-container">
+      <article class="bg-secondary p-5 rounded-lg" *ngIf="commentaries.length == 0">
         <p class="text-[15px] tracking-[5px]">No Comments!</p>
       </article>
 
@@ -61,12 +61,12 @@
     </div>
 
     <div>
-      <label for="comment" class="block text-[20px] tracking-[3px] uppercase font-bold mt-5 mb-2">Leave a
+      <label for="comment" class="block mt-5 mb-2 font-bold text-[20px] uppercase tracking-[3px]">Leave a
         comment</label>
-      <textarea name="comment" id="comment" rows="4" class="w-full rounded-lg p-5 outline-none"
+      <textarea name="comment" id="comment" rows="4" class="p-5 rounded-lg w-full outline-none"
         placeholder="Leave a comment ..."></textarea>
-      <p id="commentError" class="font-bold text-[20px] my-5">{{commentMessageStatus}}</p>
-      <button class="button primary w-full" [ngClass]="{'opacity-50 pointer-events-none': sendingComment}"
+      <p id="commentError" class="my-5 font-bold text-[20px]">{{commentMessageStatus}}</p>
+      <button class="w-full button primary" [ngClass]="{'opacity-50 pointer-events-none': sendingComment}"
         (click)="AddCommentary()">Add</button>
     </div>
   </section>

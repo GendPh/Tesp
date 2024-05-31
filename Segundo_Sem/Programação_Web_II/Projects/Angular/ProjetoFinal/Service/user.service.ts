@@ -1,14 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { DogService } from "./dog.service";
-import { Observable, map } from "rxjs";
-import { User } from "../Model/user.model";
+import { Observable, map, of, switchMap } from "rxjs";
+import { Router } from "@angular/router";
+import { User, UserCommentary, UserCreate } from "../Model/user.model";
+
 
 @Injectable()
 export class UserService {
 
   constructor(
     private http: HttpClient,
+    private route: Router,
   ) { }
 
   applicationUser: User | null = null;
@@ -20,7 +22,7 @@ export class UserService {
   }
 
   //This method checks if the user exists and if the password is correct
-  CheckUser(username: string, password: string): Observable<User | null> {
+  GetUser(username: string, password: string): Observable<User | null> {
     return this.GetUsers().pipe(
       map(users => {
         //1st find the user by username
@@ -38,14 +40,52 @@ export class UserService {
 
         //4th set the applicationUser property to the user found and return it without the password
         this.applicationUser = { ...user, password: '' };
-
         this.applicationUserArray.push(this.applicationUser);
-
         return this.applicationUser;
       })
     );
   }
 
+  // This method creates a new user
+  PostUser(userName: string, password: string): Observable<User | null> {
+    //1st check if the username already exists
+    return this.FindUserByName(userName).pipe(
+      switchMap(result => {
+        if (result) {
+          // Username already exists, return null
+          return of(null);
+        } else {
+          // Username does not exist, create a new user
+          let user: UserCreate = {
+            username: userName,
+            password: password,
+            commentaries: [],
+            likes: [],
+          };
+          return this.http.post<User>('http://localhost:3000/users', user);
+        }
+      })
+    );
+  }
+
+  //This method finds a user by username
+  FindUserByName(username: string): Observable<boolean> {
+    return this.GetUsers().pipe(
+      map(users => {
+        //1st find the user by username
+        let user = users.find(user => user.username === username);
+
+        //2nd check if the user exists, if not return null
+        if (user == null) {
+          return false;
+        }
+
+        return true;
+      })
+    );
+  }
+
+  //This method checks if the user is already logged in
   VerifyAlreadyLoggedUser(): User | null {
     return this.applicationUser;
   }
@@ -55,9 +95,12 @@ export class UserService {
     //Set the applicationUser property to null 
     //and the applicationUserArray to an empty array
     this.applicationUser = null;
-    this.applicationUserArray.slice(0, 0);
-    
-    console.log('user:' + this.applicationUser);
-    console.log('user application:' + this.applicationUserArray);
+    this.applicationUserArray.pop();
+    this.route.navigate(['/']);
+  }
+
+  PatchCommentaries(userId: string, commentaries: UserCommentary[]): Observable<User> {
+    const url = `http://localhost:3000/users/${userId}`;
+    return this.http.patch<User>(url, { commentaries });
   }
 }

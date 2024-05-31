@@ -57,7 +57,7 @@ export class DogService {
     );
   }
 
-  patchCommentaries(dogId: string, commentaries: any) {
+  patchCommentaries(dogId: string, commentaries: DogCommentary[]) {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.patch(url, { commentaries });
   }

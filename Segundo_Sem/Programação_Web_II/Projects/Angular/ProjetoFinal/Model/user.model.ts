@@ -6,6 +6,13 @@ export interface User {
   commentaries: UserCommentary[];
 }
 
+export interface UserCreate {
+  username: string;
+  password: string;
+  likes: string[];
+  commentaries: UserCommentary[];
+}
+
 export interface UserCommentary {
   dogId: string;
   dogName: string;
