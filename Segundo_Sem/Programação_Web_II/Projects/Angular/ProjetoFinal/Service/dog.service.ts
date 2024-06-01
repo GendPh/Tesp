@@ -61,4 +61,9 @@ export class DogService {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.patch(url, { commentaries });
   }
+  SearchedDogs(search: string): Observable<DogModel[]> {
+    return this.http.get<DogModel[]>(`${this.dogUrlApi}`).pipe(
+      map(dogs => dogs.filter(dog => dog.name.toLowerCase().includes(search.toLowerCase())))
+    );
+  }
 }

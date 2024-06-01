@@ -1,0 +1,15 @@
+<div id="breeds">
+  <div class="breeds-container">
+
+    <p *ngIf="breeds.length == 0">No dogs found with {{searchBreed}}</p>
+
+    <div class="breed" *ngFor="let dog of breeds; let i = index;" [@fadeInItem]="i" routerLink="/breed/{{dog.id}}">
+      <figure>
+        <img [src]="dog.image.url" alt="img of a {{dog.name}}">
+      </figure>
+      <div class="breed-content">
+        <h3>{{dog.name}}</h3>
+      </div>
+    </div>
+  </div>
+</div>

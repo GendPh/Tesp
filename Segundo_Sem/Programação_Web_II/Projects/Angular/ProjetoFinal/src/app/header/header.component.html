@@ -2,6 +2,12 @@
   <div id="main-header">
     <p class="logo" routerLink="/" (click)="CloseMobileNavBar()">sniffsnack</p>
     <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
+
+    <form (submit)="SearchBreed($event)">
+      <input type="text" placeholder="Search for a breed" name="breed-search" id="search"
+        class="p-2 border rounded-lg outline-primary">
+      <button class="bg-primary ml-2 px-4 py-2 rounded-lg">Search</button>
+    </form>
     <nav id="main-nav">
       <ul *ngIf="user.length != 0">
         <li routerLink="/breeds/page/1">

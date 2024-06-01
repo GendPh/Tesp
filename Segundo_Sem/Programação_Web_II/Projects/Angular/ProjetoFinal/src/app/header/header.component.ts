@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'header-component',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   user: User[] = [];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.user;
   }
 
@@ -42,6 +43,22 @@ export class HeaderComponent {
         buttonToggleMobileNavBarEl.classList.replace('open', 'close');
         mobileNavEl.classList.remove('open');
       }
+    }
+  }
+
+  SearchBreed(e: Event) {
+    e.preventDefault();
+    const searchForm = e.target as HTMLFormElement;
+    const searchInput = searchForm.querySelector('input[type="text"]') as HTMLInputElement;
+
+    if (searchInput) {
+      if (searchInput.value.length == 0) {
+        searchInput.focus();
+        return;
+      }
+
+      this.router.navigate([`/breed/search/${searchInput.value}`]);
+      searchInput.value = '';
     }
   }
 }

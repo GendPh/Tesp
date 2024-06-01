@@ -138,21 +138,6 @@
             @apply flex gap-2 justify-start items-center overflow-x-scroll;
           }
         }
-        .breeds-container {
-          @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
-          .breed {
-            @apply bg-accent rounded-lg relative;
-            &:hover .breed-content {
-              @apply bg-opacity-80;
-            }
-            & img {
-              @apply w-full aspect-video object-fill rounded-lg;
-            }
-            .breed-content {
-              @apply absolute inset-0 p-3 flex justify-center items-center rounded-lg bg-black text-white bg-opacity-60 transition-all duration-300 cursor-pointer tracking-[4px];
-            }
-          }
-        }
       }
       &#breeds-commentaries {
         @apply text-center bg-accent md:rounded-lg p-5 md:mx-5;
@@ -202,6 +187,22 @@
             }
           }
         }
+      }
+    }
+  }
+
+  .breeds-container {
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5 min-h-[650px];
+    .breed {
+      @apply bg-accent rounded-lg relative h-fit;
+      &:hover .breed-content {
+        @apply bg-opacity-80;
+      }
+      & img {
+        @apply w-full aspect-video object-fill rounded-lg;
+      }
+      .breed-content {
+        @apply absolute inset-0 p-3 flex justify-center items-center rounded-lg bg-black text-white bg-opacity-60 transition-all duration-300 cursor-pointer tracking-[4px];
       }
     }
   }
