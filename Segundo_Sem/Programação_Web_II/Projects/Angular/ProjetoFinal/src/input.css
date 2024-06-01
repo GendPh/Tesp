@@ -196,6 +196,9 @@
             @apply grid gap-5 mt-5;
             & input {
               @apply w-full p-3 bg-background text-text rounded-lg border border-text outline-none;
+              &.ng-invalid.ng-touched {
+                border: 1px solid red;
+              }
             }
           }
         }

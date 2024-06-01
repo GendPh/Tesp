@@ -5,15 +5,16 @@
       <h2>Login</h2>
       <h3>Provide your name address and password.</h3>
 
-      <form class="my-2" (submit)="LoginUser($event)">
+      <form class="my-2" (submit)="LoginUser()" #loginForm="ngForm">
         <div class="form-group">
-          <input type="text" id="userName" name="userName" required placeholder="Name">
+          <input [(ngModel)]="userNameLogin" type="text" id="userName" name="userName" placeholder="Name">
         </div>
         <div class="form-group">
-          <input type="password" id="password" name="password" required placeholder="Password">
+          <input [(ngModel)]="passwordLogin" type="password" id="password" name="password" placeholder="Password">
         </div>
-        <p class="font-bold text-background" id="login-error-message"></p>
-        <button class="mt-2 button primary">Sign Up</button>
+        <p class="font-bold text-background" id="login-error-message" *ngIf="!userLoginFound">User Name or Password
+          incorrect</p>
+        <button type="submit" class="mt-2 button primary">Sign Up</button>
       </form>
 
       <p>Don't have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('register')">Create an
@@ -23,19 +24,26 @@
     <article id="register" [ngClass]="{'active':accessContainer=='register'}">
       <h2>Register</h2>
       <h3>Provide your name address and password.</h3>
-      <form class="my-2" (submit)="CreateUser($event)">
+      <form class="my-2" #registerForm="ngForm">
         <div class="form-group">
-          <input type="text" id="userNameRegister" name="userNameRegister" required placeholder="Name">
+          <input [(ngModel)]="userNameRegister" type="text" id="userNameRegister" name="userNameRegister" required
+            placeholder="Name" [ngClass]="{'ng-touched ng-invalid':userNameTaken}">
+          <p *ngIf="userNameTaken">This user name isn't available</p>
         </div>
         <div class="form-group">
-          <input type="password" id="passwordRegister" name="passwordRegister" required placeholder="Password">
+          <input [(ngModel)]="passwordRegister" type="password" id="passwordRegister" name="passwordRegister" required
+            placeholder="Password" #passModel="ngModel" (input)="EqualsPasswords()" minlength="8">
+          <p *ngIf="!passModel.valid && passModel.touched">Must contain min of 8 characters</p>
         </div>
         <div class="form-group">
-          <input type="password" id="passwordRegisterConfirm" name="passwordRegisterConfirm" required
-            placeholder="PasswordConfirm">
+          <input [(ngModel)]="confirmPasswordRegister" type="password" id="passwordRegisterConfirm"
+            name="passwordRegisterConfirm" required placeholder="PasswordConfirm" #passConfModel="ngModel"
+            (input)="EqualsPasswords()" [ngClass]="{'ng-touched ng-invalid':!validPassConfirm}">
+          <p *ngIf="!passConfModel.valid && passConfModel.touched || !validPassConfirm">Must be equal to pass defined
+            above</p>
         </div>
-        <p class="font-bold text-background" id="register-error-message"></p>
-        <button class="mt-2 button primary">Sign In</button>
+        <button type="button" (click)="CreateUser()" class="mt-2 button primary"
+          [ngClass]="{'opacity-50 pointer-events-none': !registerForm.valid || !validPassConfirm}">Sign In</button>
       </form>
       <p>Already have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('login')">Log
           In!</span></p>

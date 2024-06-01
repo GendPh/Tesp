@@ -19,6 +19,8 @@ export class BreedsComponent implements OnInit {
 
   user: User[] = [];
 
+  applicationUser: User | null = null;
+
   breedPage: number = 1;
   breedTotalPages: number = 1;
   breedDogs: DogModel[] = [];
@@ -28,17 +30,17 @@ export class BreedsComponent implements OnInit {
     private router: Router,
     private dogService: DogService,
     private userService: UserService,
-  ) { 
+  ) {
     this.user = this.userService.applicationUserArray;
   }
 
   ngOnInit(): void {
     //If the user is not logged, redirect to the access page
-    if (this.user.length == 0) {
+    /* if (this.user.length == 0) {
       this.router.navigate(['/access']);
       //return to avoid the rest of the code to run
       return;
-    }
+    } */
 
     this.dogService.DivideDogsBreedsByPage().subscribe({
       next: (dogs) => {

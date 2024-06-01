@@ -8,6 +8,7 @@ import { UserService } from '../Service/user.service';
 import { DogService } from '../Service/dog.service';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../Service/auth.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -15,6 +16,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withComponentInputBinding()),
     UserService,
     DogService,
+    AuthService,
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
   ]
