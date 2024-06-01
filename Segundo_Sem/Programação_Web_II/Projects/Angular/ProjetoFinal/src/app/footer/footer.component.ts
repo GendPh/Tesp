@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
+import { AuthService } from '../../../Service/auth.service';
 
 @Component({
   selector: 'footer-component',
@@ -12,16 +13,11 @@ import { UserService } from '../../../Service/user.service';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  userApplication: User[] | null = null;
+  user: User[] = [];
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
   ) {
-    this.userApplication = this.userService.applicationUserArray;
-  }
-  
-  //Call the LogoutUser method from the UserService
-  LogoutUser() {
-    this.userService.LogoutUser();
+    this.user = this.authService.user;
   }
 }

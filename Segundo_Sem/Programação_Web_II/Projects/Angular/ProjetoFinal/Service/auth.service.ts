@@ -2,13 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { User, UserCreate } from "../Model/user.model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
 
   user: User[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   // This method checks if the user exists and if the password is correct
   Login(userName: string, password: string): Observable<Boolean> {
@@ -57,7 +58,7 @@ export class AuthService {
                   }
                 }
               );
-              
+
               return true;
             }
           })
@@ -67,6 +68,8 @@ export class AuthService {
   // This method logs out the user
   Logout() {
     this.user.pop();
+    this.router.navigate(['/']);
+    return;
   }
 
   // This method checks if the user is logged

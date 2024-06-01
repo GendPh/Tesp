@@ -2,23 +2,26 @@
   <div id="main-footer">
     <p routerLink="/" class="text-center md:text-start logo">sniffsnack</p>
     <nav id="footer-nav">
-      <ul>
-        <li routerLink="/breeds/page/1" *ngIf="userApplication.length != 0">
+      <ul *ngIf="user.length != 0">
+        <li routerLink="/breeds/page/1">
           <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
         </li>
-        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+        <li routerLinkActive="active">
           <span>search</span>
         </li>
-        <li routerLinkActive="active" *ngIf="userApplication.length != 0">
+        <li routerLinkActive="active">
           <span>Account</span>
         </li>
-        <li (click)="LogoutUser()" routerLink="/logout" *ngIf="userApplication.length != 0">
+        <li routerLink="/logout">
           <span>Logout</span>
         </li>
-        <li *ngIf="userApplication.length == 0" routerLink="/access">
+      </ul>
+
+      <ul *ngIf="user.length == 0">
+        <li routerLink="/access">
           <span>sign in</span>
         </li>
-        <li *ngIf="userApplication.length == 0" routerLink="/access">
+        <li routerLink="/access">
           <span>sign up</span>
         </li>
       </ul>

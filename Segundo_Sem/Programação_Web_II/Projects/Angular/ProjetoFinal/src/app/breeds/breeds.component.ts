@@ -1,11 +1,11 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, } from '@angular/core';
 import { fadeInTrigger, routeAnimationTrigger } from '../../../shared/Animations';
 import { DogService } from '../../../Service/dog.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DogModel } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../Model/user.model';
-import { UserService } from '../../../Service/user.service';
+import { AuthService } from '../../../Service/auth.service';
 
 @Component({
   selector: 'app-breeds',
@@ -19,8 +19,6 @@ export class BreedsComponent implements OnInit {
 
   user: User[] = [];
 
-  applicationUser: User | null = null;
-
   breedPage: number = 1;
   breedTotalPages: number = 1;
   breedDogs: DogModel[] = [];
@@ -29,19 +27,12 @@ export class BreedsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dogService: DogService,
-    private userService: UserService,
+    private authService: AuthService,
   ) {
-    this.user = this.userService.applicationUserArray;
+    this.user = this.authService.user;
   }
 
   ngOnInit(): void {
-    //If the user is not logged, redirect to the access page
-    /* if (this.user.length == 0) {
-      this.router.navigate(['/access']);
-      //return to avoid the rest of the code to run
-      return;
-    } */
-
     this.dogService.DivideDogsBreedsByPage().subscribe({
       next: (dogs) => {
         this.breedTotalPages = dogs.length;

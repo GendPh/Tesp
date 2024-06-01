@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User, UserCommentary } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
+import { AuthService } from '../../../Service/auth.service';
 
 @Component({
   selector: 'app-breed-info',
@@ -27,8 +28,9 @@ export class BreedInfoComponent implements OnInit {
     private router: Router,
     private dogService: DogService,
     private userService: UserService,
+    private authService: AuthService,
   ) {
-    this.user = this.userService.applicationUserArray;
+    this.user = this.authService.user;
   }
 
   breed: DogModel | null = null; // Variable to hold the current breed information

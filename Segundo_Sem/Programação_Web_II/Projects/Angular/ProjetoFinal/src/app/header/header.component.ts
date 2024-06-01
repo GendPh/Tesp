@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { UserService } from '../../../Service/user.service';
 import { User } from '../../../Model/user.model';
+import { AuthService } from '../../../Service/auth.service';
 
 @Component({
   selector: 'header-component',
@@ -12,15 +12,15 @@ import { User } from '../../../Model/user.model';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  userApplication: User[] = [];
+  user: User[] = [];
 
-  constructor(private userService: UserService,) { this.userApplication = this.userService.applicationUserArray; }
-
+  constructor(private authService: AuthService) {
+    this.user = this.authService.user;
+  }
 
   ButtonToggleMobileNavBar() {
     const buttonToggleMobileNavBarEl = document.getElementById('toggle-nav');
     const mobileNavEl = document.getElementById('mobile-nav');
-
 
     if (buttonToggleMobileNavBarEl && mobileNavEl) {
       if (buttonToggleMobileNavBarEl.classList.contains('close')) {
@@ -32,6 +32,7 @@ export class HeaderComponent {
       }
     }
   }
+
   CloseMobileNavBar() {
     const buttonToggleMobileNavBarEl = document.getElementById('toggle-nav');
     const mobileNavEl = document.getElementById('mobile-nav');
