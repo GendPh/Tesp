@@ -1,20 +1,21 @@
 <header>
   <div id="main-header">
     <p class="logo" routerLink="/" (click)="CloseMobileNavBar()">sniffsnack</p>
-    <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
 
-    <form (submit)="SearchBreed($event)">
-      <input type="text" placeholder="Search for a breed" name="breed-search" id="search"
-        class="p-2 border rounded-lg outline-primary">
-      <button class="bg-primary ml-2 px-4 py-2 rounded-lg">Search</button>
-    </form>
+    <div class="flex flex-row-reverse gap-5">
+      <button (click)="ButtonToggleMobileNavBar()" id="toggle-nav" class="close"></button>
+
+      <form (submit)="SearchBreed($event)" *ngIf="user.length != 0" class="md:block hidden">
+        <input type="text" placeholder="Search for a breed" name="breed-search" id="search"
+          class="p-2 border rounded-lg outline-primary">
+        <button class="bg-primary ml-2 px-4 py-2 rounded-lg">Search</button>
+      </form>
+    </div>
+
     <nav id="main-nav">
       <ul *ngIf="user.length != 0">
         <li routerLink="/breeds/page/1">
           <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
-        </li>
-        <li routerLinkActive="active">
-          <span>search</span>
         </li>
         <li routerLinkActive="active">
           <span>Account</span>
@@ -36,28 +37,31 @@
   </div>
 
   <div id="mobile-nav">
-    <nav>
+    <nav (click)="CloseMobileNavBar()">
       <ul *ngIf="user.length != 0">
-        <li routerLink="/breeds/page/1">
+        <li (click)="CloseMobileNavBar()" routerLink="/breeds/page/1">
           <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
         </li>
-        <li routerLinkActive="active">
-          <span>search</span>
-        </li>
-        <li routerLinkActive="active">
+        <li (click)="CloseMobileNavBar()" routerLinkActive="active">
           <span>Account</span>
         </li>
       </ul>
 
       <ul *ngIf="user.length == 0">
-        <li routerLink="/access">
+        <li (click)="CloseMobileNavBar()" routerLink="/access">
           <span>sign in</span>
         </li>
-        <li routerLink="/access">
+        <li (click)="CloseMobileNavBar()" routerLink="/access">
           <span>sign up</span>
         </li>
       </ul>
     </nav>
+
+    <form (submit)="SearchBreed($event)" *ngIf="user.length != 0" class="flex flex-col gap-2 md:hidden mt-5 text-xl">
+      <input type="text" placeholder="Search for a breed" name="breed-search" id="search"
+        class="p-2 border rounded-lg outline-primary">
+      <button class="bg-primary px-4 py-2 rounded-lg">Search</button>
+    </form>
   </div>
 
   <div id="mobile-header-bg" (click)="CloseMobileNavBar()"></div>

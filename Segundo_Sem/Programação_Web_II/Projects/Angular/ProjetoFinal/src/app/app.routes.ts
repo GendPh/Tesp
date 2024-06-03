@@ -10,8 +10,12 @@ import { SearchComponent } from './search/search.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent, },
   { path: 'breeds/page/:pageId', component: BreedsComponent, canActivate: [authGuard], },
-  { path: 'breed/:breedId', component: BreedInfoComponent, canActivate: [authGuard], },
-  { path: 'breed/search/:search', component: SearchComponent,  },
+  {
+    path: 'breed', canActivate: [authGuard], children: [
+      { path: ':breedId', component: BreedInfoComponent, },
+      { path: 'search/:search', component: SearchComponent, }
+    ]
+  },
   { path: 'access', component: AccessComponent, canActivate: [authGuardAccess], },
   { path: 'logout', component: LogoutComponent, canActivate: [authGuard], },
   { path: "**", redirectTo: '', }

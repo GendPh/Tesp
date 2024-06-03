@@ -40,6 +40,11 @@
           "dogId": "6",
           "dogName": "Akita",
           "comment": "I love the Akita! Such a beautiful and loyal breed."
+        },
+        {
+          "dogId": "149",
+          "dogName": "Labrador Retriever",
+          "comment": "love this dog ha haha\n"
         }
       ]
     },
@@ -60,6 +65,13 @@
     {
       "id": "d676",
       "username": "user14",
+      "password": "asdasdasd",
+      "likes": [],
+      "commentaries": []
+    },
+    {
+      "id": "f0a4",
+      "username": "user12",
       "password": "asdasdasd",
       "likes": [],
       "commentaries": []
@@ -2644,7 +2656,12 @@
       },
       "id": "149",
       "name": "Labrador Retriever",
-      "commentaries": [],
+      "commentaries": [
+        {
+          "userName": "user1",
+          "comment": "love this dog ha haha\n"
+        }
+      ],
       "bred_for": "Water retrieving",
       "breed_group": "Sporting",
       "life_span": "10 - 13 years",

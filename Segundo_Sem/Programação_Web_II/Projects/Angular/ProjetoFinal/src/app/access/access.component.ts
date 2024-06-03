@@ -52,6 +52,11 @@ export class AccessComponent {
 
   // Login the user by calling the Login method from the AuthService
   LoginUser() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+
     this.authService.Login(this.userNameLogin, this.passwordLogin).subscribe({
       next: (response) => {
         // If the user exists, redirect to the home page

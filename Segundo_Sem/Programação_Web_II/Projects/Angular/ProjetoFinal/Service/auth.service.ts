@@ -14,11 +14,11 @@ export class AuthService {
   // This method checks if the user exists and if the password is correct
   Login(userName: string, password: string): Observable<Boolean> {
     //1st find the user by username and password
-    return this.http.get(`http://localhost:3000/users?username=${userName}&password=${password}`)
+    return this.http.get(`http://localhost:3000/users?username=${userName}`)
       .pipe(
         map((response: User[]) => {
           //2nd check if the user exists, if not return false
-          if (response.length != 0) {
+          if (response.length != 0 && response[0].password == password) {
             //3rd set the user property to the user found and return true without the password
             response[0].password = '';
             this.user.push(response[0]);

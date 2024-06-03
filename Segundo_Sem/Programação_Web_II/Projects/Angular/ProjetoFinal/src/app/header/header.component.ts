@@ -52,10 +52,13 @@ export class HeaderComponent {
     const searchInput = searchForm.querySelector('input[type="text"]') as HTMLInputElement;
 
     if (searchInput) {
-      if (searchInput.value.length == 0) {
+      if (searchInput.value.trim.length == 0) {
+        searchInput.value.trim;
         searchInput.focus();
         return;
       }
+
+      this.CloseMobileNavBar();
 
       this.router.navigate([`/breed/search/${searchInput.value}`]);
       searchInput.value = '';

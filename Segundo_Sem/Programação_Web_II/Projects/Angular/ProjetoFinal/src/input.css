@@ -45,7 +45,7 @@
       #toggle-nav {
         background-position: center;
         background-size: cover;
-        @apply w-8 aspect-square transition-all duration-300 md:hidden;
+        @apply w-8 aspect-square transition-all duration-300 lg:hidden;
         &.close {
           background-image: url('./assets/shared/burger-menu-right-svgrepo-com.svg');
         }
@@ -54,7 +54,7 @@
         }
       }
       #main-nav {
-        @apply hidden md:block;
+        @apply hidden lg:block;
         & ul {
           @apply flex items-center gap-5;
           & li span {
@@ -192,7 +192,7 @@
   }
 
   .breeds-container {
-    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5 min-h-[650px];
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5 ;
     .breed {
       @apply bg-accent rounded-lg relative h-fit;
       &:hover .breed-content {
