@@ -8,10 +8,10 @@ import { authGuard, authGuardAccess } from '../../Guard/auth.guard';
 import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, },
+  { path: '', component: HomeComponent },
   {
     path: 'breeds',
-    /* canActivate: [authGuard], */
+    canActivate: [authGuard],
     children: [
       { path: 'page/:pageId', component: BreedsComponent, },
       { path: 'search/:search', component: SearchComponent, }

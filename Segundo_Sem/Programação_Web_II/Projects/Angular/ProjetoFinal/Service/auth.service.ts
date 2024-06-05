@@ -14,18 +14,21 @@ export class AuthService {
   // This method checks if the user exists and if the password is correct
   Login(userName: string, password: string): Observable<Boolean> {
     //1st find the user by username and password
-    return this.http.get(`http://localhost:3000/users?username=${userName}`)
+    return this.http.get(`http://localhost:3000/users?username=${userName}&password=${password}`)
       .pipe(
         map((response: User[]) => {
-          //2nd check if the user exists, if not return false
-          if (response.length != 0 && response[0].password == password) {
-            //3rd set the user property to the user found and return true without the password
-            response[0].password = '';
-            this.user.push(response[0]);
-            return true;
-          } else {
+
+          if (response.length == 0) {
+            // User not found, return false
             return false;
           }
+
+          response[0].password = '';
+
+          if (localStorage.getItem('user') == null) {
+            localStorage.setItem('user', JSON.stringify(response[0]));
+          }
+          return true;
         })
       );
   }
@@ -54,7 +57,11 @@ export class AuthService {
                   next: (response: User) => {
                     //3rd set the user property to the user created and return true without the password
                     response.password = '';
-                    this.user.push(response);
+
+                    if (localStorage.getItem('user') == null) {
+                      localStorage.setItem('user', JSON.stringify(response));
+                      this.user.push(response);
+                    }
                   }
                 }
               );
@@ -68,12 +75,17 @@ export class AuthService {
   // This method logs out the user
   Logout() {
     this.user.pop();
+    localStorage.removeItem('user');
     this.router.navigate(['/']);
     return;
   }
 
   // This method checks if the user is logged
   IsUserLogged(): boolean {
-    return this.user.length == 0 ? false : true;
+    if (localStorage.getItem('user') != null && this.user.length == 0) {
+      this.user.push(JSON.parse(localStorage.getItem('user')));
+    }
+
+    return localStorage.getItem('user') == null ? false : true;
   }
 }

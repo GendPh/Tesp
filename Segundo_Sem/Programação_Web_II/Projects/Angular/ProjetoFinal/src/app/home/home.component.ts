@@ -4,6 +4,7 @@ import { DogService } from '../../../Service/dog.service';
 import { CommonModule } from '@angular/common';
 import { routeAnimationTrigger } from '../../../shared/Animations';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../Service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,12 @@ export class HomeComponent implements OnInit {
   dogsBreeds: DogModel[] = [];
   dogsCommentaries: DogModel[] = [];
   heroDogImage: string = "";
-  constructor(private dogService: DogService) { }
+  constructor(private dogService: DogService, private authService: AuthService) { }
 
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
   ngOnInit(): void {
+    this.authService.IsUserLogged();
     this.LoadDogs();
     this.LoadCommentaries();
   }

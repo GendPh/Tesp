@@ -45,6 +45,9 @@
         <li (click)="CloseMobileNavBar()" routerLinkActive="active">
           <span>Account</span>
         </li>
+        <li routerLink="/logout">
+          <span>Logout</span>
+        </li>
       </ul>
 
       <ul *ngIf="user.length == 0">

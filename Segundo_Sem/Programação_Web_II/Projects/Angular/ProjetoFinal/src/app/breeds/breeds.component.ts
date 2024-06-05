@@ -6,11 +6,12 @@ import { DogModel } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
+import { BreedsContainerComponent } from '../breeds-container/breeds-container.component';
 
 @Component({
   selector: 'app-breeds',
   standalone: true,
-  imports: [CommonModule, RouterLink,],
+  imports: [CommonModule, RouterLink, BreedsContainerComponent],
   templateUrl: './breeds.component.html',
   animations: [routeAnimationTrigger, fadeInTrigger],
 })
@@ -50,8 +51,15 @@ export class BreedsComponent implements OnInit {
       this.dogService.GetDogPage(this.dogPage).subscribe(
         {
           next: (dogs) => {
-            this.dogs = dogs.dogs;
-            this.dogsTotalPages = dogs.totalPages;
+            this.dogs = dogs;
+            this.dogService.GetTotalPages().subscribe({
+              next: (totalPages) => {
+                this.dogsTotalPages = totalPages;
+              },
+              error: (error) => {
+                this.dogsTotalPages = 1;
+              }
+            });
           },
           error: (error) => {
             console.log(error);
@@ -63,7 +71,7 @@ export class BreedsComponent implements OnInit {
   // Method to get an array of page numbers
   getPageNumbers(): number[] {
     // Return an array of page numbers from 1 to dogsTotalPages
-    return Array(this.dogsTotalPages).fill(0).map((x, i) => i + 1);
+    return Array(this.dogsTotalPages).fill(0).map((_, i) => i + 1);
   }
 
   // Method to go to previous page
