@@ -9,11 +9,17 @@ import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, },
-  { path: 'breeds/page/:pageId', component: BreedsComponent, canActivate: [authGuard], },
+  {
+    path: 'breeds',
+    /* canActivate: [authGuard], */
+    children: [
+      { path: 'page/:pageId', component: BreedsComponent, },
+      { path: 'search/:search', component: SearchComponent, }
+    ]
+  },
   {
     path: 'breed', canActivate: [authGuard], children: [
       { path: ':breedId', component: BreedInfoComponent, },
-      { path: 'search/:search', component: SearchComponent, }
     ]
   },
   { path: 'access', component: AccessComponent, canActivate: [authGuardAccess], },

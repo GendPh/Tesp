@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { DogCommentary, DogModel } from "../Model/dog.model";
 import { Observable, map } from 'rxjs';
@@ -15,6 +15,23 @@ export class DogService {
   GetAllDogs(): Observable<DogModel[]> {
     return this.http.get<DogModel[]>('http://localhost:3000/dogs');
   }
+
+  GetDogPage(page: number): Observable<{ dogs: DogModel[], page: number, totalPages: number }> {
+    return this.http.get<DogModel[]>(this.dogUrlApi).pipe(
+      map(dogs => {
+        const dogsPerPage = 14;
+        const start = (page - 1) * dogsPerPage;
+        const dogsArray = dogs.slice(start, start + dogsPerPage);
+
+        return {
+          dogs: dogsArray,
+          page: page,
+          totalPages: Math.ceil(dogs.length / 14)
+        };
+      })
+    );
+  }
+
 
   GetDogById(id: number): Observable<DogModel> {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
@@ -44,26 +61,15 @@ export class DogService {
     );
   }
 
-  DivideDogsBreedsByPage() {
-    return this.http.get<DogModel[]>(this.dogUrlApi).pipe(
-      map(dogs => {
-        const dogsByPage = [];
-        const dogsPerPage = 14;
-        for (let i = 0; i < dogs.length; i += dogsPerPage) {
-          dogsByPage.push(dogs.slice(i, i + dogsPerPage));
-        }
-        return dogsByPage;
-      })
-    );
-  }
-
   patchCommentaries(dogId: string, commentaries: DogCommentary[]) {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.patch(url, { commentaries });
   }
+
   SearchedDogs(search: string): Observable<DogModel[]> {
-    return this.http.get<DogModel[]>(`${this.dogUrlApi}`).pipe(
-      map(dogs => dogs.filter(dog => dog.name.toLowerCase().includes(search.toLowerCase())))
-    );
+    return this.http.get<DogModel[]>(`${this.dogUrlApi}`)
+      .pipe(
+        map(dogs => dogs.filter(dog => dog.name.toLowerCase().includes(search.toLowerCase())))
+      );
   }
 }

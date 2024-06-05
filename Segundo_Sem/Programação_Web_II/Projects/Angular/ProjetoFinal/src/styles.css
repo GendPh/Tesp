@@ -1208,6 +1208,9 @@ main{
         .pagination-buttons{
           overflow-x: scroll;
         }
+        .pagination-buttons{
+          scroll-behavior: smooth;
+        }
       }
     }
     &#breeds-commentaries{
@@ -1678,6 +1681,14 @@ main{
   pointer-events: none;
 }
 
+.visible{
+  visibility: visible;
+}
+
+.static{
+  position: static;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -1715,6 +1726,10 @@ main{
 
 .block{
   display: block;
+}
+
+.inline{
+  display: inline;
 }
 
 .flex{
@@ -1853,10 +1868,6 @@ main{
 
 .underline{
   text-decoration-line: underline;
-}
-
-.opacity-40{
-  opacity: 0.4;
 }
 
 .opacity-50{

@@ -4,28 +4,30 @@
     <h2>Breeds</h2>
 
     <div class="breeds-paginification">
-      <button (click)="GoToPreviousPage()" class="button secondary"
-        [ngClass]="{'pointer-events-none opacity-40':breedPage == 1}"> - </button>
+      <!-- This button send me to the previous page -->
+      <button (click)="GoToPreviousPage()" class="button secondary">-</button>
 
+
+      <!-- This container will display the total of pages available -->
       <div class="pagination-buttons" #paginationButtons>
-        <button class="button" [ngClass]="{'primary pointer-events-none':pageNumber==breedPage}"
+        <button class="button" [ngClass]="{'primary pointer-events-none': pageNumber == dogPage}"
           *ngFor="let pageNumber of getPageNumbers()" routerLink="/breeds/page/{{pageNumber}}">
           {{ pageNumber }}
         </button>
       </div>
 
-      <button (click)="GoToNextPage()" class="button secondary"
-        [ngClass]="{'pointer-events-none opacity-40':breedPage == breedTotalPages}"> +
-      </button>
+      <!-- This button send me to the next page -->
+      <button (click)="GoToNextPage()" class="button secondary">+</button>
     </div>
 
     <div class="breeds-container">
-      <div class="breed" *ngFor="let dog of breedDogs; let i = index;" [@fadeInItem]="i" routerLink="/breed/{{dog.id}}">
+      <div class="breed" *ngFor="let dogInfo of dogs; let i = index;" [@fadeInItem]="i"
+        routerLink="/breed/{{dogInfo.id}}">
         <figure>
-          <img [src]="dog.image.url" alt="img of a {{dog.name}}">
+          <img [src]="dogInfo.image.url" alt="img of a {{dogInfo.name}}">
         </figure>
         <div class="breed-content">
-          <h3>{{dog.name}}</h3>
+          <h3>{{dogInfo.name}}</h3>
         </div>
       </div>
     </div>

@@ -135,7 +135,7 @@
           grid-template-columns: 1fr 3fr 1fr;
           @apply gap-5;
           .pagination-buttons {
-            @apply flex gap-2 justify-start items-center overflow-x-scroll;
+            @apply flex gap-2 justify-start items-center overflow-x-scroll scroll-smooth;
           }
         }
       }
@@ -192,7 +192,7 @@
   }
 
   .breeds-container {
-    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5 ;
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
     .breed {
       @apply bg-accent rounded-lg relative h-fit;
       &:hover .breed-content {

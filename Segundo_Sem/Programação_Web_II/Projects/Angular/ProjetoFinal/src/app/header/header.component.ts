@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'header-component',
@@ -52,15 +52,15 @@ export class HeaderComponent {
     const searchInput = searchForm.querySelector('input[type="text"]') as HTMLInputElement;
 
     if (searchInput) {
-      if (searchInput.value.trim.length == 0) {
-        searchInput.value.trim;
+      if (searchInput.value.trim().length == 0) {
+        searchInput.value.trim();
         searchInput.focus();
         return;
       }
 
       this.CloseMobileNavBar();
 
-      this.router.navigate([`/breed/search/${searchInput.value}`]);
+      this.router.navigate([`/breeds/search/${searchInput.value}`]);
       searchInput.value = '';
     }
   }
