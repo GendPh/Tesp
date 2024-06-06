@@ -23,6 +23,12 @@ export interface DogCommentary {
   comment: string;
 }
 
+export interface DogResponse {
+  dogs: DogModel[];
+  page: number;
+  total_pages: number;
+}
+
 export interface Eight {
   imperial: string;
   metric: string;

@@ -51,15 +51,8 @@ export class BreedsComponent implements OnInit {
       this.dogService.GetDogPage(this.dogPage).subscribe(
         {
           next: (dogs) => {
-            this.dogs = dogs;
-            this.dogService.GetTotalPages().subscribe({
-              next: (totalPages) => {
-                this.dogsTotalPages = totalPages;
-              },
-              error: (error) => {
-                this.dogsTotalPages = 1;
-              }
-            });
+            this.dogs = dogs.dogs;
+            this.dogsTotalPages = dogs.total_pages;
           },
           error: (error) => {
             console.log(error);

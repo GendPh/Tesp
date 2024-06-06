@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { DogCommentary, DogModel } from "../Model/dog.model";
+import { DogCommentary, DogModel, DogResponse } from "../Model/dog.model";
 import { Observable, map } from 'rxjs';
 
 @Injectable()
@@ -16,19 +16,32 @@ export class DogService {
     return this.http.get<DogModel[]>('http://localhost:3000/dogs');
   }
 
-  GetDogPage(page: number): Observable<DogModel[]> {
-    return this.http.get<DogModel[]>(`${this.dogUrlApi}?_page=${page}&_limit=14`);
-  }
+  // Method to get a specific page of dogs
+  GetDogPage(page: number): Observable<DogResponse> {
+    // Number of items per page
+    const limit = 10;
 
-  // Method to get the total number of pages
-  GetTotalPages(): Observable<number> {
-    // Get all the dogs from the API and calculate the total number of pages
-    return this.http.get<DogModel[]>(this.dogUrlApi).pipe(
-      map(dogs => {
-        // Return the total number of pages needed to display all the dogs
-        return Math.ceil(dogs.length / 14);
-      })
-    );
+    // Make an HTTP GET request to the API with pagination parameters
+    return this.http.get<DogModel[]>(`${this.dogUrlApi}?_page=${page}&_limit=${limit}`, { observe: 'response' })
+      .pipe(
+        // Use the map operator to transform the response
+        map((response: HttpResponse<DogModel[]>) => {
+          // Extract the total number of items from the response headers
+          const totalItems = Number(response.headers.get('X-Total-Count'));
+          // Calculate the total number of pages
+          const totalPages = Math.ceil(totalItems / limit);
+
+          // Return an object containing the dogs, current page, and total pages
+          return {
+            // Use an empty array if the response body is null
+            dogs: response.body || [],
+            // Current page number
+            page: page,
+            // Total number of pages
+            total_pages: totalPages
+          };
+        })
+      );
   }
 
   // Method to get a dog by its id

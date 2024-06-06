@@ -9,7 +9,10 @@ export class AuthService {
 
   user: User[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) { }
 
   // This method checks if the user exists and if the password is correct
   Login(userName: string, password: string): Observable<Boolean> {
