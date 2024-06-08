@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { User, UserCommentary } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
 import { AuthService } from '../../../Service/auth.service';
+import { BreedCommentaryComponent } from '../breed-commentary/breed-commentary.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-breed-info',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, BreedCommentaryComponent],
   templateUrl: './breed-info.component.html',
   animations: [routeAnimationTrigger, fadeInTrigger],
 })
@@ -21,143 +23,40 @@ export class BreedInfoComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
   user: User[] = [];
+  // Flag to indicate if the dog information has been loaded
+  dogLoaded: boolean = false;
+  breed: DogModel | null = null; // Variable to hold the current breed information
+  breedId: string = ''; // Variable to hold the breed id
+  relatedBreeds: DogModel[] = []; // Array to hold the related breeds
+  unit: string = 'metric';
+  subs: Subscription | null = null;
 
   // Inject the ActivatedRoute and DogService
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private dogService: DogService,
-    private userService: UserService,
     private authService: AuthService,
   ) {
     this.user = this.authService.user;
+    this.route.params.subscribe(params => {
+      // Get the id parameter from the route
+      this.breedId = params['breedId'];
+    }
+    );
   }
-
-  breed: DogModel | null = null; // Variable to hold the current breed information
-  relatedBreeds: DogModel[] = []; // Array to hold the related breeds
-  commentaries: DogCommentary[] = []; // Array to hold the commentaries
-  slicedCommentaries: DogCommentary[] = []; // Array to hold a subset of commentaries
-  sendingComment: boolean = false; // Flag to indicate if a comment is being sent
-  commentMessageStatus: string = ''; // Variable to hold the status message for comments
-  unit: string = 'metric';
 
 
   ngOnInit(): void {
-
-    if (this.user.length == 0) {
-      this.router.navigate(['/access']);
-      return;
-    }
-
-    this.route.params.subscribe((params) => {
-      // Reset relatedBreeds array
-      this.relatedBreeds = [];
-
-      // Get the breed information based on the breedId parameter
-      this.dogService.GetDogById(params["breedId"]).subscribe({
-        next: (breed) => {
-          // Assign the retrieved breed information to the breed variable
-          this.breed = breed;
-
-          // If there are relatedIds for the breed, retrieve the related breeds
-          if (this.breed.relatedIds) {
-            this.breed.relatedIds.forEach(dog => {
-              this.dogService.GetDogById(dog).subscribe({
-                next: (breed) => {
-                  // Add the related breed to the relatedBreeds array
-                  this.relatedBreeds.push(breed);
-                },
-                error: (error) => {
-                  console.error(error);
-                }
-              })
-            });
-          }
-
-          this.LoadCommentary(); // Load the commentaries for the breed
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      })
-    })
-  }
-
-  // Method to load the commentaries for the breed
-  LoadCommentary() {
-    // Retrieve the commentaries for the breed
-    this.dogService.GetCommentariesById(this.breed.id).subscribe({
-      next: (response) => {
-        // Assign the retrieved commentaries to the commentaries array
-        this.commentaries = response;
-        // Get the last 10 commentaries
-        this.slicedCommentaries = [...this.commentaries].slice(-10);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    })
-  }
-
-
-  // Method to add a commentary
-  AddCommentary(): void {
-    // Get the comment input element
-    const commentElement = document.getElementById('comment') as HTMLInputElement;
-    // Will be to contain the comment split into words
-    let commentWords: string[] = [];
-
-    //Checks if the comment element is null
-    if (!commentElement) {
-      // Set the commentMessageStatus to an error message
-      this.commentMessageStatus = 'Unable to find comment element, please try again.';
-      return;
-    }
-
-    // Split the comment into words
-    commentWords = commentElement.value.split(' '); // Split the comment into words
-
-    // Check if the comment is between 5 and 20 words
-    if (commentWords.length < 5 || commentWords.length > 20) {
-      // Set the commentMessageStatus to an error message
-      this.commentMessageStatus = 'Comment must be between 5 and 20 words.';
-      return;
-    }
-
-    this.sendingComment = true; // Set the sendingComment flag to true
-
-    // Create a DogCommentary object
-    const commentary: DogCommentary = {
-      "userName": this.user[0].username,
-      "comment": commentElement.value
-    };
-
-    const userCommentary: UserCommentary = {
-      "dogId": this.breed.id,
-      "dogName": this.breed.name,
-      "comment": commentElement.value
-    }
-
-    // Clear the comment input element
-    commentElement.value = '';
-
-    // Add the new commentary to the commentaries array
-    const commentaries: DogCommentary[] = [...this.commentaries, commentary];
-    const userCommentaries: UserCommentary[] = [...this.user[0].commentaries, userCommentary];
-
-    // Send the updated commentaries to the server
-    this.dogService.patchCommentaries(this.breed.id, commentaries).subscribe({
-      next: () => {
-        this.commentMessageStatus = 'Comment added successfully.';
-        // Reload the commentaries
-        this.LoadCommentary();
-        // Send the commentary to the user 
-        this.userService.PatchCommentaries(this.user[0].id, userCommentaries).subscribe();
-
+    this.subs = this.dogService.GetDogById(this.breedId).subscribe({
+      next: (breed) => {
+        // Assign the retrieved breed to the breed variable
+        this.breed = breed;
+        // Set the dogLoaded flag to true
+        this.dogLoaded = true;
       },
       error: () => {
-        // Set the commentMessageStatus to an error message
-        this.commentMessageStatus = 'Error as happen adding this comment. Please try again.';
+        // Redirect to the error page
+
       }
     });
   }

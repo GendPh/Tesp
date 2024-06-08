@@ -45,7 +45,7 @@ export class DogService {
   }
 
   // Method to get a dog by its id
-  GetDogById(id: number): Observable<DogModel> {
+  GetDogById(id: string): Observable<DogModel> {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
   }
 
@@ -62,9 +62,9 @@ export class DogService {
         const commentariesArray: DogCommentary[] = [];
         const dogCommentaries = dog['commentaries'];
 
-        for (let i = 0; i < dogCommentaries.length; i++) {
-          commentariesArray.push(dogCommentaries[i]);
-        }
+        dogCommentaries.forEach(comment => {
+          commentariesArray.push(comment);
+        });
 
         return commentariesArray;
       }
