@@ -1,13 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { User, UserCreate } from "../Model/user.model";
+import { User, UserCreate, UserLogged } from "../Model/user.model";
 import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
 
-  user: User[] = [];
+  user: UserLogged[] = [];
 
   constructor(
     private http: HttpClient,
@@ -26,10 +26,13 @@ export class AuthService {
             return false;
           }
 
-          response[0].password = '';
+          const user: UserLogged = {
+            username: response[0].username,
+            id: response[0].id
+          }
 
           if (localStorage.getItem('user') == null) {
-            localStorage.setItem('user', JSON.stringify(response[0]));
+            localStorage.setItem('user', JSON.stringify(user));
           }
           return true;
         })
@@ -59,11 +62,14 @@ export class AuthService {
                 {
                   next: (response: User) => {
                     //3rd set the user property to the user created and return true without the password
-                    response.password = '';
+                    const user: UserLogged = {
+                      username: response.username,
+                      id: response.id
+                    }
 
                     if (localStorage.getItem('user') == null) {
-                      localStorage.setItem('user', JSON.stringify(response));
-                      this.user.push(response);
+                      localStorage.setItem('user', JSON.stringify(user));
+                      this.user.push(user);
                     }
                   }
                 }

@@ -19,7 +19,7 @@ export class DogService {
   // Method to get a specific page of dogs
   GetDogPage(page: number): Observable<DogResponse> {
     // Number of items per page
-    const limit = 10;
+    const limit = 14;
 
     // Make an HTTP GET request to the API with pagination parameters
     return this.http.get<DogModel[]>(`${this.dogUrlApi}?_page=${page}&_limit=${limit}`, { observe: 'response' })
@@ -33,16 +33,14 @@ export class DogService {
 
           // Return an object containing the dogs, current page, and total pages
           return {
-            // Use an empty array if the response body is null
-            dogs: response.body || [],
-            // Current page number
+            dogs: response.body ?? [],
             page: page,
-            // Total number of pages
             total_pages: totalPages
           };
         })
       );
   }
+
 
   // Method to get a dog by its id
   GetDogById(id: string): Observable<DogModel> {
@@ -56,21 +54,14 @@ export class DogService {
     );
   }
 
+
+  // Method to get the commentaries by the dog id
   GetCommentariesById(id: string): Observable<DogCommentary[]> {
-    return this.http.get(`${this.dogUrlApi}/${id}`).pipe(
-      map(dog => {
-        const commentariesArray: DogCommentary[] = [];
-        const dogCommentaries = dog['commentaries'];
-
-        dogCommentaries.forEach(comment => {
-          commentariesArray.push(comment);
-        });
-
-        return commentariesArray;
-      }
-      )
+    return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`).pipe(
+      map((dog: DogModel) => dog.commentaries as DogCommentary[])
     );
   }
+
 
   patchCommentaries(dogId: string, commentaries: DogCommentary[]) {
     const url = `http://localhost:3000/dogs/${dogId}`;

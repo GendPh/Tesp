@@ -18,3 +18,7 @@ export interface UserCommentary {
   dogName: string;
   comment: string;
 }
+export interface UserLogged {
+  username: string;
+  id: string;
+}

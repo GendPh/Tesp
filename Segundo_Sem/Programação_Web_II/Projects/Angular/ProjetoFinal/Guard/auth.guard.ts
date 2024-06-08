@@ -33,7 +33,6 @@ export const authGuardAccess: CanActivateFn = (route, state) => {
 export const authGuardHome: CanActivateFn = (route, state) => {
   // Inject the AuthService and Router
   let authService: AuthService = inject(AuthService);
-  let router: Router = inject(Router);
 
   if (authService.IsUserLogged()) {
     return true;

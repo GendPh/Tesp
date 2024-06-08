@@ -3,7 +3,7 @@ import { DogCommentary } from '../../../Model/dog.model';
 import { DogService } from '../../../Service/dog.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { User, UserCommentary } from '../../../Model/user.model';
+import { User, UserCommentary, UserLogged } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
 
 @Component({
@@ -13,16 +13,17 @@ import { UserService } from '../../../Service/user.service';
   templateUrl: './breed-commentary.component.html',
   styles: ``
 })
-export class BreedCommentaryComponent implements OnInit, OnDestroy {
+export class BreedCommentaryComponent implements /* OnInit,  */OnDestroy {
   // Input properties to get the dog id and name
   @Input('GetDogId') dogId: string = '';
   @Input('GetDogName') dogName: string = 'Dog Name';
-  @Input('GetUser') user: User[] = [];
+  @Input('GetDogCommentaries') dogCommentaries: DogCommentary[] = [];
+  @Input('GetUser') user: UserLogged[] = [];
 
   // Subscription to get the commentaries
   subs: Subscription | null = null;
   // Array to hold the commentaries
-  dogCommentaries: DogCommentary[] = []
+  /* dogCommentaries: DogCommentary[] = [] */
   // Status message for comments
   commentMessageStatus: string = '';
   // Flag to indicate if a comment is being sent
@@ -34,12 +35,12 @@ export class BreedCommentaryComponent implements OnInit, OnDestroy {
     private userService: UserService,
   ) { }
 
-  // Initialize the component and load the commentaries
+  /* // Initialize the component and load the commentaries
   ngOnInit(): void {
     this.LoadComments();
-  }
+  } */
 
-  // Unsubscribe from the subscription when the component is destroyed
+  // Unsubscribe from the subscription
   ngOnDestroy(): void {
     this.subs?.unsubscribe();
   }
@@ -73,7 +74,7 @@ export class BreedCommentaryComponent implements OnInit, OnDestroy {
     }
 
     // Split the comment into words
-    commentWords = commentElement.value.split(' '); // Split the comment into words
+    commentWords = commentElement.value.trim().split(' ');
 
     // Check if the comment is between 5 and 20 words
     if (commentWords.length < 5 || commentWords.length > 20) {
@@ -82,7 +83,11 @@ export class BreedCommentaryComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.sendingComment = true; // Set the sendingComment flag to true
+
+    // Set the sendingComment flag to true
+    this.sendingComment = true;
+
+    this.commentMessageStatus = 'Creating comment...';
 
     // Create a DogCommentary object
     const commentary: DogCommentary = {
@@ -101,21 +106,37 @@ export class BreedCommentaryComponent implements OnInit, OnDestroy {
 
     // Add the new commentary to the commentaries array
     const commentaries: DogCommentary[] = [...this.dogCommentaries, commentary];
-    const userCommentaries: UserCommentary[] = [...this.user[0].commentaries, userCommentary];
+    let userCommentaries: UserCommentary[] = [];
+    
+    this.userService.GetUserCommentaries(this.user[0].id).subscribe({
+      next: (commentaries) => {
+        userCommentaries = commentaries;
+      }
+    });
+    /* const userCommentaries: UserCommentary[] = [...this.user[0].commentaries, userCommentary]; */
 
+    setTimeout(() => {
+      this.PostCommentary(commentaries, userCommentaries);
+    }, 1000);
+  }
+
+  PostCommentary(commentaries: DogCommentary[], userCommentaries: UserCommentary[]): void {
     // Send the updated commentaries to the server
     this.dogService.patchCommentaries(this.dogId, commentaries).subscribe({
       next: () => {
         this.commentMessageStatus = 'Comment added successfully.';
-        // Reload the commentaries
-        this.LoadComments();
         // Send the commentary to the user 
         this.userService.PatchCommentaries(this.user[0].id, userCommentaries).subscribe();
-
+        // Reload the commentaries
+        this.LoadComments();
       },
       error: () => {
         // Set the commentMessageStatus to an error message
         this.commentMessageStatus = 'Error as happen adding this comment. Please try again.';
+      },
+      complete: () => {
+        // Set the sendingComment flag to false
+        this.sendingComment = false;
       }
     });
   }

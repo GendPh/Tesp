@@ -5,7 +5,7 @@ import { DogService } from '../../../Service/dog.service';
 import { DogModel, DogCommentary } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { User, UserCommentary } from '../../../Model/user.model';
+import { User, UserCommentary, UserLogged } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
 import { AuthService } from '../../../Service/auth.service';
 import { BreedCommentaryComponent } from '../breed-commentary/breed-commentary.component';
@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 export class BreedInfoComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
-  user: User[] = [];
+  user: UserLogged[] = [];
   // Flag to indicate if the dog information has been loaded
   dogLoaded: boolean = false;
   breed: DogModel | null = null; // Variable to hold the current breed information

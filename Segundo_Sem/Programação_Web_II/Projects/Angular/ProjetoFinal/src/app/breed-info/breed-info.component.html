@@ -46,21 +46,9 @@
   </section>
 
   <!-- Show the dogs commentary if the dog is loaded -->
-  <app-breed-commentary *ngIf="dogLoaded" [GetDogId]="breed.id" [GetDogName]="breed.name"
-    [GetUser]="user"></app-breed-commentary>
+  <app-breed-commentary *ngIf="dogLoaded" [GetDogCommentaries]="breed.commentaries" [GetDogId]="breed.id"
+    [GetDogName]="breed.name" [GetUser]="user"></app-breed-commentary>
 
 
-  <section id="breeds" *ngIf="relatedBreeds.length!=0">
-    <h2>Related Breeds</h2>
-    <div class="breeds-container">
-      <div class="breed" *ngFor="let dog of relatedBreeds" routerLink="/breed/{{dog.id}}">
-        <figure>
-          <img [src]="dog.image.url" [alt]="dog.name">
-        </figure>
-        <div class="breed-content">
-          <h3>{{dog.name}}</h3>
-        </div>
-      </div>
-    </div>
-  </section>
+
 </main>

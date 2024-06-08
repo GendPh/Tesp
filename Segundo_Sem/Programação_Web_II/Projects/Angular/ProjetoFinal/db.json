@@ -40,72 +40,8 @@
           "dogId": "6",
           "dogName": "Akita",
           "comment": "I love the Akita! Such a beautiful and loyal breed."
-        },
-        {
-          "dogId": "149",
-          "dogName": "Labrador Retriever",
-          "comment": "love this dog ha haha\n"
-        },
-        {
-          "dogId": "1",
-          "dogName": "Affenpinscher",
-          "comment": "asd asd as das das d\n"
-        },
-        {
-          "dogId": "3",
-          "dogName": "African Hunting Dog",
-          "comment": "asd as das das das da\n"
         }
       ]
-    },
-    {
-      "username": "user2",
-      "password": "password",
-      "likes": [],
-      "id": "ac0a",
-      "commentaries": []
-    },
-    {
-      "id": "6e1f",
-      "username": "user13",
-      "password": "asdasdasd",
-      "likes": [],
-      "commentaries": []
-    },
-    {
-      "id": "d676",
-      "username": "user14",
-      "password": "asdasdasd",
-      "likes": [],
-      "commentaries": []
-    },
-    {
-      "id": "f0a4",
-      "username": "user12",
-      "password": "asdasdasd",
-      "likes": [],
-      "commentaries": []
-    },
-    {
-      "username": "user15",
-      "password": "password",
-      "likes": [],
-      "commentaries": [],
-      "id": "hJ5vRCP"
-    },
-    {
-      "username": "user134",
-      "password": "password",
-      "likes": [],
-      "commentaries": [],
-      "id": "zMp82jY"
-    },
-    {
-      "username": "user123",
-      "password": "password",
-      "likes": [],
-      "commentaries": [],
-      "id": "6kgzQWx"
     }
   ],
   "dogs": [
@@ -122,10 +58,6 @@
         {
           "userName": "user1",
           "comment": "The Affenpinscher is a lively and playful lapdog, great for families."
-        },
-        {
-          "userName": "user1",
-          "comment": "asd asd as das das d\n"
         }
       ],
       "id": "1",
@@ -195,14 +127,6 @@
         {
           "userName": "user1",
           "comment": "I love the unique coat pattern of the African Hunting Dog!"
-        },
-        {
-          "userName": "user2",
-          "comment": "test sauuhd alsd ashd ajshd asçjhd asçhd ashjd"
-        },
-        {
-          "userName": "user1",
-          "comment": "asd as das das das da\n"
         }
       ],
       "bred_for": "A wild pack animal",
@@ -513,12 +437,7 @@
       },
       "id": "15",
       "name": "American Pit Bull Terrier",
-      "commentaries": [
-        {
-          "userName": "user1",
-          "comment": "asjd hajs dhaks dhaksjhd "
-        }
-      ],
+      "commentaries": [],
       "country_code": "US",
       "bred_for": "Fighting",
       "breed_group": "Terrier",
@@ -2695,12 +2614,7 @@
       },
       "id": "149",
       "name": "Labrador Retriever",
-      "commentaries": [
-        {
-          "userName": "user1",
-          "comment": "love this dog ha haha\n"
-        }
-      ],
+      "commentaries": [],
       "bred_for": "Water retrieving",
       "breed_group": "Sporting",
       "life_span": "10 - 13 years",
