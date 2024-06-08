@@ -20,7 +20,7 @@ export const routes: Routes = [
       { path: 'search/:search', component: SearchComponent, }
     ]
   },
-  
+
   // Route to breed info component
   {
     path: 'breed', canActivate: [authGuard], children: [

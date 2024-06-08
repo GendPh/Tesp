@@ -1,5 +1,5 @@
 import { Component, HostBinding, ViewChild } from '@angular/core';
-import { User } from '../../../Model/user.model';
+import { User, UserLogged } from '../../../Model/user.model';
 import { Router } from '@angular/router';
 import { routeAnimationTrigger, } from '../../../shared/Animations';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ export class AccessComponent {
   @ViewChild('registerForm') registerForm: NgForm;
 
   // User array
-  user: User[] = [];
+  user: UserLogged[] = [];
   // Access container
   accessContainer: string = 'login';
   // Login form variables

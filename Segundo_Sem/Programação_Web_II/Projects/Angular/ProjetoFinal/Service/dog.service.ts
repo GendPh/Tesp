@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { DogCommentary, DogModel, DogResponse } from "../Model/dog.model";
-import { Observable, map } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 
 @Injectable()
 export class DogService {
@@ -14,6 +14,21 @@ export class DogService {
 
   GetAllDogs(): Observable<DogModel[]> {
     return this.http.get<DogModel[]>('http://localhost:3000/dogs');
+  }
+
+  GetFourFirstDogs(): Observable<DogModel[]> {
+    return this.http.get<DogModel[]>('http://localhost:3000/dogs?_limit=4');
+  }
+
+  // Method to get dogs with at least one commentary
+  GetDogsWithCommentaries(): Observable<DogModel[]> {
+    return this.http.get<DogModel[]>(this.dogUrlApi)
+      .pipe(
+        // Use the map operator to transform the response into an array of dogs with commentaries
+        map(dogs => dogs.filter(dog => dog.commentaries && dog.commentaries.length > 0)),
+        // Use the map operator to transform the response in only 6 dogs
+        map(dogsWithCommentaries => dogsWithCommentaries.slice(0, 6))
+      );
   }
 
   // Method to get a specific page of dogs
@@ -47,6 +62,16 @@ export class DogService {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
   }
 
+  GetRelatedDogs(dogId: string): Observable<number[]> {
+    return this.http.get<DogModel>(`${this.dogUrlApi}/${dogId}`).pipe(
+      map(dog => dog.relatedIds || [])
+    );
+  }
+
+  GetDogFromRelated(relatedDogs: number[]): Observable<DogModel[]> {
+    return this.http.get<DogModel[]>(`http://localhost:3000/dogs?${relatedDogs.map(id => `id=${id}`).join('&')}`);
+  }
+
   // Method to get all the commentaries from the dog 
   GetAllCommentaries(): Observable<DogModel[]> {
     return this.http.get<DogModel[]>(this.dogUrlApi).pipe(
@@ -67,6 +92,28 @@ export class DogService {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.patch(url, { commentaries });
   }
+
+  PatchAddUserLike(dogId: string, userId: string): Observable<DogModel> {
+    const url = `http://localhost:3000/dogs/${dogId}`;
+    return this.http.get<DogModel>(url).pipe(
+      switchMap(dog => {
+        const updatedLikes = [...(dog.likes || []), userId];
+        return this.http.patch<DogModel>(url, { likes: updatedLikes });
+      })
+    );
+  }
+
+  PatchRemoveUserLike(dogId: string, userId: string): Observable<DogModel> {
+    const url = `http://localhost:3000/dogs/${dogId}`;
+    return this.http.get<DogModel>(url).pipe(
+      switchMap(dog => {
+        const updatedLikes = (dog.likes || []).filter(id => id !== userId);
+        return this.http.patch<DogModel>(url, { likes: updatedLikes });
+      })
+    );
+  }
+
+  
 
   SearchedDogs(search: string): Observable<DogModel[]> {
     return this.http.get<DogModel[]>(`http://localhost:3000/dogs?name_like=${search}`);

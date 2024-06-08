@@ -1,53 +1,55 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DogCommentary } from '../../../Model/dog.model';
 import { DogService } from '../../../Service/dog.service';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { User, UserCommentary, UserLogged } from '../../../Model/user.model';
+import { UserCommentary, UserLogged } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
+import { AuthService } from '../../../Service/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-breed-commentary',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './breed-commentary.component.html',
-  styles: ``
 })
-export class BreedCommentaryComponent implements /* OnInit,  */OnDestroy {
-  // Input properties to get the dog id and name
-  @Input('GetDogId') dogId: string = '';
-  @Input('GetDogName') dogName: string = 'Dog Name';
-  @Input('GetDogCommentaries') dogCommentaries: DogCommentary[] = [];
-  @Input('GetUser') user: UserLogged[] = [];
 
-  // Subscription to get the commentaries
-  subs: Subscription | null = null;
-  // Array to hold the commentaries
-  /* dogCommentaries: DogCommentary[] = [] */
+export class BreedCommentaryComponent implements OnInit {
+  // Input properties to get the dog id and name
+  @Input('GetDogName') dogName: string = 'Dog Name';
+  @Input('GetDogComments') dogCommentaries: DogCommentary[] = [];
+  
+  // Array to store the user 
+  user: UserLogged[] = [];
   // Status message for comments
   commentMessageStatus: string = '';
   // Flag to indicate if a comment is being sent
   sendingComment: boolean = false;
+  dogId: string = '';
 
   // Inject the DogService
   constructor(
     private dogService: DogService,
     private userService: UserService,
-  ) { }
+    private route: ActivatedRoute,
+    private authService: AuthService,
+  ) {
+    this.user = this.authService.user;
+  }
 
-  /* // Initialize the component and load the commentaries
   ngOnInit(): void {
-    this.LoadComments();
-  } */
-
-  // Unsubscribe from the subscription
-  ngOnDestroy(): void {
-    this.subs?.unsubscribe();
+    this.route.params.subscribe(
+      params => {
+        this.dogId = params['breedId'];
+        this.sendingComment = false;
+        this.commentMessageStatus = '';
+      }
+    );
   }
 
   LoadComments(): void {
     // Load the commentaries for the dog with the specified id
-    this.subs = this.dogService.GetCommentariesById(this.dogId).subscribe({
+    this.dogService.GetCommentariesById(this.dogId).subscribe({
       next: (commentaries) => {
         // Assign the retrieved commentaries to the dogCommentaries array
         this.dogCommentaries = commentaries;
@@ -90,12 +92,12 @@ export class BreedCommentaryComponent implements /* OnInit,  */OnDestroy {
     this.commentMessageStatus = 'Creating comment...';
 
     // Create a DogCommentary object
-    const commentary: DogCommentary = {
-      "userName": this.user[0].username,
+    const dogComment: DogCommentary = {
+      "userName": this.user[0].name,
       "comment": commentElement.value
     };
 
-    const userCommentary: UserCommentary = {
+    const userComment: UserCommentary = {
       "dogId": this.dogId,
       "dogName": this.dogName,
       "comment": commentElement.value
@@ -105,18 +107,25 @@ export class BreedCommentaryComponent implements /* OnInit,  */OnDestroy {
     commentElement.value = '';
 
     // Add the new commentary to the commentaries array
-    const commentaries: DogCommentary[] = [...this.dogCommentaries, commentary];
+    const dogCommentaries: DogCommentary[] = [...this.dogCommentaries, dogComment];
     let userCommentaries: UserCommentary[] = [];
-    
-    this.userService.GetUserCommentaries(this.user[0].id).subscribe({
-      next: (commentaries) => {
-        userCommentaries = commentaries;
-      }
-    });
-    /* const userCommentaries: UserCommentary[] = [...this.user[0].commentaries, userCommentary]; */
 
     setTimeout(() => {
-      this.PostCommentary(commentaries, userCommentaries);
+      this.userService.GetUserCommentaries(this.user[0].id).subscribe({
+        next: (commentaries) => {
+          userCommentaries = [...commentaries, userComment];
+          this.PostCommentary(dogCommentaries, userCommentaries);
+        },
+        error: () => {
+          // Set the commentMessageStatus to an error message
+          this.commentMessageStatus = 'Error as happen patching the comment. Please try again.';
+        },
+        complete: () => {
+          // Set the sendingComment flag to false
+          this.sendingComment = false;
+        }
+      });
+
     }, 1000);
   }
 

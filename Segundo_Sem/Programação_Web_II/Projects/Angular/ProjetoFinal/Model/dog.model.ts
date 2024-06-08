@@ -15,7 +15,7 @@ export interface DogModel {
   country_code?: string;
   description?: string;
   history?: string;
-  likes: number;
+  likes: string[];
 }
 
 export interface DogCommentary {

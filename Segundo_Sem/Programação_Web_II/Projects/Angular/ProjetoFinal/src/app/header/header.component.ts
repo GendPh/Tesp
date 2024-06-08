@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '../../../Model/user.model';
+import { User, UserLogged } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  user: User[] = [];
+  user: UserLogged[] = [];
 
   constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.user;

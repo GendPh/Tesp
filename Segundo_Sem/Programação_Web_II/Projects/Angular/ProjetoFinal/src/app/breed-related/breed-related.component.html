@@ -1,7 +1,9 @@
-<section id="breeds" *ngIf="relatedBreeds.length!=0">
+<section id="breeds">
+
   <h2>Related Breeds</h2>
-  <div class="breeds-container">
-    <div class="breed" *ngFor="let dog of relatedBreeds" routerLink="/breed/{{dog.id}}">
+
+  <div class="breeds-container" *ngIf="relatedDogs.length!=0">
+    <div class="breed" *ngFor="let dog of relatedDogs" routerLink="/breed/{{dog.id}}">
       <figure>
         <img [src]="dog.image.url" [alt]="dog.name">
       </figure>
@@ -10,4 +12,13 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="relatedDogs.length==0">
+    <p class="text-start">No related dogs</p>
+  </div>
+
+  <div *ngIf="errorRelatedDogs">
+    {{errorMessage}}
+  </div>
+
 </section>

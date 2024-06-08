@@ -24,4 +24,32 @@ export class UserService {
     const url = `${this.userUrl}/${userId}`;
     return this.http.patch<User>(url, { commentaries });
   }
+
+  UserAlreadyLikedDog(userId: string, dogId: string): Observable<boolean> {
+    const url = `${this.userUrl}/${userId}`;
+    return this.http.get<User>(url).pipe(
+      map(user => (user.likes || []).includes(dogId))
+    );
+  }
+
+  PatchAddDogLike(dogId: string, userId: string): Observable<User> {
+    const url = `http://localhost:3000/users/${userId}`;
+    
+    return this.http.get<User>(url).pipe(
+      switchMap(user => {
+        const updatedLikes = [...(user.likes || []), dogId];
+        return this.http.patch<User>(url, { likes: updatedLikes });
+      })
+    );
+  }
+  PatchRemoveDogLike(dogId: string, userId: string): Observable<User> {
+    const url = `http://localhost:3000/users/${userId}`;
+
+    return this.http.get<User>(url).pipe(
+      switchMap(user => {
+        const updatedLikes = (user.likes || []).filter(id => id !== dogId);
+        return this.http.patch<User>(url, { likes: updatedLikes });
+      })
+    );
+  }
 }

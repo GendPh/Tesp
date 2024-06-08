@@ -20,14 +20,13 @@ export class AuthService {
     return this.http.get(`http://localhost:3000/users?username=${userName}&password=${password}`)
       .pipe(
         map((response: User[]) => {
-
           if (response.length == 0) {
             // User not found, return false
             return false;
           }
-
+          
           const user: UserLogged = {
-            username: response[0].username,
+            name: response[0].username,
             id: response[0].id
           }
 
@@ -63,7 +62,7 @@ export class AuthService {
                   next: (response: User) => {
                     //3rd set the user property to the user created and return true without the password
                     const user: UserLogged = {
-                      username: response.username,
+                      name: response.username,
                       id: response.id
                     }
 

@@ -19,6 +19,6 @@ export interface UserCommentary {
   comment: string;
 }
 export interface UserLogged {
-  username: string;
+  name: string;
   id: string;
 }

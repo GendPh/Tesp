@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '../../../Model/user.model';
+import { User, UserLogged } from '../../../Model/user.model';
 import { UserService } from '../../../Service/user.service';
 import { AuthService } from '../../../Service/auth.service';
 
@@ -13,7 +13,7 @@ import { AuthService } from '../../../Service/auth.service';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  user: User[] = [];
+  user: UserLogged[] = [];
 
   constructor(
     private authService: AuthService,

@@ -4,7 +4,7 @@ import { DogService } from '../../../Service/dog.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DogModel } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
-import { User } from '../../../Model/user.model';
+import { User, UserLogged } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
 import { BreedsContainerComponent } from '../breeds-container/breeds-container.component';
 
@@ -19,8 +19,6 @@ export class BreedsComponent implements OnInit {
   @HostBinding('@routeAnimationTrigger') routeAnimation = true;
   @ViewChild('paginationButtons') paginationButtons: ElementRef;
 
-  user: User[] = [];
-
   dogPage: number = 1;
   dogsTotalPages: number = 1;
   dogs: DogModel[] = [];
@@ -29,10 +27,7 @@ export class BreedsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dogService: DogService,
-    private authService: AuthService,
-  ) {
-    this.user = this.authService.user;
-  }
+  ) {}
 
   // Method to initialize the component
   ngOnInit(): void {

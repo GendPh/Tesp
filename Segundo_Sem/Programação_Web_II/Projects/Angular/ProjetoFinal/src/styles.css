@@ -1054,6 +1054,7 @@ main{
   margin-left: auto;
   margin-right: auto;
   display: grid;
+  min-height: 80vh;
   max-width: 1280px;
   gap: 8rem;
   overflow: hidden;
@@ -1660,7 +1661,7 @@ main{
       }
       & ~ .selection{
         --tw-bg-opacity: 1;
-        background-color: rgb(198 155 133 / var(--tw-bg-opacity));
+        background-color: rgb(241 121 29 / var(--tw-bg-opacity));
       }
     }
     &:nth-child(1):has(input:checked) ~ .selection {
@@ -1699,12 +1700,80 @@ main{
   }
 }
 
+.heart {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: 100ms;
+  &:hover {
+    transform: scale(1.1);
+  }
+  & input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    &:checked ~ .checkmark {
+      animation: like_effect 400ms ease;
+      & path {
+        fill: #ff5353;
+        stroke-width: 0;
+      }
+    }
+  }
+  .checkmark {
+    top: 0;
+    left: 0;
+    height: 2em;
+    width: 2em;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+  }
+}
+
+@keyframes like_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .pointer-events-none{
   pointer-events: none;
 }
 
 .visible{
   visibility: visible;
+}
+
+.relative{
+  position: relative;
 }
 
 .mx-auto{
@@ -1775,12 +1844,20 @@ main{
   flex-direction: column;
 }
 
+.items-start{
+  align-items: flex-start;
+}
+
 .items-center{
   align-items: center;
 }
 
 .justify-center{
   justify-content: center;
+}
+
+.justify-evenly{
+  justify-content: space-evenly;
 }
 
 .gap-2{
@@ -1795,6 +1872,10 @@ main{
   border-radius: 0.5rem;
 }
 
+.rounded{
+  border-radius: 0.25rem;
+}
+
 .border{
   border-width: 1px;
 }
@@ -1802,6 +1883,11 @@ main{
 .bg-accent{
   --tw-bg-opacity: 1;
   background-color: rgb(198 155 133 / var(--tw-bg-opacity));
+}
+
+.bg-background{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 245 / var(--tw-bg-opacity));
 }
 
 .bg-primary{
@@ -1822,6 +1908,10 @@ main{
   padding: 1.25rem;
 }
 
+.p-3{
+  padding: 0.75rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1839,6 +1929,10 @@ main{
 
 .text-center{
   text-align: center;
+}
+
+.text-start{
+  text-align: start;
 }
 
 .text-end{

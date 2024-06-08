@@ -110,7 +110,7 @@
     }
   }
   main {
-    @apply max-w-screen-xl mx-auto grid gap-32 overflow-hidden;
+    @apply max-w-screen-xl mx-auto grid gap-32 overflow-hidden min-h-[80vh];
     section {
       &.hero {
         @apply grid gap-5 lg:grid-cols-2 bg-accent text-text md:rounded-lg md:mx-5;
@@ -242,7 +242,7 @@
       &:has(input:checked) {
         @apply text-white;
         & ~ .selection {
-          @apply bg-accent inline-block;
+          @apply bg-primary inline-block;
         }
       }
       &:nth-child(1):has(input:checked) ~ .selection {
@@ -256,6 +256,68 @@
       width: calc(var(--container_width) / 2);
       z-index: 0;
       @apply hidden absolute h-full left-0 top-0 transition-all duration-300;
+    }
+  }
+
+  .heart {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    transition: 100ms;
+    &:hover {
+      transform: scale(1.1);
+    }
+    & input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked ~ .checkmark {
+        animation: like_effect 400ms ease;
+        & path {
+          fill: #ff5353;
+          stroke-width: 0;
+        }
+      }
+    }
+    .checkmark {
+      top: 0;
+      left: 0;
+      height: 2em;
+      width: 2em;
+      transition: 100ms;
+      animation: dislike_effect 400ms ease;
+    }
+  }
+
+  @keyframes like_effect {
+    0% {
+      transform: scale(0);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes dislike_effect {
+    0% {
+      transform: scale(0);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
     }
   }
 }
