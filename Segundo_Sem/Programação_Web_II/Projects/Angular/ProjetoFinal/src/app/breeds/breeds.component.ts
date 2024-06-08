@@ -27,7 +27,7 @@ export class BreedsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dogService: DogService,
-  ) {}
+  ) { }
 
   // Method to initialize the component
   ngOnInit(): void {

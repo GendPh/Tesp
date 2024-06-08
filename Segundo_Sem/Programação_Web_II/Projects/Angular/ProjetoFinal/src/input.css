@@ -135,6 +135,8 @@
           grid-template-columns: 1fr 3fr 1fr;
           @apply gap-5;
           .pagination-buttons {
+            scrollbar-width: thin; /* "auto" or "thin" (for Mac-like scrollbar) */
+            scrollbar-color: #f1791d #f3f4f600; /* scroll thumb and track */
             @apply flex gap-2 justify-start items-center overflow-x-scroll scroll-smooth;
           }
         }

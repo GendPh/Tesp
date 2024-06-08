@@ -13,9 +13,9 @@ export const routeAnimationTrigger = trigger('routeAnimationTrigger', [
 export const fadeInTrigger = trigger('fadeInItem', [
   transition(':enter', [
     query(':self', [
-      style({ opacity: 0, scale: 0 }),
+      style({ opacity: 0.5, scale: 0.8 }),
       stagger(100, [
-        animate('150ms', style({ opacity: 1, scale: 1 }))
+        animate('300ms', style({ opacity: 1, scale: 1 }))
       ])
     ])
   ])

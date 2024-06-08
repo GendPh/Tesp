@@ -1194,6 +1194,12 @@ main{
         gap: 1.25rem;
       }
       .breeds-paginification {
+        .pagination-buttons {
+          scrollbar-width: thin;
+          /* "auto" or "thin" (for Mac-like scrollbar) */
+          scrollbar-color: #f1791d #f3f4f600;
+          /* scroll thumb and track */
+        }
         .pagination-buttons{
           display: flex;
         }
@@ -1772,8 +1778,20 @@ main{
   visibility: visible;
 }
 
+.absolute{
+  position: absolute;
+}
+
 .relative{
   position: relative;
+}
+
+.left-5{
+  left: 1.25rem;
+}
+
+.top-5{
+  top: 1.25rem;
 }
 
 .mx-auto{
@@ -1872,10 +1890,6 @@ main{
   border-radius: 0.5rem;
 }
 
-.rounded{
-  border-radius: 0.25rem;
-}
-
 .border{
   border-width: 1px;
 }
@@ -1883,11 +1897,6 @@ main{
 .bg-accent{
   --tw-bg-opacity: 1;
   background-color: rgb(198 155 133 / var(--tw-bg-opacity));
-}
-
-.bg-background{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 249 245 / var(--tw-bg-opacity));
 }
 
 .bg-primary{
@@ -1900,16 +1909,20 @@ main{
   background-color: rgb(210 184 171 / var(--tw-bg-opacity));
 }
 
+.bg-secondary\/80{
+  background-color: rgb(210 184 171 / 0.8);
+}
+
 .p-2{
   padding: 0.5rem;
 }
 
-.p-5{
-  padding: 1.25rem;
-}
-
 .p-3{
   padding: 0.75rem;
+}
+
+.p-5{
+  padding: 1.25rem;
 }
 
 .px-4{

@@ -25,7 +25,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/lightbox2/dist/js/lightbox.js"
+              "node_modules/lightbox2/dist/js/lightbox.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

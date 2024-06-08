@@ -1,11 +1,11 @@
 <main>
   <section id="dog-info" class="gap-5 grid lg:grid-cols-2 md:mx-5">
     <figure class="relative">
-      <a [href]="dog?.image?.url" data-lightbox="image-1" data-title="My caption">
-        <img class="md:rounded-lg w-full" [src]="dog?.image?.url" [alt]="dog?.name">
-      </a>
+      <a class="top-5 left-5 absolute bg-secondary/80 p-3 rounded-lg" [href]="dog?.image?.url" data-lightbox="image-1"
+        data-title="My caption"><img src="../../assets/shared/zoom-in.svg" alt="zoom in for img"></a>
+      <img class="md:rounded-lg w-full" [src]="dog?.image?.url" [alt]="dog?.name">
     </figure>
-    <div class="flex flex-col justify-center items-start bg-accent px-5 md:rounded-lg">
+    <div class="flex flex-col justify-center items-start bg-accent p-5 md:rounded-lg">
       <h1 class="mb-5 w-full text-center">{{dog?.name}}</h1>
 
       <ul>
