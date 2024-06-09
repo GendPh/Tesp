@@ -30,18 +30,17 @@ export class UserLikesComponent implements OnInit {
           this.dogsLikedLoaded = true;
           return;
         }
-        likesResult.forEach(dogId => {
-          this.dogService.GetDogById(dogId).subscribe({
-            next: (dog) => {
-              this.dogsLiked.push(dog);
-            },
-            error: () => {
-              this.dogsLikedSuccess = false;
-            },
-            complete: () => {
-              this.dogsLikedLoaded = true;
-            }
-          });
+
+        this.dogService.GetDogsFromUserLikes(likesResult).subscribe({
+          next: (dogsResponse) => {
+            this.dogsLiked = dogsResponse;
+          },
+          error: () => {
+            this.dogsLikedSuccess = false;
+          },
+          complete: () => {
+            this.dogsLikedLoaded = true;
+          }
         });
       },
       error: () => {

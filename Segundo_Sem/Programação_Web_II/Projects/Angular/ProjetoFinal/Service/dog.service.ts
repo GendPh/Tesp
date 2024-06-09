@@ -61,6 +61,16 @@ export class DogService {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
   }
 
+  GetDogsFromUserLikes(dogsIds: string[]): Observable<DogModel[]> {
+    let params = new HttpParams();
+    
+    dogsIds.forEach(id => {
+      params = params.append('id', id);
+    });
+
+    return this.http.get<DogModel[]>(this.dogUrlApi, { params });
+  }
+
   GetRelatedDogs(dogId: string): Observable<number[]> {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${dogId}`).pipe(
       map(dog => dog.relatedIds || [])
