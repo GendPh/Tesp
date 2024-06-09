@@ -1185,41 +1185,6 @@ main{
     &#breeds{
       text-align: center;
     }
-    &#breeds {
-      .breeds-paginification {
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr
-      }
-      .breeds-paginification{
-        gap: 1.25rem;
-      }
-      .breeds-paginification {
-        .pagination-buttons {
-          scrollbar-width: thin;
-          /* "auto" or "thin" (for Mac-like scrollbar) */
-          scrollbar-color: #f1791d #f3f4f600;
-          /* scroll thumb and track */
-        }
-        .pagination-buttons{
-          display: flex;
-        }
-        .pagination-buttons{
-          align-items: center;
-        }
-        .pagination-buttons{
-          justify-content: flex-start;
-        }
-        .pagination-buttons{
-          gap: 0.5rem;
-        }
-        .pagination-buttons{
-          overflow-x: scroll;
-        }
-        .pagination-buttons{
-          scroll-behavior: smooth;
-        }
-      }
-    }
     &#breeds-commentaries{
       --tw-bg-opacity: 1;
       background-color: rgb(198 155 133 / var(--tw-bg-opacity));
@@ -1767,6 +1732,36 @@ main{
 
   100% {
     transform: scale(1);
+  }
+}
+
+.breeds-paginification {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 1.25rem;
+  .pagination-buttons {
+    scrollbar-width: thin;
+    /* "auto" or "thin" (for Mac-like scrollbar) */
+    scrollbar-color: #f1791d #f3f4f600;
+    /* scroll thumb and track */
+  }
+  .pagination-buttons{
+    display: flex;
+  }
+  .pagination-buttons{
+    align-items: center;
+  }
+  .pagination-buttons{
+    justify-content: flex-start;
+  }
+  .pagination-buttons{
+    gap: 0.5rem;
+  }
+  .pagination-buttons{
+    overflow-x: scroll;
+  }
+  .pagination-buttons{
+    scroll-behavior: smooth;
   }
 }
 

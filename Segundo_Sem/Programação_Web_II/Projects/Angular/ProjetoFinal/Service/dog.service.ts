@@ -56,7 +56,6 @@ export class DogService {
       );
   }
 
-
   // Method to get a dog by its id
   GetDogById(id: string): Observable<DogModel> {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
@@ -113,10 +112,30 @@ export class DogService {
     );
   }
 
-  
-
-  SearchedDogs(search: string): Observable<DogModel[]> {
+  /* SearchedDogs(search: string): Observable<DogModel[]> {
     return this.http.get<DogModel[]>(`http://localhost:3000/dogs?name_like=${search}`);
+  } */
+  SearchedDogs(page: number, search: string): Observable<DogResponse> {
+    // Number of items per page
+    const limit = 14;
+    // Make an HTTP GET request to the API with pagination parameters
+    return this.http.get<DogModel[]>(`${this.dogUrlApi}?name_like=${search}&_page=${page}&_limit=${limit}`, { observe: 'response' })
+      .pipe(
+        // Use the map operator to transform the response
+        map((response: HttpResponse<DogModel[]>) => {
+          // Extract the total number of items from the response headers
+          const totalItems = Number(response.headers.get('X-Total-Count'));
+          // Calculate the total number of pages
+          const totalPages = Math.ceil(totalItems / limit);
+
+          // Return an object containing the dogs, current page, and total pages
+          return {
+            dogs: response.body ?? [],
+            page: page,
+            total_pages: totalPages
+          };
+        })
+      );
   }
 
 }

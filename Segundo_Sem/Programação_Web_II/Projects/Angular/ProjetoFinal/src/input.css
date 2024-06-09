@@ -129,17 +129,6 @@
       }
       &#breeds {
         @apply text-center px-5;
-
-        .breeds-paginification {
-          display: grid;
-          grid-template-columns: 1fr 3fr 1fr;
-          @apply gap-5;
-          .pagination-buttons {
-            scrollbar-width: thin; /* "auto" or "thin" (for Mac-like scrollbar) */
-            scrollbar-color: #f1791d #f3f4f600; /* scroll thumb and track */
-            @apply flex gap-2 justify-start items-center overflow-x-scroll scroll-smooth;
-          }
-        }
       }
       &#breeds-commentaries {
         @apply text-center bg-accent md:rounded-lg p-5 md:mx-5;
@@ -320,6 +309,16 @@
 
     100% {
       transform: scale(1);
+    }
+  }
+  .breeds-paginification {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    @apply gap-5;
+    .pagination-buttons {
+      scrollbar-width: thin; /* "auto" or "thin" (for Mac-like scrollbar) */
+      scrollbar-color: #f1791d #f3f4f600; /* scroll thumb and track */
+      @apply flex gap-2 justify-start items-center overflow-x-scroll scroll-smooth;
     }
   }
 }

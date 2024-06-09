@@ -17,7 +17,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'page/:pageId', component: BreedsComponent, },
-      { path: 'search/:search', component: SearchComponent, }
+      { path: 'search/:search/page/:pageId', component: SearchComponent, }
     ]
   },
 

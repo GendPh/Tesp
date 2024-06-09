@@ -2,7 +2,7 @@ import { Component, ElementRef, HostBinding, OnInit, ViewChild, } from '@angular
 import { fadeInTrigger, routeAnimationTrigger } from '../../../shared/Animations';
 import { DogService } from '../../../Service/dog.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { DogModel } from '../../../Model/dog.model';
+import { DogModel, DogResponse } from '../../../Model/dog.model';
 import { CommonModule } from '@angular/common';
 import { User, UserLogged } from '../../../Model/user.model';
 import { AuthService } from '../../../Service/auth.service';
@@ -20,8 +20,8 @@ export class BreedsComponent implements OnInit {
   @ViewChild('paginationButtons') paginationButtons: ElementRef;
 
   dogPage: number = 1;
-  dogsTotalPages: number = 1;
-  dogs: DogModel[] = [];
+  dogsInfo: DogResponse;
+  dogLoaded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class BreedsComponent implements OnInit {
       this.dogPage = params["pageId"];
 
       // If the pageId is not a number, redirect to the first page
-      if (isNaN(this.dogPage) || this.dogPage < 1 || this.dogPage > this.dogsTotalPages) {
+      if (isNaN(this.dogPage) || this.dogPage < 1) {
         this.router.navigate(['/breeds/page', 1]);
         return;
       }
@@ -46,8 +46,14 @@ export class BreedsComponent implements OnInit {
       this.dogService.GetDogPage(this.dogPage).subscribe(
         {
           next: (dogs) => {
-            this.dogs = dogs.dogs;
-            this.dogsTotalPages = dogs.total_pages;
+
+            /* if (dogs.total_pages < this.dogPage) {
+              this.router.navigate(['/breeds/page', 1]);
+              return;
+            } */
+
+            this.dogsInfo = dogs;
+            this.dogLoaded = true;
           },
           error: (error) => {
             console.log(error);
@@ -55,50 +61,4 @@ export class BreedsComponent implements OnInit {
         });
     }));
   }
-
-  // Method to get an array of page numbers
-  getPageNumbers(): number[] {
-    // Return an array of page numbers from 1 to dogsTotalPages
-    return Array(this.dogsTotalPages).fill(0).map((_, i) => i + 1);
-  }
-
-  // Method to go to previous page
-  GoToPreviousPage(): void {
-    // If the current page is the first page, return
-    if (this.dogPage <= 1) return;
-    // Navigate to the previous page
-    this.router.navigate(['/breeds/page', Number(this.dogPage) - 1]);
-    // Scroll to the previous page button
-    this.scrollToButton(Number(this.dogPage) - 1);
-  }
-
-  // Method to go to next page
-  GoToNextPage(): void {
-    // If the current page is the last page, return
-    if (this.dogPage >= this.dogsTotalPages) return;
-    // Navigate to the next page
-    this.router.navigate(['/breeds/page', Number(this.dogPage) + 1]);
-    // Scroll to the next page button
-    this.scrollToButton(Number(this.dogPage) + 1);
-  }
-
-  // Function scrollToButton: Scrolls the pagination buttons container to display the button corresponding to the given pageNumber.
-  scrollToButton(pageNumber: number) {
-    // Get all pagination buttons within the container
-    const buttons = this.paginationButtons.nativeElement.querySelectorAll('.button');
-    // Get the button corresponding to the pageNumber (assuming pageNumber starts from 1)
-    const button = buttons[pageNumber - 1];
-    // Get the width of the container holding pagination buttons
-    const containerWidth = this.paginationButtons.nativeElement.clientWidth;
-    // Get the width of the button
-    const buttonWidth = button.offsetWidth;
-    // Get the offset position of the button within its container
-    const buttonLeft = button.offsetLeft;
-    // Calculate the scroll position to make the button fully visible in the container
-    let scrollLeft = buttonLeft - (containerWidth - buttonWidth);
-    // Set the scroll position of the container to display the button
-    this.paginationButtons.nativeElement.scrollLeft = scrollLeft;
-  }
-
-
 }

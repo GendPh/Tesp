@@ -2,6 +2,8 @@
   <section class="md:mx-5 px-5 md:px-0">
     <h1>Breeds found</h1>
 
-    <app-breeds-container [GetBreedSearched]="searchBreed" [GetBreedsArray]="breedsFound"></app-breeds-container>
+    <app-breeds-container *ngIf="searchLoaded" [GetSearch]="searchBreed" [GetDogsResponse]="dogsInfo"
+      GetPath="search/{{searchBreed}}/page/"></app-breeds-container>
+
   </section>
 </main>
