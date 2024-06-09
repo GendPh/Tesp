@@ -170,7 +170,7 @@
         @apply p-5;
       }
       &#access {
-        @apply bg-accent grid md:mx-5 overflow-hidden md:rounded-lg p-5;
+        @apply grid md:mx-5 overflow-hidden;
         & article {
           @apply -translate-x-full pointer-events-none col-start-1 row-start-1 transition-transform duration-300 opacity-0 w-fit mx-auto;
           &.active {
@@ -208,7 +208,7 @@
     .breed {
       @apply bg-accent rounded-lg relative h-fit;
       &:hover .breed-content {
-        @apply bg-opacity-80;
+        @apply bg-opacity-80 text-center;
       }
       & img {
         @apply w-full aspect-video object-fill rounded-lg;
@@ -319,6 +319,37 @@
       scrollbar-width: thin; /* "auto" or "thin" (for Mac-like scrollbar) */
       scrollbar-color: #f1791d #f3f4f600; /* scroll thumb and track */
       @apply flex gap-2 justify-start items-center overflow-x-scroll scroll-smooth;
+    }
+  }
+  .loader-2 {
+    width: 48px;
+    height: 48px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    &::after {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #ff3d00;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, 50%);
+      border-radius: 50%;
+    }
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }

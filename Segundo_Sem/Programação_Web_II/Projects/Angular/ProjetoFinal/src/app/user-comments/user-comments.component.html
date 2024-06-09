@@ -1,0 +1,32 @@
+<h2 class="my-3">Comments made</h2>
+
+<p *ngIf="dogsComments.length == 0 && dogsCommentLoaded">No comments made. <a
+    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds/page/1">Check all
+    our dogs</a></p>
+
+<article class="gap-5 grid opacity-50" *ngIf="!dogsCommentLoaded; else loadedComments">
+  <div class="flex justify-center items-center bg-accent p-10 rounded-lg">
+    <span class="loader-2"></span>
+  </div>
+  <div class="flex justify-center items-center bg-accent p-10 rounded-lg">
+    <span class="loader-2"></span>
+  </div>
+</article>
+
+
+<ng-template #loadedComments>
+  <article class="gap-5 grid md:grid-cols-2 lg:grid-cols-3 text-text" *ngIf="dogsCommentSuccess; else failedComments">
+    <div *ngFor="let dogComment of dogsComments; let i=index" [@fadeInItem]="i" class="bg-accent p-3 rounded-lg">
+      <figure class="flex flex-row-reverse justify-around items-center gap-2 mb-3 cursor-pointer"
+        [routerLink]="['/breed', dogComment.dogId]">
+        <img src="../../assets/shared/eye.svg" alt="watch eye">
+        <figcaption class="text-xl underline underline-offset-4">{{dogComment.dogName}}</figcaption>
+      </figure>
+      <p>{{dogComment.comment}}</p>
+    </div>
+  </article>
+</ng-template>
+
+<ng-template #failedComments>
+  <p>Failed to get the comments</p>
+</ng-template>

@@ -1,19 +1,23 @@
 <main>
-  <section id="dog-info" class="gap-5 grid lg:grid-cols-2 md:mx-5">
+  <section id="dog-info" class="md:gap-5 grid lg:grid-cols-2 md:mx-5">
     <figure class="relative">
-      <a class="top-5 left-5 absolute bg-secondary/80 p-3 rounded-lg" [href]="dog?.image?.url" data-lightbox="image-1"
-        data-title="My caption"><img src="../../assets/shared/zoom-in.svg" alt="zoom in for img"></a>
+      <a class="top-5 left-5 absolute bg-secondary/80 p-3 rounded-lg" [href]="dog?.image?.url"
+        [attr.data-lightbox]="'image of a'+ dog?.name" [attr.data-title]="dog?.name"><img
+          src="../../assets/shared/zoom-in.svg" alt="zoom in for img"></a>
       <img class="md:rounded-lg w-full" [src]="dog?.image?.url" [alt]="dog?.name">
     </figure>
     <div class="flex flex-col justify-center items-start bg-accent p-5 md:rounded-lg">
       <h1 class="mb-5 w-full text-center">{{dog?.name}}</h1>
 
       <ul>
-        <li *ngIf="dog?.history != null">History: {{dog?.history}}</li>
         <li *ngIf="dog?.bred_for != null">Dog for: {{dog?.bred_for}}</li>
-        <li *ngIf="dog?.origin != null">Origin: {{dog?.origin}}</li>
         <li *ngIf="dog?.breed_group != null">Group: {{dog?.breed_group}}</li>
+        <li *ngIf="dog?.life_span != null">Life span: {{dog?.life_span}}</li>
+        <li *ngIf="dog?.temperament != null">Temperament: {{dog?.temperament}}</li>
+        <li *ngIf="dog?.origin != null">Origin: {{dog?.origin}}</li>
         <li *ngIf="dog?.country_code != null">Country Code: {{dog?.country_code}}</li>
+        <li *ngIf="dog?.description != null">Description: {{dog?.description}}</li>
+        <li *ngIf="dog?.history != null">History: {{dog?.history}}</li>
       </ul>
 
 
@@ -32,27 +36,27 @@
       <div *ngIf="unit=='metric'" class="flex justify-evenly mt-5 w-full">
         <div>
           <h3>Weight</h3>
-          <p>{{dog?.weight?.metric}}</p>
+          <p>{{dog?.weight?.metric}} kg</p>
         </div>
         <div>
           <h3>Height</h3>
-          <p>{{dog?.height?.metric}}</p>
+          <p>{{dog?.height?.metric}} cm</p>
         </div>
       </div>
 
       <div *ngIf="unit=='imperial'" class="flex justify-evenly mt-5 w-full">
         <div>
           <h3>Weight</h3>
-          <p>{{dog?.weight?.imperial}}</p>
+          <p>{{dog?.weight?.imperial}} lbs</p>
         </div>
         <div>
           <h3>Height</h3>
-          <p>{{dog?.height?.imperial}}</p>
+          <p>{{dog?.height?.imperial}} ft/in</p>
         </div>
       </div>
 
 
-      <div class="flex items-center gap-5 bg-secondary p-2 rounded-lg">
+      <div class="flex items-center gap-5 bg-secondary mt-5 p-2 rounded-lg">
         <label class="heart">
           <input type="checkbox" [checked]="dogLikedByUser" (change)="DogLikeMethod($event)">
           <div class="checkmark">

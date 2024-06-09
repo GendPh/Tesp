@@ -4,11 +4,11 @@
       "username": "user1",
       "password": "password",
       "likes": [
-        "1",
         "10",
         "12",
         "149",
-        "165"
+        "165",
+        "1"
       ],
       "id": "c783",
       "commentaries": [
@@ -36,6 +36,11 @@
           "dogId": "5",
           "dogName": "Akbash Dog",
           "comment": "I love the Akbash Dog! They are so beautiful and loyal."
+        },
+        {
+          "dogId": "165",
+          "dogName": "Miniature American Shepherd",
+          "comment": "The Miniature American Shepherd is a small, intelligent, and energetic herding dog."
         }
       ]
     },
@@ -73,6 +78,13 @@
         }
       ],
       "id": "9aBEote"
+    },
+    {
+      "username": "user3",
+      "password": "password",
+      "likes": [],
+      "commentaries": [],
+      "id": "Gu3EnVb"
     }
   ],
   "dogs": [
@@ -2825,7 +2837,12 @@
       },
       "id": "165",
       "name": "Miniature American Shepherd",
-      "commentaries": [],
+      "commentaries": [
+        {
+          "userName": "user1",
+          "comment": "The Miniature American Shepherd is a small, intelligent, and energetic herding dog."
+        }
+      ],
       "breed_group": "Herding",
       "life_span": "12 - 15 years",
       "temperament": "Energetic, Loyal, Intelligent, Trainable",

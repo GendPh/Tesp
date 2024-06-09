@@ -1,1 +1,12 @@
-<p>user-account works!</p>
+<main>
+
+  <section id="user-account" class="p-5">
+
+    <h1 class="mb-3 text-center">{{user[0].name}}</h1>
+
+    <app-user-likes [GetUserId]="user[0].id"></app-user-likes>
+
+    <app-user-comments [GetUserId]="user[0].id"></app-user-comments>
+
+  </section>
+</main>

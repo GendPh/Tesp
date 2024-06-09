@@ -1,0 +1,32 @@
+<h2 class="mb-3">Dogs Liked</h2>
+
+<p *ngIf="dogsLiked.length == 0 && dogsLikedLoaded">No likes. <a
+    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds/page/1">Check all
+    our dogs</a></p>
+
+<article class="gap-5 grid opacity-50" *ngIf="!dogsLikedLoaded; else loadedLikes">
+  <div class="flex justify-center items-center bg-accent p-10 rounded-lg">
+    <span class="loader-2"></span>
+  </div>
+  <div class="flex justify-center items-center bg-accent p-10 rounded-lg">
+    <span class="loader-2"></span>
+  </div>
+</article>
+
+
+<ng-template #loadedLikes>
+  <article class="breeds-container" *ngIf="dogsLikedSuccess; else failedLikes">
+    <div class="breed" *ngFor="let dog of dogsLiked; let i = index;" [@fadeInItem]="i" routerLink="/breed/{{dog.id}}">
+      <figure>
+        <img [src]="dog.image.url" alt="img of a {{dog.name}}">
+      </figure>
+      <div class="breed-content">
+        <h3>{{dog.name}}</h3>
+      </div>
+    </div>
+  </article>
+</ng-template>
+
+<ng-template #failedLikes>
+  <p>Failed to get the likes</p>
+</ng-template>

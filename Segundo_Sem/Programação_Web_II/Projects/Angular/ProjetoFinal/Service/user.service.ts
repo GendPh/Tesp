@@ -19,6 +19,12 @@ export class UserService {
       map(user => user.commentaries as UserCommentary[])
     );
   }
+  GetUserLikes(userId: string): Observable<string[]> {
+    const url = `${this.userUrl}/${userId}`;
+    return this.http.get<User>(url).pipe(
+      map(user => user.likes || [])
+    );
+  }
 
   PatchCommentaries(userId: string, commentaries: UserCommentary[]): Observable<User> {
     const url = `${this.userUrl}/${userId}`;
@@ -34,7 +40,7 @@ export class UserService {
 
   PatchAddDogLike(dogId: string, userId: string): Observable<User> {
     const url = `http://localhost:3000/users/${userId}`;
-    
+
     return this.http.get<User>(url).pipe(
       switchMap(user => {
         const updatedLikes = [...(user.likes || []), dogId];

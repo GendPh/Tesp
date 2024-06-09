@@ -1350,22 +1350,10 @@ main{
     &#access{
       overflow: hidden;
     }
-    &#access{
-      --tw-bg-opacity: 1;
-      background-color: rgb(198 155 133 / var(--tw-bg-opacity));
-    }
-    &#access{
-      padding: 1.25rem;
-    }
     @media (min-width: 768px){
       &#access{
         margin-left: 1.25rem;
         margin-right: 1.25rem;
-      }
-    }
-    @media (min-width: 768px){
-      &#access{
-        border-radius: 0.5rem;
       }
     }
     &#access {
@@ -1512,6 +1500,9 @@ main{
   .breed {
     &:hover .breed-content{
       --tw-bg-opacity: 0.8;
+    }
+    &:hover .breed-content{
+      text-align: center;
     }
     & img{
       aspect-ratio: 16 / 9;
@@ -1765,6 +1756,39 @@ main{
   }
 }
 
+.loader-2 {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  &::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #ff3d00;
+    width: 16px;
+    height: 16px;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .pointer-events-none{
   pointer-events: none;
 }
@@ -1799,6 +1823,11 @@ main{
   margin-bottom: 0.5rem;
 }
 
+.my-3{
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
 .my-5{
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -1806,6 +1835,10 @@ main{
 
 .mb-2{
   margin-bottom: 0.5rem;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
 }
 
 .mb-5{
@@ -1840,6 +1873,11 @@ main{
   display: none;
 }
 
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
@@ -1847,6 +1885,10 @@ main{
 
 .w-full{
   width: 100%;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .flex-row-reverse{
@@ -1867,6 +1909,10 @@ main{
 
 .justify-center{
   justify-content: center;
+}
+
+.justify-around{
+  justify-content: space-around;
 }
 
 .justify-evenly{
@@ -1899,6 +1945,11 @@ main{
   background-color: rgb(241 121 29 / var(--tw-bg-opacity));
 }
 
+.bg-red-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+}
+
 .bg-secondary{
   --tw-bg-opacity: 1;
   background-color: rgb(210 184 171 / var(--tw-bg-opacity));
@@ -1906,6 +1957,10 @@ main{
 
 .bg-secondary\/80{
   background-color: rgb(210 184 171 / 0.8);
+}
+
+.p-10{
+  padding: 2.5rem;
 }
 
 .p-2{
@@ -1985,13 +2040,27 @@ main{
   color: rgb(254 249 245 / var(--tw-text-opacity));
 }
 
+.text-blue-500{
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .text-blue-600{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 
+.text-text{
+  --tw-text-opacity: 1;
+  color: rgb(10 4 1 / var(--tw-text-opacity));
+}
+
 .underline{
   text-decoration-line: underline;
+}
+
+.underline-offset-4{
+  text-underline-offset: 4px;
 }
 
 .opacity-50{
@@ -2007,6 +2076,10 @@ main{
   outline-color: #f1791d;
 }
 
+.hover\:underline:hover{
+  text-decoration-line: underline;
+}
+
 @media (min-width: 768px){
   .md\:mx-5{
     margin-left: 1.25rem;
@@ -2019,6 +2092,14 @@ main{
 
   .md\:hidden{
     display: none;
+  }
+
+  .md\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:gap-5{
+    gap: 1.25rem;
   }
 
   .md\:rounded-lg{
@@ -2038,5 +2119,9 @@ main{
 @media (min-width: 1024px){
   .lg\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

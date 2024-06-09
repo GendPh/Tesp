@@ -15,9 +15,9 @@
     <nav id="main-nav">
       <ul *ngIf="user.length != 0">
         <li routerLink="/breeds/page/1">
-          <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
+          <span>dog breeds</span>
         </li>
-        <li routerLinkActive="active">
+        <li [routerLink]="['account', user[0].id]">
           <span>Account</span>
         </li>
         <li routerLink="/logout">
@@ -40,9 +40,9 @@
     <nav (click)="CloseMobileNavBar()">
       <ul *ngIf="user.length != 0">
         <li (click)="CloseMobileNavBar()" routerLink="/breeds/page/1">
-          <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
+          <span>dog breeds</span>
         </li>
-        <li (click)="CloseMobileNavBar()" routerLinkActive="active">
+        <li (click)="CloseMobileNavBar()" [routerLink]="['account',user[0].id]">
           <span>Account</span>
         </li>
         <li routerLink="/logout">

@@ -1,7 +1,7 @@
-<main class="">
+<main class="flex justify-center items-center">
 
-  <section id="access">
-    <article id="login" [ngClass]="{'active':accessContainer=='login'}">
+  <section id="access" class="w-full">
+    <article id="login" [ngClass]="{'active':accessContainer=='login'}" class="bg-accent p-5 md:rounded-lg h-fit">
       <h2>Login</h2>
       <h3>Provide your name address and password.</h3>
 
@@ -22,7 +22,7 @@
           account!</span></p>
     </article>
 
-    <article id="register" [ngClass]="{'active':accessContainer=='register'}">
+    <article id="register" [ngClass]="{'active':accessContainer=='register'}" class="bg-accent p-5 rounded-lg h-fit">
       <h2>Register</h2>
       <h3>Provide your name address and password.</h3>
       <form class="my-2" #registerForm="ngForm">

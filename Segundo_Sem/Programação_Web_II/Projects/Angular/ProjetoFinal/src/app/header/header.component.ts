@@ -50,17 +50,20 @@ export class HeaderComponent {
     e.preventDefault();
     const searchForm = e.target as HTMLFormElement;
     const searchInput = searchForm.querySelector('input[type="text"]') as HTMLInputElement;
+    let searchValue = '';
 
     if (searchInput) {
-      if (searchInput.value.trim().length == 0) {
-        searchInput.value.trim();
+      searchValue = searchInput.value.trim();
+
+      if (searchValue.length == 0) {
+        searchInput.value = '';
         searchInput.focus();
         return;
       }
 
       this.CloseMobileNavBar();
 
-      this.router.navigate([`/breeds/search/${searchInput.value}/page/1`]);
+      this.router.navigate([`/breeds/search/${searchValue}/page/1`]);
       searchInput.value = '';
     }
   }
