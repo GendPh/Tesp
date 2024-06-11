@@ -32,13 +32,12 @@ export class BreedsComponent implements OnInit {
   // Method to initialize the component
   ngOnInit(): void {
     // Subscribe to the route parameters
-    this.route.params.subscribe((params => {
+    this.route.queryParams.subscribe((params => {
       // Get the pageId from the route parameters
-      this.dogPage = params["pageId"];
-
+      this.dogPage = params["page"];
       // If the pageId is not a number, redirect to the first page
       if (isNaN(this.dogPage) || this.dogPage < 1) {
-        this.router.navigate(['/breeds/page', 1]);
+        this.router.navigate(['/breeds'], { queryParams: { page: '1' } });
         return;
       }
 
@@ -47,10 +46,10 @@ export class BreedsComponent implements OnInit {
         {
           next: (dogs) => {
 
-            /* if (dogs.total_pages < this.dogPage) {
-              this.router.navigate(['/breeds/page', 1]);
+            if (dogs.total_pages < this.dogPage) {
+              this.router.navigate(['/breeds'], { queryParams: { page: dogs.total_pages } });
               return;
-            } */
+            }
 
             this.dogsInfo = dogs;
             this.dogLoaded = true;

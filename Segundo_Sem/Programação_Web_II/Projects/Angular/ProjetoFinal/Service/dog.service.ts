@@ -61,9 +61,9 @@ export class DogService {
     return this.http.get<DogModel>(`${this.dogUrlApi}/${id}`);
   }
 
-  GetDogsFromUserLikes(dogsIds: string[]): Observable<DogModel[]> {
+  GetDogsByIds(dogsIds: string[]): Observable<DogModel[]> {
     let params = new HttpParams();
-    
+
     dogsIds.forEach(id => {
       params = params.append('id', id);
     });
@@ -78,7 +78,14 @@ export class DogService {
   }
 
   GetDogFromRelated(relatedDogs: number[]): Observable<DogModel[]> {
-    return this.http.get<DogModel[]>(`http://localhost:3000/dogs?${relatedDogs.map(id => `id=${id}`).join('&')}`);
+    let params = new HttpParams();
+
+    relatedDogs.forEach(id => {
+      params = params.append('id', id);
+    });
+
+    return this.http.get<DogModel[]>(this.dogUrlApi, { params });
+    /* return this.http.get<DogModel[]>(`http://localhost:3000/dogs?${relatedDogs.map(id => `id=${id}`).join('&')}`); */
   }
 
   // Method to get all the commentaries from the dog 
@@ -96,12 +103,13 @@ export class DogService {
     );
   }
 
-
+  // Method to add a commentary to the dog 
   patchCommentaries(dogId: string, commentaries: DogCommentary[]) {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.patch(url, { commentaries });
   }
 
+  // Method to add a like to the dog by the user id
   PatchAddUserLike(dogId: string, userId: string): Observable<DogModel> {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.get<DogModel>(url).pipe(
@@ -112,6 +120,7 @@ export class DogService {
     );
   }
 
+  // Method to remove a like from a dog by the user id
   PatchRemoveUserLike(dogId: string, userId: string): Observable<DogModel> {
     const url = `http://localhost:3000/dogs/${dogId}`;
     return this.http.get<DogModel>(url).pipe(
@@ -122,9 +131,7 @@ export class DogService {
     );
   }
 
-  /* SearchedDogs(search: string): Observable<DogModel[]> {
-    return this.http.get<DogModel[]>(`http://localhost:3000/dogs?name_like=${search}`);
-  } */
+  // Method to get a specific page of dogs with a search query parameter
   SearchedDogs(page: number, search: string): Observable<DogResponse> {
     // Number of items per page
     const limit = 14;

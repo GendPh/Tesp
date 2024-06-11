@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, } from '@angular/router';
-import { DogModel, DogResponse } from '../../../Model/dog.model';
+import { DogResponse } from '../../../Model/dog.model';
 import { DogService } from '../../../Service/dog.service';
 import { Subscription } from 'rxjs';
 import { BreedsContainerComponent } from '../breeds-container/breeds-container.component';
@@ -27,13 +27,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     private dogService: DogService) { }
 
   ngOnInit(): void {
-    this.subscription = this.route.params.subscribe((params) => {
+    this.subscription = this.route.queryParams.subscribe((params) => {
       this.searchLoaded = false;
-      this.searchBreed = params['search'];
-      this.searchPage = params['pageId'];
-      
+      this.searchBreed = params['dog'];
+      this.searchPage = params['page'];
+
       if (isNaN(this.searchPage) || this.searchPage < 1) {
-        this.router.navigate(['/breeds/search', this.searchBreed, 'page', 1])
+        this.router.navigate(['/search'], { queryParams: { dog: this.searchBreed, page: '1' } });
       }
       this.fetchBreeds();
     });
@@ -43,9 +43,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.dogService.SearchedDogs(this.searchPage, this.searchBreed)
       .subscribe({
         next: (dogsResponse) => {
-
-          if (dogsResponse.total_pages < this.searchPage) {
-            this.router.navigate(['/breeds/search', this.searchBreed, 'page', 1]);
+          console.log(dogsResponse);
+          if (dogsResponse.total_pages < this.searchPage && dogsResponse.total_pages > 0) {
+            this.router.navigate(['/search'], { queryParams: { dog: this.searchBreed, page: dogsResponse.total_pages } });
+            return;
           }
 
           this.dogsInfo = dogsResponse.dogs.length > 0 ? dogsResponse : { dogs: [], page: 1, total_pages: 0 };

@@ -31,7 +31,7 @@ export class UserLikesComponent implements OnInit {
           return;
         }
 
-        this.dogService.GetDogsFromUserLikes(likesResult).subscribe({
+        this.dogService.GetDogsByIds(likesResult).subscribe({
           next: (dogsResponse) => {
             this.dogsLiked = dogsResponse;
           },

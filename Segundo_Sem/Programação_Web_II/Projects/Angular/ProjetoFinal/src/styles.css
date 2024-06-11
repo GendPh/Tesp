@@ -1945,11 +1945,6 @@ main{
   background-color: rgb(241 121 29 / var(--tw-bg-opacity));
 }
 
-.bg-red-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
-}
-
 .bg-secondary{
   --tw-bg-opacity: 1;
   background-color: rgb(210 184 171 / var(--tw-bg-opacity));
@@ -1957,6 +1952,11 @@ main{
 
 .bg-secondary\/80{
   background-color: rgb(210 184 171 / 0.8);
+}
+
+.bg-red-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
 .p-10{

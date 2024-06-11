@@ -3,10 +3,10 @@
     <div class="hero-content">
       <h1>Find the perfect dog breed for you</h1>
       <p>Discover the best dog breed for you and your family</p>
-      <button class="button primary" routerLink="/breeds/page/1">get started</button>
+      <button class="button primary" routerLink="/breeds" [queryParams]="{page:'1'}">get started</button>
     </div>
     <figure>
-      <img src="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg" alt="img of a AFFENPINSCHER">
+      <img src=" https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg" alt="img of a AFFENPINSCHER">
     </figure>
   </section>
 
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <a class="mx-auto w-fit button primary" routerLink="/breeds/page/1">See all breeds +</a>
+    <a class="mx-auto w-fit button primary" routerLink="/breeds" [queryParams]="{page:'1'}">See all breeds +</a>
   </section>
 
   <section id="breeds-commentaries">

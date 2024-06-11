@@ -16,7 +16,7 @@ export class BreedsContainerComponent {
 
   @Input('GetSearch') searchBreed: string = '';
   @Input('GetDogsResponse') dogsInfo: DogResponse;
-  @Input('GetPath') path: string = 'page/';
+  @Input('GetPath') path: string = 'breeds';
 
   constructor(
     private router: Router,
@@ -34,7 +34,11 @@ export class BreedsContainerComponent {
     // If the current page is the first page, return
     if (this.dogsInfo.page <= 1) return;
     // Navigate to the previous page
-    this.router.navigate([`/breeds/${this.path}`, Number(this.dogsInfo.page) - 1]);
+    if (this.path === 'breeds') {
+      this.router.navigate([`/${this.path}`], { queryParams: { page: Number(this.dogsInfo.page) - 1 } });
+    } else {
+      this.router.navigate([`/${this.path}`], { queryParams: { dog: this.searchBreed, page: Number(this.dogsInfo.page) - 1 } });
+    }
     // Scroll to the previous page button
     this.scrollToButton(Number(this.dogsInfo.page) - 1);
   }
@@ -44,7 +48,11 @@ export class BreedsContainerComponent {
     // If the current page is the last page, return
     if (this.dogsInfo.page >= this.dogsInfo.total_pages) return;
     // Navigate to the next page
-    this.router.navigate([`/breeds/${this.path}`, Number(this.dogsInfo.page) + 1]);
+    if (this.path === 'breeds') {
+      this.router.navigate([`/${this.path}`], { queryParams: { page: Number(this.dogsInfo.page) + 1 } });
+    } else {
+      this.router.navigate([`/${this.path}`], { queryParams: { dog: this.searchBreed, page: Number(this.dogsInfo.page) + 1 } });
+    }
     // Scroll to the next page button
     this.scrollToButton(Number(this.dogsInfo.page) + 1);
   }

@@ -18,16 +18,12 @@ export const routes: Routes = [
   {
     path: 'breeds',
     canActivate: [authGuard],
-    children: [
-      {
-        path: 'page/:pageId',
-        component: BreedsComponent,
-      },
-      {
-        path: 'search/:search/page/:pageId',
-        component: SearchComponent,
-      }
-    ]
+    component: BreedsComponent,
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    canActivate: [authGuard],
   },
   // Route to breed info component
   {

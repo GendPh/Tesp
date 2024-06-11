@@ -3,9 +3,16 @@
   <button (click)="GoToPreviousPage()" class="button secondary">-</button>
 
   <!-- This container will display the total of pages available -->
-  <div class="pagination-buttons" #paginationButtons>
+  <div class="pagination-buttons" #paginationButtons *ngIf="path=='breeds'">
     <button class="button" [ngClass]="{'primary pointer-events-none': pageNumber == dogsInfo.page}"
-      *ngFor="let pageNumber of getPageNumbers()" routerLink="/breeds/{{path}}{{pageNumber}}">
+      *ngFor="let pageNumber of getPageNumbers()" routerLink="/{{path}}" [queryParams]="{page:pageNumber}">
+      {{ pageNumber }}
+    </button>
+  </div>
+  <div class="pagination-buttons" #paginationButtons *ngIf="path=='search'">
+    <button class="button" [ngClass]="{'primary pointer-events-none': pageNumber == dogsInfo.page}"
+      *ngFor="let pageNumber of getPageNumbers()" routerLink="/{{path}}"
+      [queryParams]="{dog:searchBreed, page:pageNumber}">
       {{ pageNumber }}
     </button>
   </div>
@@ -24,7 +31,7 @@
       <figure>
         <img [src]="dog.image.url" alt="img of a {{dog.name}}">
       </figure>
-      <div class="breed-content">
+      <div class="text-center breed-content">
         <h3>{{dog.name}}</h3>
       </div>
     </div>

@@ -14,7 +14,7 @@
 
     <nav id="main-nav">
       <ul *ngIf="user.length != 0">
-        <li routerLink="/breeds/page/1">
+        <li routerLink="/breeds" [queryParams]="{page:'1'}">
           <span>dog breeds</span>
         </li>
         <li [routerLink]="['account', user[0].id]">

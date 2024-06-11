@@ -63,7 +63,7 @@ export class HeaderComponent {
 
       this.CloseMobileNavBar();
 
-      this.router.navigate([`/breeds/search/${searchValue}/page/1`]);
+      this.router.navigate(['/search'], { queryParams: { dog: searchValue, page: '1' } });
       searchInput.value = '';
     }
   }
