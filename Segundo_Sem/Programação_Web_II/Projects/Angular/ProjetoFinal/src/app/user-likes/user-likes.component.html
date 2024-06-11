@@ -1,7 +1,7 @@
 <h2 class="mb-3">Dogs Liked</h2>
 
 <p *ngIf="dogsLiked.length == 0 && dogsLikedLoaded">No likes. <a
-    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds/page/1">Check all
+    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds" [queryParams]="{page:'1'}">Check all
     our dogs</a></p>
 
 <article class="gap-5 grid opacity-50" *ngIf="!dogsLikedLoaded; else loadedLikes">

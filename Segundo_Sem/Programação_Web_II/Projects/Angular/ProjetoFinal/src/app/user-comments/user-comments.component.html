@@ -1,7 +1,7 @@
 <h2 class="my-3">Comments made</h2>
 
 <p *ngIf="dogsComments.length == 0 && dogsCommentLoaded">No comments made. <a
-    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds/page/1">Check all
+    class="text-blue-500 underline-offset-4 hover:underline" routerLink="/breeds" [queryParams]="{page: '1'}">Check all
     our dogs</a></p>
 
 <article class="gap-5 grid opacity-50" *ngIf="!dogsCommentLoaded; else loadedComments">

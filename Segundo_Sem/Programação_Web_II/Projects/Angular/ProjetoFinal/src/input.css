@@ -206,9 +206,9 @@
   .breeds-container {
     @apply grid md:grid-cols-2 lg:grid-cols-4 gap-5 my-5;
     .breed {
-      @apply bg-accent rounded-lg relative h-fit;
+      @apply bg-accent rounded-lg relative h-fit text-center;
       &:hover .breed-content {
-        @apply bg-opacity-80 text-center;
+        @apply bg-opacity-80;
       }
       & img {
         @apply w-full aspect-video object-fill rounded-lg;

@@ -1497,12 +1497,12 @@ main{
     --tw-bg-opacity: 1;
     background-color: rgb(198 155 133 / var(--tw-bg-opacity));
   }
+  .breed{
+    text-align: center;
+  }
   .breed {
     &:hover .breed-content{
       --tw-bg-opacity: 0.8;
-    }
-    &:hover .breed-content{
-      text-align: center;
     }
     & img{
       aspect-ratio: 16 / 9;
@@ -1952,11 +1952,6 @@ main{
 
 .bg-secondary\/80{
   background-color: rgb(210 184 171 / 0.8);
-}
-
-.bg-red-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
 .p-10{
