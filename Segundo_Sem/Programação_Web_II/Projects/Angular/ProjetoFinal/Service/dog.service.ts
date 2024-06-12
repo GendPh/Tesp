@@ -86,7 +86,6 @@ export class DogService {
     });
 
     return this.http.get<DogModel[]>(this.dogUrlApi, { params });
-    /* return this.http.get<DogModel[]>(`http://localhost:3000/dogs?${relatedDogs.map(id => `id=${id}`).join('&')}`); */
   }
 
   // Method to get all the commentaries from the dog 
