@@ -17,7 +17,7 @@
         <li routerLink="/breeds" [queryParams]="{page:'1'}">
           <span>dog breeds</span>
         </li>
-        <li [routerLink]="['account', user[0].id]">
+        <li routerLink="/account">
           <span>Account</span>
         </li>
         <li routerLink="/logout">
@@ -39,10 +39,10 @@
   <div id="mobile-nav">
     <nav (click)="CloseMobileNavBar()">
       <ul *ngIf="user.length != 0">
-        <li (click)="CloseMobileNavBar()" routerLink="/breeds/page/1">
+        <li (click)="CloseMobileNavBar()" routerLink="/breeds" [queryParams]="{page:'1'}">
           <span>dog breeds</span>
         </li>
-        <li (click)="CloseMobileNavBar()" [routerLink]="['account',user[0].id]">
+        <li (click)="CloseMobileNavBar()" routerLink="/account">
           <span>Account</span>
         </li>
         <li routerLink="/logout">

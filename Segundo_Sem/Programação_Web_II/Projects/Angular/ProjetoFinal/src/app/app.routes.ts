@@ -45,7 +45,7 @@ export const routes: Routes = [
   },
   // Route to account component
   {
-    path: 'account/:userId',
+    path: 'account',
     component: UserAccountComponent,
     canActivate: [authGuard]
   },

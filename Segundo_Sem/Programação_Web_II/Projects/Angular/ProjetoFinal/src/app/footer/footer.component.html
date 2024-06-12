@@ -3,10 +3,10 @@
     <p routerLink="/" class="text-center md:text-start logo">sniffsnack</p>
     <nav id="footer-nav">
       <ul *ngIf="user.length != 0">
-        <li routerLink="/breeds/page/1">
-          <span routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">dog breeds</span>
+        <li routerLink="/breeds" [queryParams]="{page:'1'}">
+          <span>dog breeds</span>
         </li>
-        <li routerLinkActive="active">
+        <li routerLink="/account">
           <span>Account</span>
         </li>
         <li routerLink="/logout">

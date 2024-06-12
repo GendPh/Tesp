@@ -19,6 +19,7 @@ export class UserService {
       map(user => user.commentaries as UserCommentary[])
     );
   }
+
   GetUserLikes(userId: string): Observable<string[]> {
     const url = `${this.userUrl}/${userId}`;
     return this.http.get<User>(url).pipe(

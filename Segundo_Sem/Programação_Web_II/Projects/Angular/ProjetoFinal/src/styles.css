@@ -1878,6 +1878,10 @@ main{
   height: fit-content;
 }
 
+.h-full{
+  height: 100%;
+}
+
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
@@ -1952,6 +1956,11 @@ main{
 
 .bg-secondary\/80{
   background-color: rgb(210 184 171 / 0.8);
+}
+
+.object-cover{
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-10{

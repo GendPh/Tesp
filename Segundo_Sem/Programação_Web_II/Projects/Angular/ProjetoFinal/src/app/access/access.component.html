@@ -18,7 +18,8 @@
         <button type="submit" class="mt-2 button primary">Sign Up</button>
       </form>
 
-      <p>Don't have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('register')">Create an
+      <p>Don't have an account? <span class="text-blue-600 underline cursor-pointer"
+          (click)="ChangeContainer('register')">Create an
           account!</span></p>
     </article>
 
@@ -46,7 +47,8 @@
         <button type="button" (click)="CreateUser()" class="mt-2 button primary"
           [ngClass]="{'opacity-50 pointer-events-none': !registerForm.valid || !validPassConfirm}">Sign In</button>
       </form>
-      <p>Already have an account? <span class="text-blue-600 underline" (click)="ChangeContainer('login')">Log
+      <p>Already have an account? <span class="text-blue-600 underline cursor-pointer"
+          (click)="ChangeContainer('login')">Log
           In!</span></p>
     </article>
 

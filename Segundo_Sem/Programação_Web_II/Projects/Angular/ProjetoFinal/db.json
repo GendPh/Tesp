@@ -5,10 +5,10 @@
       "password": "password",
       "likes": [
         "10",
-        "12",
         "149",
         "1",
-        "165"
+        "138",
+        "12"
       ],
       "id": "c783",
       "commentaries": [
@@ -157,7 +157,8 @@
       },
       "relatedIds": [
         1
-      ]
+      ],
+      "likes": []
     },
     {
       "weight": {
@@ -2535,7 +2536,10 @@
         "width": 640,
         "height": 377,
         "url": "https://cdn2.thedogapi.com/images/SJAnzg9NX.jpg"
-      }
+      },
+      "likes": [
+        "c783"
+      ]
     },
     {
       "weight": {
@@ -2853,9 +2857,7 @@
         "height": 640,
         "url": "https://cdn2.thedogapi.com/images/BkHHQgcN7.jpg"
       },
-      "likes": [
-        "c783"
-      ]
+      "likes": []
     },
     {
       "weight": {

@@ -52,6 +52,7 @@ export class BreedsComponent implements OnInit {
             }
 
             this.dogsInfo = dogs;
+            console.log(this.dogsInfo);
             this.dogLoaded = true;
           },
           error: (error) => {

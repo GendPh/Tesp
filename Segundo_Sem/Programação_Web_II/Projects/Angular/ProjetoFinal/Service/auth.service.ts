@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 export class AuthService {
 
   user: UserLogged[] = [];
-
+  private userLink = "http://localhost:3000/users";
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -17,14 +17,14 @@ export class AuthService {
   // This method checks if the user exists and if the password is correct
   Login(userName: string, password: string): Observable<Boolean> {
     //1st find the user by username and password
-    return this.http.get(`http://localhost:3000/users?username=${userName}&password=${password}`)
+    return this.http.get(`${this.userLink}?username=${userName}&password=${password}`)
       .pipe(
         map((response: User[]) => {
           if (response.length == 0) {
             // User not found, return false
             return false;
           }
-          
+
           const user: UserLogged = {
             name: response[0].username,
             id: response[0].id
@@ -40,7 +40,7 @@ export class AuthService {
 
   CreateUser(userName: string, password: string): Observable<Boolean> {
     //1st check if the username already exists
-    return this.http.get(`http://localhost:3000/users?username=${userName}`)
+    return this.http.get(`${this.userLink}?username=${userName}`)
       .pipe(
         map(
           (response: User[]) => {
@@ -57,7 +57,7 @@ export class AuthService {
               };
 
               //2nd post the new user to the server
-              this.http.post('http://localhost:3000/users', user).subscribe(
+              this.http.post(this.userLink, user).subscribe(
                 {
                   next: (response: User) => {
                     //3rd set the user property to the user created and return true without the password

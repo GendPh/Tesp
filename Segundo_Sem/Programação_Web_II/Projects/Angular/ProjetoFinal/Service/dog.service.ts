@@ -43,6 +43,7 @@ export class DogService {
         map((response: HttpResponse<DogModel[]>) => {
           // Extract the total number of items from the response headers
           const totalItems = Number(response.headers.get('X-Total-Count'));
+          console.log(totalItems)
           // Calculate the total number of pages
           const totalPages = Math.ceil(totalItems / limit);
 
