@@ -10,14 +10,30 @@
       <h1 class="mb-5 w-full text-center">{{dog?.name}}</h1>
 
       <ul>
-        <li *ngIf="dog?.bred_for != null">Dog for: {{dog?.bred_for}}</li>
-        <li *ngIf="dog?.breed_group != null">Group: {{dog?.breed_group}}</li>
-        <li *ngIf="dog?.life_span != null">Life span: {{dog?.life_span}}</li>
-        <li *ngIf="dog?.temperament != null">Temperament: {{dog?.temperament}}</li>
-        <li *ngIf="dog?.origin != null">Origin: {{dog?.origin}}</li>
-        <li *ngIf="dog?.country_code != null">Country Code: {{dog?.country_code}}</li>
-        <li *ngIf="dog?.description != null">Description: {{dog?.description}}</li>
-        <li *ngIf="dog?.history != null">History: {{dog?.history}}</li>
+        <li *ngIf="dog?.bred_for != null && dog?.bred_for.length != 0">
+          <span class="font-bold">Dog for:</span> {{dog?.bred_for}}
+        </li>
+        <li *ngIf="dog?.breed_group != null && dog?.breed_group.length != 0">
+          <span class="font-bold">Group:</span> {{dog?.breed_group}}
+        </li>
+        <li *ngIf="dog?.life_span != null && dog?.life_span.length != 0">
+          <span class="font-bold">Life span:</span> {{dog?.life_span}}
+        </li>
+        <li *ngIf="dog?.temperament != null && dog?.temperament.length != 0">
+          <span class="font-bold">Temperament:</span> {{dog?.temperament}}
+        </li>
+        <li *ngIf="dog?.origin != null && dog?.origin.length != 0">
+          <span class="font-bold">Origin:</span> {{dog?.origin}}
+        </li>
+        <li *ngIf="dog?.country_code != null && dog?.country_code.length != 0">
+          <span class="font-bold">Country Code:</span> {{dog?.country_code}}
+        </li>
+        <li *ngIf="dog?.description != null && dog?.description.length != 0">
+          <span class="font-bold">Description:</span> {{dog?.description}}
+        </li>
+        <li *ngIf="dog?.history != null && dog?.history.length != 0">
+          <span class="font-bold">History:</span> {{dog?.history}}
+        </li>
       </ul>
 
 

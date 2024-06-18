@@ -27,17 +27,14 @@
 
       <ul *ngIf="user.length == 0">
         <li routerLink="/access">
-          <span>sign in</span>
-        </li>
-        <li routerLink="/access">
-          <span>sign up</span>
+          <span>Log In / Sign Up</span>
         </li>
       </ul>
     </nav>
   </div>
 
   <div id="mobile-nav">
-    <nav (click)="CloseMobileNavBar()">
+    <nav>
       <ul *ngIf="user.length != 0">
         <li (click)="CloseMobileNavBar()" routerLink="/breeds" [queryParams]="{page:'1'}">
           <span>dog breeds</span>
@@ -45,17 +42,14 @@
         <li (click)="CloseMobileNavBar()" routerLink="/account">
           <span>Account</span>
         </li>
-        <li routerLink="/logout">
+        <li routerLink="/logout" (click)="CloseMobileNavBar()">
           <span>Logout</span>
         </li>
       </ul>
 
       <ul *ngIf="user.length == 0">
-        <li (click)="CloseMobileNavBar()" routerLink="/access">
-          <span>sign in</span>
-        </li>
-        <li (click)="CloseMobileNavBar()" routerLink="/access">
-          <span>sign up</span>
+        <li routerLink="/access" (click)="CloseMobileNavBar()">
+          <span>Log In / Sign Up</span>
         </li>
       </ul>
     </nav>

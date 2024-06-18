@@ -2071,6 +2071,10 @@ main{
   opacity: 0.5;
 }
 
+.opacity-85{
+  opacity: 0.85;
+}
+
 .outline-none{
   outline: 2px solid transparent;
   outline-offset: 2px;

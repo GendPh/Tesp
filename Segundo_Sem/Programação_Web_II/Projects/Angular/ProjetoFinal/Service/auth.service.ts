@@ -85,7 +85,6 @@ export class AuthService {
     this.user.pop();
     localStorage.removeItem('user');
     this.router.navigate(['/']);
-    return;
   }
 
   // This method checks if the user is logged

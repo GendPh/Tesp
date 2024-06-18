@@ -40,7 +40,7 @@ export class UserService {
   }
 
   PatchAddDogLike(dogId: string, userId: string): Observable<User> {
-    const url = `http://localhost:3000/users/${userId}`;
+    const url = `${this.userUrl}/${userId}`;
 
     return this.http.get<User>(url).pipe(
       switchMap(user => {
@@ -50,7 +50,7 @@ export class UserService {
     );
   }
   PatchRemoveDogLike(dogId: string, userId: string): Observable<User> {
-    const url = `http://localhost:3000/users/${userId}`;
+    const url = `${this.userUrl}/${userId}`;
 
     return this.http.get<User>(url).pipe(
       switchMap(user => {
