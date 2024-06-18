@@ -12,9 +12,9 @@ export class DogService {
     private http: HttpClient,
   ) { }
 
-  GetAllDogs(): Observable<DogModel[]> {
-    return this.http.get<DogModel[]>('http://localhost:3000/dogs');
-  }
+  /* GetAllDogs(): Observable<DogModel[]> {
+      return this.http.get<DogModel[]>('http://localhost:3000/dogs');
+    } */
 
   GetFourFirstDogs(): Observable<DogModel[]> {
     return this.http.get<DogModel[]>('http://localhost:3000/dogs?_limit=4');
@@ -105,13 +105,13 @@ export class DogService {
 
   // Method to add a commentary to the dog 
   patchCommentaries(dogId: string, commentaries: DogCommentary[]) {
-    const url = `http://localhost:3000/dogs/${dogId}`;
+    const url = `${this.dogUrlApi}/${dogId}`;
     return this.http.patch(url, { commentaries });
   }
 
   // Method to add a like to the dog by the user id
   PatchAddUserLike(dogId: string, userId: string): Observable<DogModel> {
-    const url = `http://localhost:3000/dogs/${dogId}`;
+    const url = `${this.dogUrlApi}/${dogId}`;
     return this.http.get<DogModel>(url).pipe(
       switchMap(dog => {
         const updatedLikes = [...(dog.likes || []), userId];
@@ -122,7 +122,7 @@ export class DogService {
 
   // Method to remove a like from a dog by the user id
   PatchRemoveUserLike(dogId: string, userId: string): Observable<DogModel> {
-    const url = `http://localhost:3000/dogs/${dogId}`;
+    const url = `${this.dogUrlApi}/${dogId}`;
     return this.http.get<DogModel>(url).pipe(
       switchMap(dog => {
         const updatedLikes = (dog.likes || []).filter(id => id !== userId);
