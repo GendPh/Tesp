@@ -87,6 +87,7 @@ export class BreedInfoComponent implements OnInit, OnDestroy {
   ChangeUnit(e: Event) {
     this.unit = (e.target as HTMLInputElement).value;
   }
+  
 
   DogLikeMethod(e: Event) {
     const isChecked = (e.target as HTMLInputElement).checked;
